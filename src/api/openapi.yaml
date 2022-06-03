@@ -1,0 +1,638 @@
+openapi: 3.0.2
+info:
+  title: Instrumment Resellers
+  description: An API to support applications running in the Instrument Resellers
+    SaaS
+  license:
+    name: Apache 2.0
+    url: https://www.apache.org/licenses/LICENSE-2.0.html
+  version: "1.0"
+servers:
+- url: https://api.server.test/v1
+tags:
+- name: admins
+  description: Secured Admin-only calls
+- name: developers
+  description: Operations available to regular developers
+paths:
+  /users:
+    get:
+      tags:
+      - developer
+      summary: Gets a list of Users
+      description: Gets a list of Users
+      operationId: getUsers
+      responses:
+        "200":
+          description: A list of Users
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ArrayOfUsers'
+        "400":
+          description: General error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      x-swagger-router-controller: Developer
+  /users/{id}:
+    get:
+      tags:
+      - developer
+      summary: Find User by ID
+      description: Returns a single User
+      operationId: getUser
+      parameters:
+      - name: id
+        in: path
+        description: ID of the purchase to return
+        required: true
+        style: simple
+        explode: false
+        schema:
+          $ref: '#/components/schemas/uuid'
+      responses:
+        "200":
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+        "400":
+          description: Invalid ID supplied
+        "404":
+          description: User not found
+      x-swagger-router-controller: Developer
+  /sellers:
+    get:
+      tags:
+      - developer
+      summary: Returns a list of Sellers
+      description: Returns a list of Sellers
+      operationId: getSellers
+      responses:
+        "200":
+          description: A list of Sellers
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ArrayOfSellers'
+        "400":
+          description: General error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      x-swagger-router-controller: Developer
+  /sellers/{id}:
+    get:
+      tags:
+      - developer
+      summary: Find a Seller by ID
+      description: Returns a single Seller
+      operationId: getSeller
+      parameters:
+      - name: id
+        in: path
+        description: ID of the seller to return
+        required: true
+        style: simple
+        explode: false
+        schema:
+          $ref: '#/components/schemas/uuid'
+      responses:
+        "200":
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Seller'
+        "400":
+          description: Invalid ID supplied
+        "404":
+          description: User not found
+      x-swagger-router-controller: Developer
+  /instruments:
+    description: Returns a list of Instruments
+    get:
+      tags:
+      - developer
+      operationId: getInstruments
+      responses:
+        "200":
+          description: A list of Instruments
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ArrayOfInstruments'
+        "400":
+          description: General error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      x-swagger-router-controller: Developer
+  /instruments/{id}:
+    get:
+      tags:
+      - developer
+      summary: Find an Instrument by ID
+      description: Returns a single Instrument
+      operationId: getInstrument
+      parameters:
+      - name: id
+        in: path
+        description: ID of the purchase to return
+        required: true
+        style: simple
+        explode: false
+        schema:
+          $ref: '#/components/schemas/uuid'
+      responses:
+        "200":
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Instrument'
+        "400":
+          description: Invalid ID supplied
+        "404":
+          description: Instrument not found
+      x-swagger-router-controller: Developer
+  /acquisitions:
+    get:
+      tags:
+      - developer
+      summary: Returns a list of Acquisitions
+      description: Returns a list of Acquisitions
+      operationId: getAcquisitions
+      responses:
+        "200":
+          description: A list of Acquisitions
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ArrayOfAcquisitions'
+        "400":
+          description: General error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      x-swagger-router-controller: Developer
+  /acquisitions/{id}:
+    get:
+      tags:
+      - developer
+      summary: Find an Acquisition by ID
+      description: Returns a single Acquisition
+      operationId: getAcquisition
+      parameters:
+      - name: id
+        in: path
+        description: ID of the purchase to return
+        required: true
+        style: simple
+        explode: false
+        schema:
+          $ref: '#/components/schemas/uuid'
+      responses:
+        "200":
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Acquisition'
+        "400":
+          description: Invalid ID supplied
+        "404":
+          description: Acquisition not found
+      x-swagger-router-controller: Developer
+  /manufacturers:
+    get:
+      tags:
+      - developer
+      summary: Returns a list of Manufacturers
+      description: Returns a list of Manufacturers
+      operationId: getManufacturers
+      responses:
+        "200":
+          description: A list of Manufacturers
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ArrayOfManufacturers'
+        "400":
+          description: General error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      x-swagger-router-controller: Developer
+  /manufacturers/{id}:
+    get:
+      tags:
+      - developer
+      summary: Find an Manufacturers by ID
+      description: Returns a single Manufacturer
+      operationId: getManufacturer
+      parameters:
+      - name: id
+        in: path
+        description: ID of the purchase to return
+        required: true
+        style: simple
+        explode: false
+        schema:
+          $ref: '#/components/schemas/uuid'
+      responses:
+        "200":
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Instrument'
+        "400":
+          description: Invalid ID supplied
+        "404":
+          description: Instrument not found
+      x-swagger-router-controller: Developer
+  /purchases:
+    get:
+      tags:
+      - developer
+      summary: Gets a list of Purchases
+      description: Gets a list of Purchases
+      operationId: getPurchases
+      responses:
+        "200":
+          description: A list of Purchases
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ArrayOfPurchases'
+        "400":
+          description: General error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      x-swagger-router-controller: Developer
+  /purchases/{id}:
+    get:
+      tags:
+      - developer
+      summary: Find Purchase by ID
+      description: Returns a single Purchase
+      operationId: getPurchase
+      parameters:
+      - name: id
+        in: path
+        description: ID of the purchase to return
+        required: true
+        style: simple
+        explode: false
+        schema:
+          $ref: '#/components/schemas/uuid'
+      responses:
+        "200":
+          description: A Purchase
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Purchase'
+        "400":
+          description: Invalid ID supplied
+        "404":
+          description: Purchase not found
+      x-swagger-router-controller: Developer
+  /refurbishments/{id}:
+    get:
+      tags:
+      - developer
+      summary: Find Purchase by ID
+      description: Returns a single Refurbishments
+      operationId: getRefurbishment
+      parameters:
+      - name: id
+        in: path
+        description: ID of the Refurbishments to return
+        required: true
+        style: simple
+        explode: false
+        schema:
+          $ref: '#/components/schemas/uuid'
+      responses:
+        "200":
+          description: successful operation returns a Refurbishment
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Refurbishment'
+        "400":
+          description: Invalid ID supplied
+        "404":
+          description: Purchase not found
+      x-swagger-router-controller: Developer
+  /refurbishments:
+    get:
+      tags:
+      - developer
+      summary: Gets a list of Refurbishments
+      description: Gets a list of Refurbishments
+      operationId: getRefurbishments
+      responses:
+        "200":
+          description: successful operation returns a list of Refurbishments
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ArrayOfRefurbishments'
+        "400":
+          description: General error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      x-swagger-router-controller: Developer
+components:
+  schemas:
+    uuid:
+      maxLength: 36
+      minLength: 36
+      pattern: "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$"
+      type: string
+      description: Describes a string the represents a globally unique indentifier
+    User:
+      required:
+      - address
+      - email
+      - firstName
+      - lastName
+      - phone
+      - userType
+      type: object
+      properties:
+        id:
+          $ref: '#/components/schemas/uuid'
+        firstName:
+          type: string
+          example: Sally
+        lastName:
+          type: string
+          example: Smith
+        email:
+          type: string
+          example: sally.smith@example.com
+        phone:
+          type: string
+          example: 111-222-3333
+        userType:
+          $ref: '#/components/schemas/UserType'
+        address:
+          $ref: '#/components/schemas/Address'
+      description: Describes a user in the system
+      example:
+        firstName: Sally
+        lastName: Smith
+        address:
+          city: Anytown
+          zip_region_code: 90001-1234
+          address_1: 123 Maple Street
+          address_2: Unit 1
+          state_province: CA
+        phone: 111-222-3333
+        id: id
+        userType: ""
+        email: sally.smith@example.com
+    ArrayOfUsers:
+      type: array
+      items:
+        $ref: '#/components/schemas/User'
+    UserType:
+      type: number
+      enum:
+      - 2
+      - 1
+      - 0
+      x-enumNames:
+      - OTHER
+      - BUYER
+      - SELLER
+    Seller:
+      description: Describes a person selling a particular instrument
+      allOf:
+      - $ref: '#/components/schemas/User'
+      - required:
+        - instrument
+        - saleDate
+        type: object
+        properties:
+          id:
+            $ref: '#/components/schemas/uuid'
+          instrument:
+            $ref: '#/components/schemas/Instrument'
+          saleDate:
+            type: string
+            description: The  date when the instrument was sold
+            format: date-time
+            example: 2021-06-20T01:02:03Z
+    ArrayOfSellers:
+      type: array
+      items:
+        $ref: '#/components/schemas/Seller'
+    Manufacturer:
+      required:
+      - name
+      type: object
+      properties:
+        id:
+          $ref: '#/components/schemas/uuid'
+        address:
+          $ref: '#/components/schemas/Address'
+        name:
+          type: string
+          example: Yamaha Instruments
+      description: Describes the manufacturer of a musical instrument
+      example:
+        address:
+          city: Anytown
+          zip_region_code: 90001-1234
+          address_1: 123 Maple Street
+          address_2: Unit 1
+          state_province: CA
+        name: Yamaha Instruments
+        id: id
+    ArrayOfManufacturers:
+      type: array
+      items:
+        $ref: '#/components/schemas/Manufacturer'
+    Address:
+      type: object
+      properties:
+        address_1:
+          type: string
+          example: 123 Maple Street
+        address_2:
+          type: string
+          example: Unit 1
+        city:
+          type: string
+          example: Anytown
+        state_province:
+          type: string
+          example: CA
+        zip_region_code:
+          type: string
+          example: 90001-1234
+      description: Describes a physical geolocation address
+      example:
+        city: Anytown
+        zip_region_code: 90001-1234
+        address_1: 123 Maple Street
+        address_2: Unit 1
+        state_province: CA
+    InstrumentType:
+      required:
+      - instrument
+      - type
+      type: object
+      properties:
+        instrument:
+          type: string
+          example: guitar
+        type:
+          type: string
+          example: bass
+      description: Describes the type of the instrument
+    Instrument:
+      description: An instrument that is avaiable for resale
+      allOf:
+      - $ref: '#/components/schemas/InstrumentType'
+      - required:
+        - name
+        type: object
+        properties:
+          id:
+            $ref: '#/components/schemas/uuid'
+          name:
+            type: string
+            example: Precision Bass
+          manufacturer:
+            $ref: '#/components/schemas/Manufacturer'
+    ArrayOfInstruments:
+      type: array
+      items:
+        $ref: '#/components/schemas/Instrument'
+    Purchase:
+      required:
+      - date
+      - price
+      type: object
+      properties:
+        id:
+          $ref: '#/components/schemas/uuid'
+        user:
+          $ref: '#/components/schemas/User'
+        instrument:
+          $ref: '#/components/schemas/Instrument'
+        purchaseDate:
+          type: string
+          description: The  date when the instrument was purchased
+          format: date-time
+          example: 2021-06-20T01:02:03Z
+        price:
+          type: number
+          format: float
+          example: 539.5
+      description: An purchase is an instrument that has been sold
+      example:
+        purchaseDate: 2021-06-20T01:02:03Z
+        price: 539.5
+        instrument: ""
+        id: id
+        user:
+          firstName: Sally
+          lastName: Smith
+          address:
+            city: Anytown
+            zip_region_code: 90001-1234
+            address_1: 123 Maple Street
+            address_2: Unit 1
+            state_province: CA
+          phone: 111-222-3333
+          id: id
+          userType: ""
+          email: sally.smith@example.com
+    ArrayOfPurchases:
+      type: array
+      items:
+        $ref: '#/components/schemas/Purchase'
+    Acquisition:
+      description: An acquisition is an instrument that has been bought by the company
+        with the intention of being reconditioned for resale
+      allOf:
+      - $ref: '#/components/schemas/User'
+      - required:
+        - date
+        - price
+        type: object
+        properties:
+          id:
+            $ref: '#/components/schemas/uuid'
+          date:
+            type: string
+            description: The  date when the instrument was purchased
+            format: date-time
+            example: 2021-06-20T01:02:03Z
+          instrument:
+            $ref: '#/components/schemas/Instrument'
+          price:
+            type: number
+            format: float
+            example: 539.5
+    ArrayOfAcquisitions:
+      type: array
+      items:
+        $ref: '#/components/schemas/Acquisition'
+    Refurbishment:
+      description: A refurbishment is an acquired instrument that is being repaired
+        to a saleable condition
+      allOf:
+      - $ref: '#/components/schemas/User'
+      - required:
+        - date
+        - price
+        type: object
+        properties:
+          id:
+            $ref: '#/components/schemas/uuid'
+          instrument:
+            $ref: '#/components/schemas/Instrument'
+          date:
+            type: string
+            description: The  date when the instrument was purchased
+            format: date-time
+            example: 2021-06-20T01:02:03Z
+    ArrayOfRefurbishments:
+      type: array
+      items:
+        $ref: '#/components/schemas/Refurbishment'
+    Error:
+      required:
+      - message
+      type: object
+      properties:
+        message:
+          type: string
+          example: You have an error
+        stackTrace:
+          type: string
+          example: Error at Object. (/home/cg/root/2523129/main.js:20:11) at Module._compile
+            (module.js:570:32) at Object.Module._extensions..js (module.js:579:10)
+            at Module.load (module.js:487:32) at tryModuleLoad (module.js:446:12)
+            at Function.Module._load (module.js:438:3) at Module.runMain (module.js:604:10)
+            at run (bootstrap_node.js:389:7) at startup (bootstrap_node.js:149:9)
+            at bootstrap_node.js:504:3
