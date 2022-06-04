@@ -206,10 +206,13 @@ const getRandomClarinetSync = () =>{
 }
 
 const createInstrumentObjectSync = (instrument, manufacturer) => {
+    const capitalize = (word) =>{
+        return word.charAt(0).toUpperCase() + word.slice(1);
+    }
     const obj = {};
-    obj. instrument = instrument.name;
+    obj. instrument = instrument.instrument;
     obj.type = instrument.type;
-    obj.name = `${faker.word.adjective()} ${instrument.name}`
+    obj.name = `${capitalize(faker.word.adjective())} ${capitalize(instrument.instrument)}`
     obj.manufacturer = manufacturer
     return obj;
 }
