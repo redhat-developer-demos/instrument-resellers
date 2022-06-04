@@ -12,8 +12,28 @@ tags:
   - name: developers
     description: Operations available to regular developers
 servers:
-  - url: https://api.server.test/v1
+  - url: https://localhost:8888/v1
 paths:
+  /healthcheck:
+    get:
+      description: Gets the current healthcheack
+      summary: Gets the current healthcheack
+      operationId: getHealthCheck
+      responses:
+        '200':
+          description: A HealthCheck
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HealthCheck'
+        '400':
+          description: General error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      tags:
+        - reseller
   /users:
     get:
       description: Gets a list of Users
@@ -33,11 +53,11 @@ paths:
               schema:
                 $ref: '#/components/schemas/Error'
       tags:
-        - developer
+        - reseller
   /users/{id}:
     get:
       tags:
-        - developer
+        - reseller
       summary: Find User by ID
       description: Returns a single User
       operationId: getUser
@@ -55,51 +75,6 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/User'
-        '400':
-          description: Invalid ID supplied
-        '404':
-          description: User not found
-  /sellers:
-    get:
-      description: Returns a list of Sellers
-      summary: Returns a list of Sellers
-      operationId: getSellers
-      responses:
-        '200':
-          description: A list of Sellers
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ArrayOfSellers'
-        '400':
-          description: General error
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Error'
-      tags:
-        - developer
-  /sellers/{id}:
-    get:
-      tags:
-        - developer
-      summary: Find a Seller by ID
-      description: Returns a single Seller
-      operationId: getSeller
-      parameters:
-        - name: id
-          in: path
-          description: ID of the seller to return
-          required: true
-          schema:
-            $ref: '#/components/schemas/uuid'
-      responses:
-        '200':
-          description: successful operation
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Seller'
         '400':
           description: Invalid ID supplied
         '404':
@@ -122,11 +97,11 @@ paths:
               schema:
                 $ref: '#/components/schemas/Error'
       tags:
-        - developer
+        - reseller
   /instruments/{id}:
     get:
       tags:
-        - developer
+        - reseller
       summary: Find an Instrument by ID
       description: Returns a single Instrument
       operationId: getInstrument
@@ -167,11 +142,11 @@ paths:
               schema:
                 $ref: '#/components/schemas/Error'
       tags:
-        - developer
+        - reseller
   /acquisitions/{id}:
     get:
       tags:
-        - developer
+        - reseller
       summary: Find an Acquisition by ID
       description: Returns a single Acquisition
       operationId: getAcquisition
@@ -212,11 +187,11 @@ paths:
               schema:
                 $ref: '#/components/schemas/Error'
       tags:
-        - developer
+        - reseller
   /manufacturers/{id}:
     get:
       tags:
-        - developer
+        - reseller
       summary: Find an Manufacturers by ID
       description: Returns a single Manufacturer
       operationId: getManufacturer
@@ -257,12 +232,12 @@ paths:
               schema:
                 $ref: '#/components/schemas/Error'
       tags:
-        - developer
+        - reseller
 
   /purchases/{id}:
     get:
       tags:
-        - developer
+        - reseller
       summary: Find Purchase by ID
       description: Returns a single Purchase
       operationId: getPurchase
@@ -287,7 +262,7 @@ paths:
   /refurbishments/{id}:
       get:
         tags:
-          - developer
+          - reseller
         summary: Find Purchase by ID
         description: Returns a single Refurbishments
         operationId: getRefurbishment
@@ -327,7 +302,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/Error'
       tags:
-        - developer
+        - reseller
       operationId: getRefurbishments
 components:
   schemas:
@@ -373,28 +348,6 @@ components:
     UserType:
       enum: [ 2, 1, 0 ]
       x-enumNames: [ OTHER, BUYER, SELLER ]
-    Seller:
-      description: Describes a person selling a particular instrument
-      allOf:
-        - $ref: '#/components/schemas/User'
-        - type: object
-          required:
-            - saleDate
-            - instrument
-          properties:
-            id:
-              $ref: '#/components/schemas/uuid'
-            instrument:
-              $ref: '#/components/schemas/Instrument'
-            saleDate:
-              type: string
-              description: The  date when the instrument was sold
-              format: date-time
-              example: "2021-06-20T01:02:03+00:00"
-    ArrayOfSellers:
-      type: array
-      items:
-        $ref: '#/components/schemas/Seller'
     Manufacturer:
       description: Describes the manufacturer of a musical instrument
       type: object
@@ -450,11 +403,11 @@ components:
         - $ref: '#/components/schemas/InstrumentType'
         - type: object
           required:
-            - name
+            - description
           properties:
             id:
               $ref: '#/components/schemas/uuid'
-            name:
+            description:
               type: string
               example: Precision Bass
             manufacturer:
@@ -469,10 +422,12 @@ components:
       required:
         - date
         - price
+        - seller
+        - instrument
       properties:
         id:
           $ref: '#/components/schemas/uuid'
-        user:
+        buyer:
           $ref: '#/components/schemas/User'
         instrument:
           $ref: '#/components/schemas/Instrument'
@@ -491,52 +446,77 @@ components:
         $ref: '#/components/schemas/Purchase'
     Acquisition:
       description: An acquisition is an instrument that has been bought by the company with the intention of being reconditioned for resale
-      allOf:
-        - $ref: '#/components/schemas/User'
-        - type: object
-          required:
-            - date
-            - price
-          properties:
-            id:
-              $ref: '#/components/schemas/uuid'
-            date:
-              type: string
-              description: The  date when the instrument was purchased
-              format: date-time
-              example: "2021-06-20T01:02:03+00:00"
-            instrument:
-              $ref: '#/components/schemas/Instrument'
-            price:
-              type: number
-              format: float
-              example: 539.50
+      type: object
+      required:
+        - date
+        - price
+        - seller
+        - instrument
+      properties:
+        id:
+          $ref: '#/components/schemas/uuid'
+        date:
+          type: string
+          description: The  date when the instrument was purchased
+          format: date-time
+          example: "2021-06-20T01:02:03+00:00"
+        seller:
+          $ref: '#/components/schemas/User'
+        instrument:
+          $ref: '#/components/schemas/Instrument'
+        price:
+          type: number
+          format: float
+          example: 539.50
     ArrayOfAcquisitions:
       type: array
       items:
         $ref: '#/components/schemas/Acquisition'
     Refurbishment:
       description: A refurbishment is an acquired instrument that is being repaired to a saleable condition
-      allOf:
-        - $ref: '#/components/schemas/User'
-        - type: object
-          required:
-            - date
-            - price
-          properties:
-            id:
-              $ref: '#/components/schemas/uuid'
-            instrument:
-              $ref: '#/components/schemas/Instrument'
-            date:
-              type: string
-              description: The  date when the instrument was purchased
-              format: date-time
-              example: "2021-06-20T01:02:03+00:00"
+      type: object
+      required:
+        - date
+        - price
+        - instrument
+      properties:
+        id:
+          $ref: '#/components/schemas/uuid'
+        instrument:
+          $ref: '#/components/schemas/Instrument'
+        workToBeDone:
+          type: string
+          description: Describes the work to be done to make the instrument sellable
+          example: "Needs a new bridge and intonation needs to be corrected"
+        startDate:
+          type: string
+          description: The  date when the refurbishing was started
+          format: date-time
+          example: "2021-06-20T01:02:03+00:00"
+        finishDate:
+          type: string
+          description: The  date when the refurbishing was finished
+          format: date-time
+          example: "2021-07-15T01:02:03+00:00"
     ArrayOfRefurbishments:
       type: array
       items:
         $ref: '#/components/schemas/Refurbishment'
+    HealthCheck:
+      type: object
+      description: Healthcheck information
+      required:
+        - message
+        - date
+      properties:
+        message:
+          type: string
+          example: This is a healthcheck
+        date:
+          type: string
+          description: The  date when the healthcheck was called
+          format: date-time
+          example: "2021-07-15T01:02:03+00:00"
     Error:
       type: object
       required:
