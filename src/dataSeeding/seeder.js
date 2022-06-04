@@ -1,4 +1,21 @@
 const faker = require('@faker-js/faker');
+const createRandomUserSync = () =>{
+    const obj = {};
+    obj.firstName = faker.name.firstName();
+    obj.lastName = faker.name.lastName();
+    obj.email = faker.internet.email(obj.firstName, obj.lastName)
+    obj.phone = faker.phone.phoneNumber();
+    obj.userType = getRandomUserTypeSync();
+    obj.address = createAddressSync()
+    return obj;
+};
+const createRandomManufacturerSync = () =>{
+    const obj = {};
+    obj.description = faker.lorem.words(10);
+    obj.name = faker.company.companyName();
+    obj.address = createAddressSync();
+    return obj;
+};
 const createRandomAddressSync = () =>{
     const state = faker.address.stateAbbr();
     const obj = {};
@@ -31,4 +48,4 @@ const getRandomUserTypeSync = () =>{
         ]
 }
 
-c
+module.exports = {createRandomUserSync,createRandomManufacturerSync,createRandomAddressSync,createAddressObjectSync};
