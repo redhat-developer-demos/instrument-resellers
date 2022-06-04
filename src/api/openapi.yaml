@@ -8,7 +8,7 @@ info:
     url: https://www.apache.org/licenses/LICENSE-2.0.html
   version: "1.0"
 servers:
-- url: https://api.server.test/v1
+- url: https://localhost:8888/v1
 tags:
 - name: admins
   description: Secured Admin-only calls
@@ -18,7 +18,7 @@ paths:
   /users:
     get:
       tags:
-      - developer
+      - reseller
       summary: Gets a list of Users
       description: Gets a list of Users
       operationId: getUsers
@@ -35,11 +35,11 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
-      x-swagger-router-controller: Developer
+      x-swagger-router-controller: Reseller
   /users/{id}:
     get:
       tags:
-      - developer
+      - reseller
       summary: Find User by ID
       description: Returns a single User
       operationId: getUser
@@ -63,61 +63,12 @@ paths:
           description: Invalid ID supplied
         "404":
           description: User not found
-      x-swagger-router-controller: Developer
-  /sellers:
-    get:
-      tags:
-      - developer
-      summary: Returns a list of Sellers
-      description: Returns a list of Sellers
-      operationId: getSellers
-      responses:
-        "200":
-          description: A list of Sellers
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ArrayOfSellers'
-        "400":
-          description: General error
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Error'
-      x-swagger-router-controller: Developer
-  /sellers/{id}:
-    get:
-      tags:
-      - developer
-      summary: Find a Seller by ID
-      description: Returns a single Seller
-      operationId: getSeller
-      parameters:
-      - name: id
-        in: path
-        description: ID of the seller to return
-        required: true
-        style: simple
-        explode: false
-        schema:
-          $ref: '#/components/schemas/uuid'
-      responses:
-        "200":
-          description: successful operation
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Seller'
-        "400":
-          description: Invalid ID supplied
-        "404":
-          description: User not found
-      x-swagger-router-controller: Developer
+      x-swagger-router-controller: Reseller
   /instruments:
     description: Returns a list of Instruments
     get:
       tags:
-      - developer
+      - reseller
       operationId: getInstruments
       responses:
         "200":
@@ -132,11 +83,11 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
-      x-swagger-router-controller: Developer
+      x-swagger-router-controller: Reseller
   /instruments/{id}:
     get:
       tags:
-      - developer
+      - reseller
       summary: Find an Instrument by ID
       description: Returns a single Instrument
       operationId: getInstrument
@@ -160,11 +111,11 @@ paths:
           description: Invalid ID supplied
         "404":
           description: Instrument not found
-      x-swagger-router-controller: Developer
+      x-swagger-router-controller: Reseller
   /acquisitions:
     get:
       tags:
-      - developer
+      - reseller
       summary: Returns a list of Acquisitions
       description: Returns a list of Acquisitions
       operationId: getAcquisitions
@@ -181,11 +132,11 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
-      x-swagger-router-controller: Developer
+      x-swagger-router-controller: Reseller
   /acquisitions/{id}:
     get:
       tags:
-      - developer
+      - reseller
       summary: Find an Acquisition by ID
       description: Returns a single Acquisition
       operationId: getAcquisition
@@ -209,11 +160,11 @@ paths:
           description: Invalid ID supplied
         "404":
           description: Acquisition not found
-      x-swagger-router-controller: Developer
+      x-swagger-router-controller: Reseller
   /manufacturers:
     get:
       tags:
-      - developer
+      - reseller
       summary: Returns a list of Manufacturers
       description: Returns a list of Manufacturers
       operationId: getManufacturers
@@ -230,11 +181,11 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
-      x-swagger-router-controller: Developer
+      x-swagger-router-controller: Reseller
   /manufacturers/{id}:
     get:
       tags:
-      - developer
+      - reseller
       summary: Find an Manufacturers by ID
       description: Returns a single Manufacturer
       operationId: getManufacturer
@@ -258,11 +209,11 @@ paths:
           description: Invalid ID supplied
         "404":
           description: Instrument not found
-      x-swagger-router-controller: Developer
+      x-swagger-router-controller: Reseller
   /purchases:
     get:
       tags:
-      - developer
+      - reseller
       summary: Gets a list of Purchases
       description: Gets a list of Purchases
       operationId: getPurchases
@@ -279,11 +230,11 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
-      x-swagger-router-controller: Developer
+      x-swagger-router-controller: Reseller
   /purchases/{id}:
     get:
       tags:
-      - developer
+      - reseller
       summary: Find Purchase by ID
       description: Returns a single Purchase
       operationId: getPurchase
@@ -307,11 +258,11 @@ paths:
           description: Invalid ID supplied
         "404":
           description: Purchase not found
-      x-swagger-router-controller: Developer
+      x-swagger-router-controller: Reseller
   /refurbishments/{id}:
     get:
       tags:
-      - developer
+      - reseller
       summary: Find Purchase by ID
       description: Returns a single Refurbishments
       operationId: getRefurbishment
@@ -335,11 +286,11 @@ paths:
           description: Invalid ID supplied
         "404":
           description: Purchase not found
-      x-swagger-router-controller: Developer
+      x-swagger-router-controller: Reseller
   /refurbishments:
     get:
       tags:
-      - developer
+      - reseller
       summary: Gets a list of Refurbishments
       description: Gets a list of Refurbishments
       operationId: getRefurbishments
@@ -356,7 +307,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
-      x-swagger-router-controller: Developer
+      x-swagger-router-controller: Reseller
 components:
   schemas:
     uuid:
@@ -421,28 +372,6 @@ components:
       - OTHER
       - BUYER
       - SELLER
-    Seller:
-      description: Describes a person selling a particular instrument
-      allOf:
-      - $ref: '#/components/schemas/User'
-      - required:
-        - instrument
-        - saleDate
-        type: object
-        properties:
-          id:
-            $ref: '#/components/schemas/uuid'
-          instrument:
-            $ref: '#/components/schemas/Instrument'
-          saleDate:
-            type: string
-            description: The  date when the instrument was sold
-            format: date-time
-            example: 2021-06-20T01:02:03Z
-    ArrayOfSellers:
-      type: array
-      items:
-        $ref: '#/components/schemas/Seller'
     Manufacturer:
       required:
       - name
@@ -512,12 +441,12 @@ components:
       allOf:
       - $ref: '#/components/schemas/InstrumentType'
       - required:
-        - name
+        - description
         type: object
         properties:
           id:
             $ref: '#/components/schemas/uuid'
-          name:
+          description:
             type: string
             example: Precision Bass
           manufacturer:
@@ -529,12 +458,14 @@ components:
     Purchase:
       required:
       - date
+      - instrument
       - price
+      - seller
       type: object
       properties:
         id:
           $ref: '#/components/schemas/uuid'
-        user:
+        buyer:
           $ref: '#/components/schemas/User'
         instrument:
           $ref: '#/components/schemas/Instrument'
@@ -553,7 +484,7 @@ components:
         price: 539.5
         instrument: ""
         id: id
-        user:
+        buyer:
           firstName: Sally
           lastName: Smith
           address:
@@ -571,51 +502,85 @@ components:
       items:
         $ref: '#/components/schemas/Purchase'
     Acquisition:
+      required:
+      - date
+      - instrument
+      - price
+      - seller
+      type: object
+      properties:
+        id:
+          $ref: '#/components/schemas/uuid'
+        date:
+          type: string
+          description: The  date when the instrument was purchased
+          format: date-time
+          example: 2021-06-20T01:02:03Z
+        seller:
+          $ref: '#/components/schemas/User'
+        instrument:
+          $ref: '#/components/schemas/Instrument'
+        price:
+          type: number
+          format: float
+          example: 539.5
       description: An acquisition is an instrument that has been bought by the company
         with the intention of being reconditioned for resale
-      allOf:
-      - $ref: '#/components/schemas/User'
-      - required:
-        - date
-        - price
-        type: object
-        properties:
-          id:
-            $ref: '#/components/schemas/uuid'
-          date:
-            type: string
-            description: The  date when the instrument was purchased
-            format: date-time
-            example: 2021-06-20T01:02:03Z
-          instrument:
-            $ref: '#/components/schemas/Instrument'
-          price:
-            type: number
-            format: float
-            example: 539.5
+      example:
+        date: 2021-06-20T01:02:03Z
+        seller:
+          firstName: Sally
+          lastName: Smith
+          address:
+            city: Anytown
+            zip_region_code: 90001-1234
+            address_1: 123 Maple Street
+            address_2: Unit 1
+            state_province: CA
+          phone: 111-222-3333
+          id: id
+          userType: ""
+          email: sally.smith@example.com
+        price: 539.5
+        instrument: ""
+        id: id
     ArrayOfAcquisitions:
       type: array
       items:
         $ref: '#/components/schemas/Acquisition'
     Refurbishment:
+      required:
+      - date
+      - instrument
+      - price
+      type: object
+      properties:
+        id:
+          $ref: '#/components/schemas/uuid'
+        instrument:
+          $ref: '#/components/schemas/Instrument'
+        workToBeDone:
+          type: string
+          description: Describes the work to be done to make the instrument sellable
+          example: Needs a new bridge and intonation needs to be corrected
+        startDate:
+          type: string
+          description: The  date when the refurbishing was started
+          format: date-time
+          example: 2021-06-20T01:02:03Z
+        finishDate:
+          type: string
+          description: The  date when the refurbishing was finished
+          format: date-time
+          example: 2021-07-15T01:02:03Z
       description: A refurbishment is an acquired instrument that is being repaired
         to a saleable condition
-      allOf:
-      - $ref: '#/components/schemas/User'
-      - required:
-        - date
-        - price
-        type: object
-        properties:
-          id:
-            $ref: '#/components/schemas/uuid'
-          instrument:
-            $ref: '#/components/schemas/Instrument'
-          date:
-            type: string
-            description: The  date when the instrument was purchased
-            format: date-time
-            example: 2021-06-20T01:02:03Z
+      example:
+        workToBeDone: Needs a new bridge and intonation needs to be corrected
+        instrument: ""
+        finishDate: 2021-07-15T01:02:03Z
+        id: id
+        startDate: 2021-06-20T01:02:03Z
     ArrayOfRefurbishments:
       type: array
       items:

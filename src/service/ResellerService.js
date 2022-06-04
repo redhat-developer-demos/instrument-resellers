@@ -11,7 +11,27 @@
 exports.getAcquisition = function(id) {
   return new Promise(function(resolve, reject) {
     const examples = {};
-    examples['application/json'] = "";
+    examples['application/json'] = {
+  "date" : "2021-06-20T01:02:03Z",
+  "seller" : {
+    "firstName" : "Sally",
+    "lastName" : "Smith",
+    "address" : {
+      "city" : "Anytown",
+      "zip_region_code" : "90001-1234",
+      "address_1" : "123 Maple Street",
+      "address_2" : "Unit 1",
+      "state_province" : "CA"
+    },
+    "phone" : "111-222-3333",
+    "id" : "id",
+    "userType" : "",
+    "email" : "sally.smith@example.com"
+  },
+  "price" : 539.5,
+  "instrument" : "",
+  "id" : "id"
+};
     if (Object.keys(examples).length > 0) {
       resolve(examples[Object.keys(examples)[0]]);
     } else {
@@ -23,14 +43,53 @@ exports.getAcquisition = function(id) {
 
 /**
  * Returns a list of Acquisitions
- * Returns a list of Acquisitions
  *
  * returns ArrayOfAcquisitions
  **/
 exports.getAcquisitions = function() {
   return new Promise(function(resolve, reject) {
     const examples = {};
-    examples['application/json'] = [ "", "" ];
+    examples['application/json'] = [ {
+  "date" : "2021-06-20T01:02:03Z",
+  "seller" : {
+    "firstName" : "Sally",
+    "lastName" : "Smith",
+    "address" : {
+      "city" : "Anytown",
+      "zip_region_code" : "90001-1234",
+      "address_1" : "123 Maple Street",
+      "address_2" : "Unit 1",
+      "state_province" : "CA"
+    },
+    "phone" : "111-222-3333",
+    "id" : "id",
+    "userType" : "",
+    "email" : "sally.smith@example.com"
+  },
+  "price" : 539.5,
+  "instrument" : "",
+  "id" : "id"
+}, {
+  "date" : "2021-06-20T01:02:03Z",
+  "seller" : {
+    "firstName" : "Sally",
+    "lastName" : "Smith",
+    "address" : {
+      "city" : "Anytown",
+      "zip_region_code" : "90001-1234",
+      "address_1" : "123 Maple Street",
+      "address_2" : "Unit 1",
+      "state_province" : "CA"
+    },
+    "phone" : "111-222-3333",
+    "id" : "id",
+    "userType" : "",
+    "email" : "sally.smith@example.com"
+  },
+  "price" : 539.5,
+  "instrument" : "",
+  "id" : "id"
+} ];
     if (Object.keys(examples).length > 0) {
       resolve(examples[Object.keys(examples)[0]]);
     } else {
@@ -99,7 +158,6 @@ exports.getManufacturer = function(id) {
 
 /**
  * Returns a list of Manufacturers
- * Returns a list of Manufacturers
  *
  * returns ArrayOfManufacturers
  **/
@@ -151,7 +209,7 @@ exports.getPurchase = function(id) {
   "price" : 539.5,
   "instrument" : "",
   "id" : "id",
-  "user" : {
+  "buyer" : {
     "firstName" : "Sally",
     "lastName" : "Smith",
     "address" : {
@@ -178,7 +236,6 @@ exports.getPurchase = function(id) {
 
 /**
  * Gets a list of Purchases
- * Gets a list of Purchases
  *
  * returns ArrayOfPurchases
  **/
@@ -190,7 +247,7 @@ exports.getPurchases = function() {
   "price" : 539.5,
   "instrument" : "",
   "id" : "id",
-  "user" : {
+  "buyer" : {
     "firstName" : "Sally",
     "lastName" : "Smith",
     "address" : {
@@ -210,7 +267,7 @@ exports.getPurchases = function() {
   "price" : 539.5,
   "instrument" : "",
   "id" : "id",
-  "user" : {
+  "buyer" : {
     "firstName" : "Sally",
     "lastName" : "Smith",
     "address" : {
@@ -245,7 +302,13 @@ exports.getPurchases = function() {
 exports.getRefurbishment = function(id) {
   return new Promise(function(resolve, reject) {
     const examples = {};
-    examples['application/json'] = "";
+    examples['application/json'] = {
+  "workToBeDone" : "Needs a new bridge and intonation needs to be corrected",
+  "instrument" : "",
+  "finishDate" : "2021-07-15T01:02:03Z",
+  "id" : "id",
+  "startDate" : "2021-06-20T01:02:03Z"
+};
     if (Object.keys(examples).length > 0) {
       resolve(examples[Object.keys(examples)[0]]);
     } else {
@@ -264,46 +327,19 @@ exports.getRefurbishment = function(id) {
 exports.getRefurbishments = function() {
   return new Promise(function(resolve, reject) {
     const examples = {};
-    examples['application/json'] = [ "", "" ];
-    if (Object.keys(examples).length > 0) {
-      resolve(examples[Object.keys(examples)[0]]);
-    } else {
-      resolve();
-    }
-  });
-}
-
-
-/**
- * Find a Seller by ID
- * Returns a single Seller
- *
- * id uuid ID of the seller to return
- * returns Seller
- **/
-exports.getSeller = function(id) {
-  return new Promise(function(resolve, reject) {
-    const examples = {};
-    examples['application/json'] = "";
-    if (Object.keys(examples).length > 0) {
-      resolve(examples[Object.keys(examples)[0]]);
-    } else {
-      resolve();
-    }
-  });
-}
-
-
-/**
- * Returns a list of Sellers
- * Returns a list of Sellers
- *
- * returns ArrayOfSellers
- **/
-exports.getSellers = function() {
-  return new Promise(function(resolve, reject) {
-    const examples = {};
-    examples['application/json'] = [ "", "" ];
+    examples['application/json'] = [ {
+  "workToBeDone" : "Needs a new bridge and intonation needs to be corrected",
+  "instrument" : "",
+  "finishDate" : "2021-07-15T01:02:03Z",
+  "id" : "id",
+  "startDate" : "2021-06-20T01:02:03Z"
+}, {
+  "workToBeDone" : "Needs a new bridge and intonation needs to be corrected",
+  "instrument" : "",
+  "finishDate" : "2021-07-15T01:02:03Z",
+  "id" : "id",
+  "startDate" : "2021-06-20T01:02:03Z"
+} ];
     if (Object.keys(examples).length > 0) {
       resolve(examples[Object.keys(examples)[0]]);
     } else {

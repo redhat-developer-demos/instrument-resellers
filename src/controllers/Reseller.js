@@ -1,10 +1,10 @@
 'use strict';
 
 const utils = require('../utils/writer.js');
-const InstrumentReseller = require('../service/InstrumentResellers');
+const Reseller = require('../service/ResellerService');
 
 module.exports.getAcquisition = function getAcquisition (req, res, next, id) {
-  InstrumentReseller.getAcquisition(id)
+  Reseller.getAcquisition(id)
     .then(function (response) {
       utils.writeJson(res, response);
     })
@@ -14,7 +14,7 @@ module.exports.getAcquisition = function getAcquisition (req, res, next, id) {
 };
 
 module.exports.getAcquisitions = function getAcquisitions (req, res, next) {
-  InstrumentReseller.getAcquisitions()
+  Reseller.getAcquisitions()
     .then(function (response) {
       utils.writeJson(res, response);
     })
@@ -24,7 +24,7 @@ module.exports.getAcquisitions = function getAcquisitions (req, res, next) {
 };
 
 module.exports.getInstrument = function getInstrument (req, res, next, id) {
-  InstrumentReseller.getInstrument(id)
+  Reseller.getInstrument(id)
     .then(function (response) {
       utils.writeJson(res, response);
     })
@@ -34,7 +34,7 @@ module.exports.getInstrument = function getInstrument (req, res, next, id) {
 };
 
 module.exports.getInstruments = function getInstruments (req, res, next) {
-  InstrumentReseller.getInstruments()
+  Reseller.getInstruments()
     .then(function (response) {
       utils.writeJson(res, response);
     })
@@ -44,7 +44,7 @@ module.exports.getInstruments = function getInstruments (req, res, next) {
 };
 
 module.exports.getManufacturer = function getManufacturer (req, res, next, id) {
-  InstrumentReseller.getManufacturer(id)
+  Reseller.getManufacturer(id)
     .then(function (response) {
       utils.writeJson(res, response);
     })
@@ -54,7 +54,7 @@ module.exports.getManufacturer = function getManufacturer (req, res, next, id) {
 };
 
 module.exports.getManufacturers = function getManufacturers (req, res, next) {
-  InstrumentReseller.getManufacturers()
+  Reseller.getManufacturers()
     .then(function (response) {
       utils.writeJson(res, response);
     })
@@ -64,7 +64,7 @@ module.exports.getManufacturers = function getManufacturers (req, res, next) {
 };
 
 module.exports.getPurchase = function getPurchase (req, res, next, id) {
-  InstrumentReseller.getPurchase(id)
+  Reseller.getPurchase(id)
     .then(function (response) {
       utils.writeJson(res, response);
     })
@@ -74,7 +74,7 @@ module.exports.getPurchase = function getPurchase (req, res, next, id) {
 };
 
 module.exports.getPurchases = function getPurchases (req, res, next) {
-  InstrumentReseller.getPurchases()
+  Reseller.getPurchases()
     .then(function (response) {
       utils.writeJson(res, response);
     })
@@ -84,7 +84,7 @@ module.exports.getPurchases = function getPurchases (req, res, next) {
 };
 
 module.exports.getRefurbishment = function getRefurbishment (req, res, next, id) {
-  InstrumentReseller.getRefurbishment(id)
+  Reseller.getRefurbishment(id)
     .then(function (response) {
       utils.writeJson(res, response);
     })
@@ -94,27 +94,7 @@ module.exports.getRefurbishment = function getRefurbishment (req, res, next, id)
 };
 
 module.exports.getRefurbishments = function getRefurbishments (req, res, next) {
-  InstrumentReseller.getRefurbishments()
-    .then(function (response) {
-      utils.writeJson(res, response);
-    })
-    .catch(function (response) {
-      utils.writeJson(res, response);
-    });
-};
-
-module.exports.getSeller = function getSeller (req, res, next, id) {
-  InstrumentReseller.getSeller(id)
-    .then(function (response) {
-      utils.writeJson(res, response);
-    })
-    .catch(function (response) {
-      utils.writeJson(res, response);
-    });
-};
-
-module.exports.getSellers = function getSellers (req, res, next) {
-  InstrumentReseller.getSellers()
+  Reseller.getRefurbishments()
     .then(function (response) {
       utils.writeJson(res, response);
     })
@@ -124,7 +104,7 @@ module.exports.getSellers = function getSellers (req, res, next) {
 };
 
 module.exports.getUser = function getUser (req, res, next, id) {
-  InstrumentReseller.getUser(id)
+  Reseller.getUser(id)
     .then(function (response) {
       utils.writeJson(res, response);
     })
@@ -134,7 +114,7 @@ module.exports.getUser = function getUser (req, res, next, id) {
 };
 
 module.exports.getUsers = function getUsers (req, res, next) {
-  InstrumentReseller.getUsers()
+  Reseller.getUsers()
     .then(function (response) {
       utils.writeJson(res, response);
     })
