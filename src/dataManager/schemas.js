@@ -11,7 +11,6 @@ const instrument = mongoose.Schema({
     type: {type: String, required: true},
     name: {type: String, required: true},
     manufacturer: {type: manufacturer, required: true},
-    zip_region_code: {type: String, required: true},
 })
 
 const address = mongoose.Schema({
@@ -20,6 +19,7 @@ const address = mongoose.Schema({
     city: {type: String, required: true},
     state_province: {type: String, required: true},
     zip_region_code: {type: String, required: true},
+    country: {type: String, default: "USA", required: true},
     created: {
         type: Date,
         default: Date.now
