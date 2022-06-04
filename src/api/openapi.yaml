@@ -15,6 +15,27 @@ tags:
 - name: developers
   description: Operations available to regular developers
 paths:
+  /healthcheck:
+    get:
+      tags:
+      - reseller
+      summary: Gets the current healthcheack
+      description: Gets the current healthcheack
+      operationId: getHealthCheck
+      responses:
+        "200":
+          description: A HealthCheck
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HealthCheck'
+        "400":
+          description: General error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      x-swagger-router-controller: Reseller
   /users:
     get:
       tags:
@@ -585,6 +606,24 @@ components:
       type: array
       items:
         $ref: '#/components/schemas/Refurbishment'
+    HealthCheck:
+      required:
+      - date
+      - message
+      type: object
+      properties:
+        message:
+          type: string
+          example: This is a healthcheck
+        date:
+          type: string
+          description: The  date when the healthcheck was called
+          format: date-time
+          example: 2021-07-15T01:02:03Z
+      description: Healthcheck information
+      example:
+        date: 2021-07-15T01:02:03Z
+        message: This is a healthcheck
     Error:
       required:
       - message

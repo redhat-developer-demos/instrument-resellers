@@ -43,6 +43,7 @@ exports.getAcquisition = function(id) {
 
 /**
  * Returns a list of Acquisitions
+ * Returns a list of Acquisitions
  *
  * returns ArrayOfAcquisitions
  **/
@@ -90,6 +91,28 @@ exports.getAcquisitions = function() {
   "instrument" : "",
   "id" : "id"
 } ];
+    if (Object.keys(examples).length > 0) {
+      resolve(examples[Object.keys(examples)[0]]);
+    } else {
+      resolve();
+    }
+  });
+}
+
+
+/**
+ * Gets the current healthcheck
+ * Gets the current healthcheck
+ *
+ * returns HealthCheck
+ **/
+exports.getHealthCheck = function() {
+  return new Promise(function(resolve, reject) {
+    const examples = {};
+    examples['application/json'] = {
+  "date" : new Date(),
+  "message" : "This is a HealthCheck"
+};
     if (Object.keys(examples).length > 0) {
       resolve(examples[Object.keys(examples)[0]]);
     } else {
@@ -157,6 +180,7 @@ exports.getManufacturer = function(id) {
 
 
 /**
+ * Returns a list of Manufacturers
  * Returns a list of Manufacturers
  *
  * returns ArrayOfManufacturers
@@ -235,6 +259,7 @@ exports.getPurchase = function(id) {
 
 
 /**
+ * Gets a list of Purchases
  * Gets a list of Purchases
  *
  * returns ArrayOfPurchases

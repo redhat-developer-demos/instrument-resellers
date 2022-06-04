@@ -23,6 +23,16 @@ module.exports.getAcquisitions = function getAcquisitions (req, res, next) {
     });
 };
 
+module.exports.getHealthCheck = function getHealthCheck (req, res, next) {
+  Reseller.getHealthCheck()
+    .then(function (response) {
+      utils.writeJson(res, response);
+    })
+    .catch(function (response) {
+      utils.writeJson(res, response);
+    });
+};
+
 module.exports.getInstrument = function getInstrument (req, res, next, id) {
   Reseller.getInstrument(id)
     .then(function (response) {

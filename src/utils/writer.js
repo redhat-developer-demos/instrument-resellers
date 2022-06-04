@@ -1,4 +1,4 @@
-const ResponsePayload = function(code, payload) {
+var ResponsePayload = function(code, payload) {
   this.code = code;
   this.payload = payload;
 }
@@ -7,7 +7,7 @@ exports.respondWithCode = function(code, payload) {
   return new ResponsePayload(code, payload);
 }
 
-const writeJson = exports.writeJson = function(response, arg1, arg2) {
+var writeJson = exports.writeJson = function(response, arg1, arg2) {
   let code;
   let payload;
 
