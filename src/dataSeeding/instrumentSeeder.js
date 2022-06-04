@@ -1,5 +1,5 @@
-const faker = require("@faker-js/faker");
-
+const { faker } = require('@faker-js/faker');
+const generalSeeder = require("./seeder")
 
 const createBrassTypesSync = () =>{
     const items = [];
@@ -49,7 +49,7 @@ const createBrassManufacturersSync = () =>{
     let obj = {};
     obj.description = "A manufacturer of wind and percussion instruments, parts, and accessories.";
     obj.name = "Buffet Crampon S.A.S.";
-    obj.address = createAddressObjectSync("5 rue Maurice Berteaux",
+    obj.address = generalSeeder.createAddressObjectSync("5 rue Maurice Berteaux",
         null,"Mantes-la-Ville","Yvelines", "78711", "FR");
 
     items.push(obj);
@@ -57,13 +57,13 @@ const createBrassManufacturersSync = () =>{
     obj = {};
     obj.description = "Offers a range from trumpets to horns";
     obj.name = "Vincent Bach Corporation";
-    obj.address = createAddressObjectSync("100 Main Street",
+    obj.address = generalSeeder.createAddressObjectSync("100 Main Street",
         null,"Elkhart","IN", "46515-0310", "USA");
 
     obj = {};
     obj.description = "Sells trumpets, fugelhorns and trombones";
     obj.name = "Jeam Paul";
-    obj.address = createAddressObjectSync("10600 NW 29th Terrace",
+    obj.address = generalSeeder.createAddressObjectSync("10600 NW 29th Terrace",
         null,"Doral","FL", "33172", "USA");
 
     items.push(obj);
@@ -77,20 +77,20 @@ const createClarinetManufacturersSync = () =>{
     let obj = {};
     obj.description = "A manufacturer of wind and percussion instruments, parts, and accessories.";
     obj.name = "Amati-Denak";
-    obj.address = createAddressObjectSync("Dukelská 44",
+    obj.address = generalSeeder.createAddressObjectSync("Dukelská 44",
         null,"Kraslice","Sokolov", "358 01", "CZ");
     items.push(obj);
 
     obj = {};
     obj.description = "Offers a range from traditional to bass clarinets to contrabass and contralto clarinets";
     obj.name = "Leblanc, Inc";
-    obj.address = createAddressObjectSync("P.O. Box 310",
+    obj.address = generalSeeder.createAddressObjectSync("P.O. Box 310",
         null,"Elkhart","IN", "46515-0310", "USA");
 
     obj = {};
     obj.description = "Noted for their clarinets which are made in their workshops in Marsden, West Yorkshire";
     obj.name = "Hanson Clarinet Company";
-    obj.address = createAddressObjectSync("Warehouse Hill",
+    obj.address = generalSeeder.createAddressObjectSync("Warehouse Hill",
         null,"Marsden","West Yorkshire", "HD7 6AB", "UK");
 
     items.push(obj);
@@ -166,20 +166,20 @@ const createSaxophoneManufacturersSync = () =>{
     let obj = {};
     obj.description = "Premier brand based in Paris, France";
     obj.name = "Selmer";
-    obj.address = createAddressObjectSync("59 rue Marcadet",
+    obj.address = generalSeeder.createAddressObjectSync("59 rue Marcadet",
         null,"Paris","Paris", "75018", "FR");
     items.push(obj);
 
     obj = {};
     obj.description = "Well known, respected brand";
     obj.name = "Yamaha Corporation of America";
-    obj.address = createAddressObjectSync("6600 Orangethorpe Ave",
+    obj.address = generalSeeder.createAddressObjectSync("6600 Orangethorpe Ave",
         null,"Buena Park","CA", "90620", "USA");
 
     obj = {};
     obj.description = "Manufacturer of a wide range of musical instruments";
     obj.name = "Cannonball Musical Instruments";
-    obj.address = createAddressObjectSync("625 E Sego Lily Dr.",
+    obj.address = generalSeeder.createAddressObjectSync("625 E Sego Lily Dr.",
         null,"Sandy","UT", "84070", "USA");
 
     items.push(obj);
@@ -209,7 +209,7 @@ const createInstrumentObjectSync = (instrument, manufacturer) => {
     const obj = {};
     obj. instrument = instrument.name;
     obj.type = instrument.type;
-    obj.name = `${faker.commerce.productAdjective()} ${instrument.name}`
+    obj.name = `${faker.word.adjective()} ${instrument.name}`
     obj.manufacturer = manufacturer
     return obj;
 }

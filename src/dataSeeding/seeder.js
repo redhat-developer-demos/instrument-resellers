@@ -1,4 +1,4 @@
-const faker = require('@faker-js/faker');
+const { faker } = require('@faker-js/faker');
 const createRandomUserSync = () =>{
     const obj = {};
     obj.firstName = faker.name.firstName();

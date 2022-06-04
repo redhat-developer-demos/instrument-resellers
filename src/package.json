@@ -20,6 +20,8 @@
     "oas3-tools": "^2.2.3"
   },
   "devDependencies": {
-    "@faker-js/faker": "^7.1.0"
+    "@faker-js/faker": "^7.1.0",
+    "chai": "^4.3.6",
+    "mocha": "^10.0.0"
   }
 }
