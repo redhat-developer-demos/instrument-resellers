@@ -1,20 +1,21 @@
 'use strict';
+require('dotenv').config();
 
-var path = require('path');
-var http = require('http');
+const path = require('path');
+const http = require('http');
 
-var oas3Tools = require('oas3-tools');
-var serverPort = 8080;
+const oas3Tools = require('oas3-tools');
+
+const serverPort = process.env.SERVER_PORT || 8080;
 
 // swaggerRouter configuration
-var options = {
+const options = {
     routing: {
         controllers: path.join(__dirname, './controllers')
     },
 };
-
-var expressAppConfig = oas3Tools.expressAppConfig(path.join(__dirname, 'api/openapi.yaml'), options);
-var app = expressAppConfig.getApp();
+const expressAppConfig = oas3Tools.expressAppConfig(path.join(__dirname, 'api/openapi.yaml'), options);
+const app = expressAppConfig.getApp();
 
 // Initialize the Swagger middleware
 http.createServer(app).listen(serverPort, function () {

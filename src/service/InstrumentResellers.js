@@ -10,7 +10,7 @@
  **/
 exports.getAcquisition = function(id) {
   return new Promise(function(resolve, reject) {
-    var examples = {};
+    const examples = {};
     examples['application/json'] = "";
     if (Object.keys(examples).length > 0) {
       resolve(examples[Object.keys(examples)[0]]);
@@ -29,7 +29,7 @@ exports.getAcquisition = function(id) {
  **/
 exports.getAcquisitions = function() {
   return new Promise(function(resolve, reject) {
-    var examples = {};
+    const examples = {};
     examples['application/json'] = [ "", "" ];
     if (Object.keys(examples).length > 0) {
       resolve(examples[Object.keys(examples)[0]]);
@@ -49,7 +49,7 @@ exports.getAcquisitions = function() {
  **/
 exports.getInstrument = function(id) {
   return new Promise(function(resolve, reject) {
-    var examples = {};
+    const examples = {};
     examples['application/json'] = "";
     if (Object.keys(examples).length > 0) {
       resolve(examples[Object.keys(examples)[0]]);
@@ -66,7 +66,7 @@ exports.getInstrument = function(id) {
  **/
 exports.getInstruments = function() {
   return new Promise(function(resolve, reject) {
-    var examples = {};
+    const examples = {};
     examples['application/json'] = [ "", "" ];
     if (Object.keys(examples).length > 0) {
       resolve(examples[Object.keys(examples)[0]]);
@@ -86,7 +86,7 @@ exports.getInstruments = function() {
  **/
 exports.getManufacturer = function(id) {
   return new Promise(function(resolve, reject) {
-    var examples = {};
+    const examples = {};
     examples['application/json'] = "";
     if (Object.keys(examples).length > 0) {
       resolve(examples[Object.keys(examples)[0]]);
@@ -105,7 +105,7 @@ exports.getManufacturer = function(id) {
  **/
 exports.getManufacturers = function() {
   return new Promise(function(resolve, reject) {
-    var examples = {};
+    const examples = {};
     examples['application/json'] = [ {
   "address" : {
     "city" : "Anytown",
@@ -145,7 +145,7 @@ exports.getManufacturers = function() {
  **/
 exports.getPurchase = function(id) {
   return new Promise(function(resolve, reject) {
-    var examples = {};
+    const examples = {};
     examples['application/json'] = {
   "purchaseDate" : "2021-06-20T01:02:03Z",
   "price" : 539.5,
@@ -184,7 +184,7 @@ exports.getPurchase = function(id) {
  **/
 exports.getPurchases = function() {
   return new Promise(function(resolve, reject) {
-    var examples = {};
+    const examples = {};
     examples['application/json'] = [ {
   "purchaseDate" : "2021-06-20T01:02:03Z",
   "price" : 539.5,
@@ -244,7 +244,7 @@ exports.getPurchases = function() {
  **/
 exports.getRefurbishment = function(id) {
   return new Promise(function(resolve, reject) {
-    var examples = {};
+    const examples = {};
     examples['application/json'] = "";
     if (Object.keys(examples).length > 0) {
       resolve(examples[Object.keys(examples)[0]]);
@@ -263,7 +263,7 @@ exports.getRefurbishment = function(id) {
  **/
 exports.getRefurbishments = function() {
   return new Promise(function(resolve, reject) {
-    var examples = {};
+    const examples = {};
     examples['application/json'] = [ "", "" ];
     if (Object.keys(examples).length > 0) {
       resolve(examples[Object.keys(examples)[0]]);
@@ -283,7 +283,7 @@ exports.getRefurbishments = function() {
  **/
 exports.getSeller = function(id) {
   return new Promise(function(resolve, reject) {
-    var examples = {};
+    const examples = {};
     examples['application/json'] = "";
     if (Object.keys(examples).length > 0) {
       resolve(examples[Object.keys(examples)[0]]);
@@ -302,7 +302,7 @@ exports.getSeller = function(id) {
  **/
 exports.getSellers = function() {
   return new Promise(function(resolve, reject) {
-    var examples = {};
+    const examples = {};
     examples['application/json'] = [ "", "" ];
     if (Object.keys(examples).length > 0) {
       resolve(examples[Object.keys(examples)[0]]);
@@ -322,7 +322,7 @@ exports.getSellers = function() {
  **/
 exports.getUser = function(id) {
   return new Promise(function(resolve, reject) {
-    var examples = {};
+    const examples = {};
     examples['application/json'] = {
   "firstName" : "Sally",
   "lastName" : "Smith",
@@ -355,7 +355,7 @@ exports.getUser = function(id) {
  **/
 exports.getUsers = function() {
   return new Promise(function(resolve, reject) {
-    var examples = {};
+    const examples = {};
     examples['application/json'] = [ {
   "firstName" : "Sally",
   "lastName" : "Smith",
