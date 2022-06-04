@@ -26,7 +26,7 @@ const createUserSync = () =>{
     obj.firstName = faker.name.firstName();
     obj.lastName = faker.name.lastName();
     obj.email = faker.internet.email(obj.firstName, obj.lastName)
-    obj.phone = state;
+    obj.phone = faker.phone.phoneNumber();
     obj.userType = getRandomUserTypeSync();
     obj.address = createAddressSync()
     return obj;
