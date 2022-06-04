@@ -111,7 +111,7 @@ exports.getHealthCheck = function() {
     const examples = {};
     examples['application/json'] = {
   "date" : new Date(),
-  "message" : "This is a HealthCheck"
+  "message" : `The API is up and running at ${new Date()}`
 };
     if (Object.keys(examples).length > 0) {
       resolve(examples[Object.keys(examples)[0]]);

@@ -18,5 +18,8 @@
     "js-yaml": "^3.3.0",
     "mongoose": "^6.3.5",
     "oas3-tools": "^2.2.3"
+  },
+  "devDependencies": {
+    "@faker-js/faker": "^7.1.0"
   }
 }

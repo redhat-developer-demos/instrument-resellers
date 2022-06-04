@@ -32,35 +32,12 @@ const user = mongoose.Schema({
     phone: {type: String, required: true},
     userType: {
         type: String,
+        required: true,
         enum: ["OTHER", "BUYER", "SELLER"],
         default: "BUYER"
     },
     address: {
         type: { address, required: true}
-    },
-    created: {
-        type: Date,
-        default: Date.now
-    }
-});
-
-const seller = mongoose.Schema({
-    firstName: {type: String, required: true},
-    lastName: {type: String, required: true},
-    email: {type: String, required: true},
-    phone: {type: String, required: true},
-    userType: {
-        type: String,
-        enum: ["OTHER", "BUYER", "SELLER"],
-        default: "BUYER"
-    },
-    instrument: {type: instrument, required: true},
-    address: {
-        type: { address, required: true}
-    },
-    saleDate: {
-        type: Date,
-        default: Date.now
     },
     created: {
         type: Date,
@@ -69,7 +46,7 @@ const seller = mongoose.Schema({
 });
 
 const purchase = mongoose.Schema({
-    user: {type: user, required: true},
+    buyer: {type: user, required: true},
     instrument: {type: instrument, required: true},
     price: {type: Number, required: true},
     purchaseDate: {
@@ -81,3 +58,44 @@ const purchase = mongoose.Schema({
         default: Date.now
     }
 });
+
+const acquisition = mongoose.Schema({
+    seller: {type: user, required: true},
+    instrument: {type: instrument, required: true},
+    price: {type: Number, required: true},
+    acquisitionDate: {
+        type: Date,
+        default: Date.now
+    },
+    created: {
+        type: Date,
+        default: Date.now
+    }
+});
+
+const refurbishment = mongoose.Schema({
+    description: {type: String, required: true},
+    workToBeDone: {type: String, required: true},
+    instrument: {type: instrument, required: true},
+    startDate: {
+        type: Date,
+        default: Date.now
+    },
+    finishDate: {
+        type: Date,
+        default: Date.now
+    },
+    created: {
+        type: Date,
+        default: Date.now
+    }
+});
+
+const Manufacturer = mongoose.model('Manufacturer', manufacturer);
+const Instrument = mongoose.model('Instrument', instrument);
+const Address = mongoose.model('Address', address);
+const User = mongoose.model('User', user);
+const Purchase = mongoose.model('Purchase', purchase);
+const Acquisition = mongoose.model('Acquisition', acquisition);
+const Refurbishment = mongoose.model('Refurbishment', refurbishment);
+module.exports = {Refurbishment, Acquisition, Purchase, User, Address, Instrument,Manufacturer};
