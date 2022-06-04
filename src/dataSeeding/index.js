@@ -34,7 +34,7 @@ const createUserSync = () =>{
 
 const createManufacturerSync = () =>{
     const obj = {};
-    obj.description = aker.lorem.words(10);
+    obj.description = faker.lorem.words(10);
     obj.name = faker.company.companyName();
     obj.address = createAddressSync();
     return obj;
