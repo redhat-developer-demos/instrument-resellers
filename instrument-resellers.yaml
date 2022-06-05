@@ -233,7 +233,6 @@ paths:
                 $ref: '#/components/schemas/Error'
       tags:
         - reseller
-
   /purchases/{id}:
     get:
       tags:
@@ -403,11 +402,12 @@ components:
         - $ref: '#/components/schemas/InstrumentType'
         - type: object
           required:
-            - description
+            - name
+            - manufacturer
           properties:
             id:
               $ref: '#/components/schemas/uuid'
-            description:
+            name:
               type: string
               example: Precision Bass
             manufacturer:

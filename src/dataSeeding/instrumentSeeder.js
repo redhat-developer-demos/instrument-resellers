@@ -210,7 +210,7 @@ const createInstrumentObjectSync = (instrument, manufacturer) => {
         return word.charAt(0).toUpperCase() + word.slice(1);
     }
     const obj = {};
-    obj. instrument = instrument.instrument;
+    obj.instrument = instrument.instrument;
     obj.type = instrument.type;
     obj.name = `${capitalize(faker.word.adjective())} ${capitalize(instrument.instrument)}`
     obj.manufacturer = manufacturer

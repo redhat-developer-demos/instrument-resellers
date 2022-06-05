@@ -5,14 +5,12 @@ const manufacturer = mongoose.Schema({
     description: {type: String, required: true},
     address: {type: address, required: true}
 })
-
 const instrument = mongoose.Schema({
     instrument: {type: String, required: true},
     type: {type: String, required: true},
     name: {type: String, required: true},
     manufacturer: {type: manufacturer, required: true},
 })
-
 const address = mongoose.Schema({
     address_1: {type: String, required: true},
     address_2: {type: String, required: true},
@@ -44,7 +42,6 @@ const user = mongoose.Schema({
         default: Date.now
     }
 });
-
 const purchase = mongoose.Schema({
     buyer: {type: user, required: true},
     instrument: {type: instrument, required: true},
@@ -58,7 +55,6 @@ const purchase = mongoose.Schema({
         default: Date.now
     }
 });
-
 const acquisition = mongoose.Schema({
     seller: {type: user, required: true},
     instrument: {type: instrument, required: true},
@@ -72,7 +68,6 @@ const acquisition = mongoose.Schema({
         default: Date.now
     }
 });
-
 const refurbishment = mongoose.Schema({
     description: {type: String, required: true},
     workToBeDone: {type: String, required: true},
@@ -90,7 +85,6 @@ const refurbishment = mongoose.Schema({
         default: Date.now
     }
 });
-
 const Manufacturer = mongoose.model('Manufacturer', manufacturer);
 const Instrument = mongoose.model('Instrument', instrument);
 const Address = mongoose.model('Address', address);
