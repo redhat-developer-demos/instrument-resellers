@@ -462,12 +462,13 @@ components:
       allOf:
       - $ref: '#/components/schemas/InstrumentType'
       - required:
-        - description
+        - manufacturer
+        - name
         type: object
         properties:
           id:
             $ref: '#/components/schemas/uuid'
-          description:
+          name:
             type: string
             example: Precision Bass
           manufacturer:

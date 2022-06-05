@@ -101,8 +101,8 @@ exports.getAcquisitions = function() {
 
 
 /**
- * Gets the current healthcheck
- * Gets the current healthcheck
+ * Gets the current healthcheack
+ * Gets the current healthcheack
  *
  * returns HealthCheck
  **/
@@ -110,8 +110,8 @@ exports.getHealthCheck = function() {
   return new Promise(function(resolve, reject) {
     const examples = {};
     examples['application/json'] = {
-  "date" : new Date(),
-  "message" : `The API is up and running at ${new Date()}`
+  "date" : new Date(Date.now()).toISOString(),
+  "message" : `Things are A-OK at ${new Date(Date.now()).toDateString()}`
 };
     if (Object.keys(examples).length > 0) {
       resolve(examples[Object.keys(examples)[0]]);
