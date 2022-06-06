@@ -352,6 +352,7 @@ components:
       type: object
       required:
         - name
+        - address
       properties:
         id:
           $ref: '#/components/schemas/uuid'
@@ -360,6 +361,9 @@ components:
         name:
           type: string
           example: Yamaha Instruments
+        description:
+          type: string
+          example: Purveyors of fine instruments worldwide
     ArrayOfManufacturers:
       type: array
       items:
@@ -383,6 +387,9 @@ components:
         zip_region_code:
           type: string
           example: 90001-1234
+        country:
+          type: string
+          example: USA
     InstrumentType:
       description: Describes the type of the instrument
       type: object

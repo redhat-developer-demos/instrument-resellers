@@ -17,7 +17,9 @@
     "dotenv": "^16.0.1",
     "js-yaml": "^3.3.0",
     "mongoose": "^6.3.5",
-    "oas3-tools": "^2.2.3"
+    "oas3-tools": "^2.2.3",
+    "pg": "^8.7.3",
+    "typeorm": "^0.3.6"
   },
   "devDependencies": {
     "@faker-js/faker": "^7.1.0",

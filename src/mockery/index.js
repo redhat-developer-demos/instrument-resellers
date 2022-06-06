@@ -1,4 +1,4 @@
-const instrumentSeeder = require("./dataSeeding/instrumentSeeder");
+const instrumentSeeder = require('../dataSeeding/instrumentSeeder');
 
 const getInstruments = (randomFunc, numberOfInstruments) => {
     const cnt = numberOfInstruments || 10;
@@ -11,15 +11,15 @@ const getInstruments = (randomFunc, numberOfInstruments) => {
 }
 
 const getClarinetsSync = (numberOfInstruments) => {
-    return getInstruments(instrumentSeeder.getRandomClarinetSync(numberOfInstruments))
+    return getInstruments(instrumentSeeder.getRandomClarinetSync,15)
 }
 
 const getBrassSync = (numberOfInstruments) => {
-    return getInstruments(instrumentSeeder.getRandomBrassSync(numberOfInstruments))
+    return getInstruments(instrumentSeeder.getRandomBrassSync)
 }
 
-const SaxophonesSync = (numberOfInstruments) => {
-    return getInstruments(instrumentSeeder.getRandomSaxophoneSync(numberOfInstruments))
+const getSaxophonesSync = (numberOfInstruments) => {
+    return getInstruments(instrumentSeeder.getRandomSaxophoneSync)
 }
 
-module.exports = {getClarinetsSync,getBrassSync,SaxophonesSync}
+module.exports = {getClarinetsSync,getBrassSync,getSaxophonesSync}
