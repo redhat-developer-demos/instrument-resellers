@@ -1,5 +1,4 @@
 const EntitySchema = require("typeorm").EntitySchema;
-const Address = require("../model/Address").Address;
 
 module.exports = new EntitySchema({
     name: "Address",

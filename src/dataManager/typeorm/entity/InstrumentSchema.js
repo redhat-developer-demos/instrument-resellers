@@ -1,7 +1,4 @@
 const EntitySchema = require("typeorm").EntitySchema;
-//const Instrument = require("../model/Instrument").Instrument;
-//const Manufacturer = require("../model/Manufacturer").Manufacturer;
-//const InstrumentType = require("../model/InstrumentType").InstrumentType;
 
 module.exports = new EntitySchema({
     name: "Instrument",
