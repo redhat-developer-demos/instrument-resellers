@@ -1,3 +1,7 @@
+#db
+
+containers/data
+
 # Logs
 logs
 *.log
