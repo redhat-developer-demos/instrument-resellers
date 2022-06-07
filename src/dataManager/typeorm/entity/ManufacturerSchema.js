@@ -4,11 +4,11 @@ const Address = require("../model/Address").Address; //
 
 module.exports = new EntitySchema({
     name: "Manufacturer",
-    target: Manufacturer,
+    tableName: "manufacturers",
     columns: {
         id: {
             primary: true,
-            type: "uuid",
+            type: "int",
             generated: true
         },
         name: {

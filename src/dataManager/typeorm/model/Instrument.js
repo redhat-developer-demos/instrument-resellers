@@ -1,9 +1,9 @@
 class Instrument {
-    constructor(id, name, description, address) {
+    constructor(id, name, instrument, type, manufacturer) {
         this.id = id;
         this.name = name;
-        this.description = description;
-        this.address = address;
+        this.instrumentType = {instrument, type}
+        this.manufacturer = manufacturer;
     }
 }
 

@@ -3,18 +3,19 @@ const Address = require("../model/Address").Address;
 
 module.exports = new EntitySchema({
     name: "Address",
-    target: Address,
+    tableName: "addresses",
     columns: {
         id: {
             primary: true,
-            type: "uuid",
+            type: "int",
             generated: true
         },
         address_1: {
             type: "varchar"
         },
         address_2: {
-            type: "varchar"
+            type: "varchar",
+            nullable: true,
         },
         city: {
             type: "varchar"

@@ -72,7 +72,7 @@ paths:
         style: simple
         explode: false
         schema:
-          $ref: '#/components/schemas/uuid'
+          type: number
       responses:
         "200":
           description: successful operation
@@ -120,7 +120,7 @@ paths:
         style: simple
         explode: false
         schema:
-          $ref: '#/components/schemas/uuid'
+          type: number
       responses:
         "200":
           description: successful operation
@@ -169,7 +169,7 @@ paths:
         style: simple
         explode: false
         schema:
-          $ref: '#/components/schemas/uuid'
+          type: number
       responses:
         "200":
           description: successful operation
@@ -218,7 +218,7 @@ paths:
         style: simple
         explode: false
         schema:
-          $ref: '#/components/schemas/uuid'
+          type: number
       responses:
         "200":
           description: successful operation
@@ -267,7 +267,7 @@ paths:
         style: simple
         explode: false
         schema:
-          $ref: '#/components/schemas/uuid'
+          type: number
       responses:
         "200":
           description: A Purchase
@@ -295,7 +295,7 @@ paths:
         style: simple
         explode: false
         schema:
-          $ref: '#/components/schemas/uuid'
+          type: number
       responses:
         "200":
           description: successful operation returns a Refurbishment
@@ -348,7 +348,7 @@ components:
       type: object
       properties:
         id:
-          $ref: '#/components/schemas/uuid'
+          type: number
         firstName:
           type: string
           example: Sally
@@ -370,13 +370,14 @@ components:
         firstName: Sally
         lastName: Smith
         address:
+          country: USA
           city: Anytown
           zip_region_code: 90001-1234
           address_1: 123 Maple Street
           address_2: Unit 1
           state_province: CA
         phone: 111-222-3333
-        id: id
+        id: 0.80082819046101150206595775671303272247314453125
         userType: ""
         email: sally.smith@example.com
     ArrayOfUsers:
@@ -395,26 +396,32 @@ components:
       - SELLER
     Manufacturer:
       required:
+      - address
       - name
       type: object
       properties:
         id:
-          $ref: '#/components/schemas/uuid'
+          type: number
         address:
           $ref: '#/components/schemas/Address'
         name:
           type: string
           example: Yamaha Instruments
+        description:
+          type: string
+          example: Purveyors of fine instruments worldwide
       description: Describes the manufacturer of a musical instrument
       example:
         address:
+          country: USA
           city: Anytown
           zip_region_code: 90001-1234
           address_1: 123 Maple Street
           address_2: Unit 1
           state_province: CA
         name: Yamaha Instruments
-        id: id
+        description: Purveyors of fine instruments worldwide
+        id: 0.80082819046101150206595775671303272247314453125
     ArrayOfManufacturers:
       type: array
       items:
@@ -437,8 +444,12 @@ components:
         zip_region_code:
           type: string
           example: 90001-1234
+        country:
+          type: string
+          example: USA
       description: Describes a physical geolocation address
       example:
+        country: USA
         city: Anytown
         zip_region_code: 90001-1234
         address_1: 123 Maple Street
@@ -467,7 +478,7 @@ components:
         type: object
         properties:
           id:
-            $ref: '#/components/schemas/uuid'
+            type: number
           name:
             type: string
             example: Precision Bass
@@ -486,7 +497,7 @@ components:
       type: object
       properties:
         id:
-          $ref: '#/components/schemas/uuid'
+          type: number
         buyer:
           $ref: '#/components/schemas/User'
         instrument:
@@ -505,18 +516,19 @@ components:
         purchaseDate: 2021-06-20T01:02:03Z
         price: 539.5
         instrument: ""
-        id: id
+        id: 0.80082819046101150206595775671303272247314453125
         buyer:
           firstName: Sally
           lastName: Smith
           address:
+            country: USA
             city: Anytown
             zip_region_code: 90001-1234
             address_1: 123 Maple Street
             address_2: Unit 1
             state_province: CA
           phone: 111-222-3333
-          id: id
+          id: 0.80082819046101150206595775671303272247314453125
           userType: ""
           email: sally.smith@example.com
     ArrayOfPurchases:
@@ -532,7 +544,7 @@ components:
       type: object
       properties:
         id:
-          $ref: '#/components/schemas/uuid'
+          type: number
         date:
           type: string
           description: The  date when the instrument was purchased
@@ -554,18 +566,19 @@ components:
           firstName: Sally
           lastName: Smith
           address:
+            country: USA
             city: Anytown
             zip_region_code: 90001-1234
             address_1: 123 Maple Street
             address_2: Unit 1
             state_province: CA
           phone: 111-222-3333
-          id: id
+          id: 0.80082819046101150206595775671303272247314453125
           userType: ""
           email: sally.smith@example.com
         price: 539.5
         instrument: ""
-        id: id
+        id: 0.80082819046101150206595775671303272247314453125
     ArrayOfAcquisitions:
       type: array
       items:
@@ -578,7 +591,7 @@ components:
       type: object
       properties:
         id:
-          $ref: '#/components/schemas/uuid'
+          type: number
         instrument:
           $ref: '#/components/schemas/Instrument'
         workToBeDone:
@@ -601,7 +614,7 @@ components:
         workToBeDone: Needs a new bridge and intonation needs to be corrected
         instrument: ""
         finishDate: 2021-07-15T01:02:03Z
-        id: id
+        id: 0.80082819046101150206595775671303272247314453125
         startDate: 2021-06-20T01:02:03Z
     ArrayOfRefurbishments:
       type: array

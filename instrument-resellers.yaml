@@ -67,7 +67,7 @@ paths:
           description: ID of the purchase to return
           required: true
           schema:
-            $ref: '#/components/schemas/uuid'
+            type: number
       responses:
         '200':
           description: successful operation
@@ -111,7 +111,7 @@ paths:
           description: ID of the purchase to return
           required: true
           schema:
-            $ref: '#/components/schemas/uuid'
+            type: number
       responses:
         '200':
           description: successful operation
@@ -156,7 +156,7 @@ paths:
           description: ID of the purchase to return
           required: true
           schema:
-            $ref: '#/components/schemas/uuid'
+            type: number
       responses:
         '200':
           description: successful operation
@@ -201,7 +201,7 @@ paths:
           description: ID of the purchase to return
           required: true
           schema:
-            $ref: '#/components/schemas/uuid'
+            type: number
       responses:
         '200':
           description: successful operation
@@ -246,7 +246,7 @@ paths:
           description: ID of the purchase to return
           required: true
           schema:
-            $ref: '#/components/schemas/uuid'
+            type: number
       responses:
         '200':
           description: A Purchase
@@ -271,7 +271,7 @@ paths:
             description: ID of the Refurbishments to return
             required: true
             schema:
-              $ref: '#/components/schemas/uuid'
+              type: number
         responses:
           '200':
             description: successful operation returns a Refurbishment
@@ -323,7 +323,7 @@ components:
         - address
       properties:
         id:
-          $ref: '#/components/schemas/uuid'
+          type: number
         firstName:
           type: string
           example: Sally
@@ -355,7 +355,7 @@ components:
         - address
       properties:
         id:
-          $ref: '#/components/schemas/uuid'
+          type: number
         address:
           $ref: '#/components/schemas/Address'
         name:
@@ -413,7 +413,7 @@ components:
             - manufacturer
           properties:
             id:
-              $ref: '#/components/schemas/uuid'
+              type: number
             name:
               type: string
               example: Precision Bass
@@ -433,7 +433,7 @@ components:
         - instrument
       properties:
         id:
-          $ref: '#/components/schemas/uuid'
+          type: number
         buyer:
           $ref: '#/components/schemas/User'
         instrument:
@@ -461,7 +461,7 @@ components:
         - instrument
       properties:
         id:
-          $ref: '#/components/schemas/uuid'
+          type: number
         date:
           type: string
           description: The  date when the instrument was purchased
@@ -488,7 +488,7 @@ components:
         - instrument
       properties:
         id:
-          $ref: '#/components/schemas/uuid'
+          type: number
         instrument:
           $ref: '#/components/schemas/Instrument'
         workToBeDone:

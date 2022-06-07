@@ -3,11 +3,11 @@ const InstrumentType = require("../model/InstrumentType").InstrumentType;
 
 module.exports = new EntitySchema({
     name: "InstrumentType",
-    target: InstrumentType,
+    tableName: "instrumentTypes",
     columns: {
         id: {
             primary: true,
-            type: "uuid",
+            type: "int",
             generated: true
         },
         instrument: {
