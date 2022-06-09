@@ -6,7 +6,22 @@ const http = require('http');
 
 const oas3Tools = require('oas3-tools');
 
-const serverPort = process.env.SERVER_PORT || 8080;
+const {modifyOpenApiSpecToVendorSync} = require('./helpers/yamlizer')
+
+const serverPort = process.env.SERVER_PORT || 8088;
+
+const specPath = path.join(__dirname, 'api/openapi.yaml')
+
+let adjustedSpecPath = path.join(__dirname, 'api/adjustedopenapi.yaml')
+
+adjustedSpecPath = modifyOpenApiSpecToVendorSync({
+    inputYamlPath: specPath,
+    outputYamlPath: adjustedSpecPath,
+    vendorName: process.env.VENDOR_NAME,
+    serverHost: process.env.SERVER_HOST,
+    serverPort: process.env.SERVER_PORT
+})
+
 
 // swaggerRouter configuration
 const options = {
@@ -14,7 +29,7 @@ const options = {
         controllers: path.join(__dirname, './controllers')
     },
 };
-const expressAppConfig = oas3Tools.expressAppConfig(path.join(__dirname, 'api/openapi.yaml'), options);
+const expressAppConfig = oas3Tools.expressAppConfig(adjustedSpecPath, options);
 const app = expressAppConfig.getApp();
 
 // Initialize the Swagger middleware

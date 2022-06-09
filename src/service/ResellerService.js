@@ -108,10 +108,11 @@ exports.getAcquisitions = function() {
  **/
 exports.getHealthCheck = function() {
   return new Promise(function(resolve, reject) {
+    const vendor = process.env.VENDOR_NAME || "Vendor Not Known"
     const examples = {};
     examples['application/json'] = {
   "date" : new Date(Date.now()).toISOString(),
-  "message" : `Things are A-OK at ${new Date(Date.now()).toDateString()}`
+  "message" : `Things are A-OK at ${vendor}`
 };
     if (Object.keys(examples).length > 0) {
       resolve(examples[Object.keys(examples)[0]]);
