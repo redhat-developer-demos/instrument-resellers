@@ -31,8 +31,9 @@ const modifyOpenApiSpecToVendorSync = (config) => {
     obj.servers[0]= {url: `${serverHost}:${serverPort}/v1`}
 
     let yamlStr = yaml.safeDump(obj);
+    console.log(`Yamilizing INPUT ${config.inputYamlPath} to OUTPUT ${config.outputYamlPath} at ${Date.now()}`);
     fs.writeFileSync(config.outputYamlPath, yamlStr, 'utf8');
-
+    console.log(`Yamilizing at ${Date.now()}`);
     return config.outputYamlPath;
 }
 
