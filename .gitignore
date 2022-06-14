@@ -1,6 +1,7 @@
 #db
 
 containers/data
+src/api/adjustedopenapi.yaml
 
 # Logs
 logs

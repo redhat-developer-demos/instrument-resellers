@@ -22,7 +22,7 @@ const modifyOpenApiSpecToVendorSync = (config) => {
     //TODO change the value as needed
 
     if (config.vendorName) obj.info.title = config.vendorName;
-    if ( config.serverHost &&  config.serverPort ) obj.servers[0]= {url: `${config.serverHost}:${config.serverPort}`}
+    if ( config.serverHost &&  config.serverPort ) obj.servers[0]= {url: `${config.serverHost}:${config.serverPort}/v1`}
 
     let yamlStr = yaml.safeDump(obj);
     fs.writeFileSync(config.outputYamlPath, yamlStr, 'utf8');

@@ -1,0 +1,65 @@
+---
+kind: Namespace
+apiVersion: v1
+metadata:
+  name: bettysbrass
+  labels:
+    name: bettysbrass
+
+---
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: bettysbrass
+  namespace: bettysbrass
+  labels:
+    app: bettysbrass
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: bettysbrass
+  template:
+    metadata:
+      labels:
+        app: bettysbrass
+    spec:
+      containers:
+        - name: bettysbrass
+          image: registry.bob:5000/instrument_reseller
+          env:
+            - name: VENDOR_NAME
+              value: "Betty's Brass"
+          ports:
+            - containerPort: 8088
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: bettysbrass
+  namespace: bettysbrass
+spec:
+  selector:
+    app: bettysbrass
+  ports:
+    - protocol: TCP
+      port: 8088
+      targetPort: 8088
+
+---
+
+apiVersion: route.openshift.io/v1
+kind: Route
+metadata:
+  name: bettysbrass
+  namespace: bettysbrass
+spec:
+  host: bettysbrass-bettysbrass.<Ingress_Domain>
+  port:
+    targetPort: 8088
+  to:
+    kind: Service
+    name: bettysbrass
