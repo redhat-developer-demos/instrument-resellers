@@ -27,7 +27,7 @@ spec:
     spec:
       containers:
         - name: bettysbrass
-          image: registry.bob:5000/instrument_reseller
+          image: quay.io/reselbob/instrumentreseller:latest
           env:
             - name: VENDOR_NAME
               value: "Betty's Brass"
@@ -57,7 +57,7 @@ metadata:
   name: bettysbrass
   namespace: bettysbrass
 spec:
-  host: bettysbrass-bettysbrass.<Ingress_Domain>
+  host: bettysbrass-bettysbrass.cluster.local
   port:
     targetPort: 8088
   to:
