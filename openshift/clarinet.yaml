@@ -1,0 +1,67 @@
+---
+kind: Namespace
+apiVersion: v1
+metadata:
+  name: clydesclarinets
+  labels:
+    name: clydesclarinets
+
+---
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: clydesclarinets
+  namespace: clydesclarinets
+  labels:
+    app: clydesclarinets
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: clydesclarinets
+  template:
+    metadata:
+      labels:
+        app: clydesclarinets
+    spec:
+      containers:
+        - name: clydesclarinets
+          image: quay.io/reselbob/instrumentreseller:v.03
+          env:
+            - name: VENDOR_NAME
+              value: "Clyde's Clarinets"
+            - name: SEEDER_INSTRUMENT
+              value: "CLARINET"
+          ports:
+            - containerPort: 8088
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: clydesclarinets
+  namespace: clydesclarinets
+spec:
+  selector:
+    app: clydesclarinets
+  ports:
+    - protocol: TCP
+      port: 8088
+      targetPort: 8088
+
+---
+
+apiVersion: route.openshift.io/v1
+kind: Route
+metadata:
+  name: clydesclarinets
+  namespace: clydesclarinets
+spec:
+  host: clydesclarinets-clydesclarinets.cluster.local
+  port:
+    targetPort: 8088
+  to:
+    kind: Service
+    name: clydesclarinets

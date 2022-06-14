@@ -31,6 +31,8 @@ spec:
           env:
             - name: VENDOR_NAME
               value: "Betty's Brass"
+            - name: SEEDER_INSTRUMENT
+              value: "BRASS"
           ports:
             - containerPort: 8088
 
