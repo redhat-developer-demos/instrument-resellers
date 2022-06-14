@@ -39,5 +39,5 @@ docker run -d -e SERVER_PORT="8088" \
 -e VENDOR_NAME="Clyde's Clarinets" \
 -p 8088:8088 \
 --name my_instrument_reseller \
-quay.io/reselbob/instrumentreseller:v.01
+quay.io/reselbob/instrumentreseller:v.03
 ```
