@@ -23,11 +23,11 @@ docker run --name posty -p 5432:5432 -v postgres-volume:/var/lib/postgresql/data
 
 ```
 # Ignore for now
-docker build -t instrument_reseller .
+docker build -t instrumentreseller .
 
-docker tag instrument_reseller 192.168.86.34:5000/instrument_reseller
+docker tag instrument_reseller 192.168.86.34:5000/instrumentreseller
 
-docker push 192.168.86.34:5000/instrument_reseller
+docker push 192.168.86.34:5000/instrumentreseller
 ```
 
 # Create Instrument Reseller in a Linux container
