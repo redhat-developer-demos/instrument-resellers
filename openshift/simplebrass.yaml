@@ -11,6 +11,8 @@ spec:
       env:
         - name: VENDOR_NAME
           value: "Betty's Brass"
+        - name: DEMO_FAREWELL
+          value: "Such a sweet sorrow"
       ports:
         - containerPort: 8088
   restartPolicy: Always
