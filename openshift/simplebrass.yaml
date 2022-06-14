@@ -1,0 +1,16 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: mybrass
+  labels:
+    app: mybrass
+spec:
+  containers:
+    - name: mybrass
+      image: quay.io/reselbob/instrumentreseller:v.01
+      env:
+        - name: VENDOR_NAME
+          value: "Betty's Brass"
+      ports:
+        - containerPort: 8088
+  restartPolicy: Always

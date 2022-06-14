@@ -27,7 +27,7 @@ spec:
     spec:
       containers:
         - name: bettysbrass
-          image: quay.io/reselbob/instrumentreseller:latest
+          image: quay.io/reselbob/instrumentreseller:v.01
           env:
             - name: VENDOR_NAME
               value: "Betty's Brass"
