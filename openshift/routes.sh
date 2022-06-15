@@ -1,4 +1,4 @@
-
+#!/usr/bin/env bash
 
 export BRASS_ROUTE=`oc get route bettysbrass -n bettysbrass -o jsonpath='{"http://"}{.spec.host}'` && echo $BRASS_ROUTE
 
