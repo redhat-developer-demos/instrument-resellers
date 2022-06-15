@@ -50,7 +50,7 @@ const createResellerDb = async (connection, databaseName) => {
         await queryRunner.query(`CREATE DATABASE ${dbName}`);
     } catch (e) {
         if(e.message === `database \"${dbName}\" already exists`) {
-            console.log(e.message + " is an expected error")
+            logger.info(e.message + " is an expected error")
         }else {
             throw e
         }

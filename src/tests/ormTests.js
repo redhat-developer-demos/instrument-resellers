@@ -1,5 +1,5 @@
 'use strict';
-
+const logger = require('winston');
 const typeorm = require("typeorm");
 const {Instrument} = require('../dataManager/typeorm/model/Instrument')
 const {getConnection, createResellerDb} = require('../dataManager/typeorm')
@@ -52,13 +52,13 @@ describe('Orm Tests: ', () => {
         repository.save(instrument)
             .then(function(savedInstrument) {
                 expect(savedInstrument).to.be.an('object');
-                console.log("Instrument has been saved: ", savedInstrument);
-                console.log("Now lets load all instruments: ");
+                logger.info("Instrument has been saved: ", savedInstrument);
+                logger.info("Now lets load all instruments: ");
 
                 return repository.find();
             })
             .then(function(allInstruments) {
-                console.log("All posts: ", allInstruments);
+                logger.info("All posts: ", allInstruments);
             });
     });
 });

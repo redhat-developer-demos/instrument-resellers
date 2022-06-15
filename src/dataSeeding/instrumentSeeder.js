@@ -1,5 +1,5 @@
 const { faker } = require('@faker-js/faker');
-const generalSeeder = require("./seeder")
+const generalSeeder = require("./user_manuSeeder")
 
 const createBrassTypesSync = () =>{
     const items = [];

@@ -1,5 +1,5 @@
 'use strict';
-
+const logger = require('winston');
 
 /**
  * Find an Acquisition by ID
@@ -107,6 +107,7 @@ exports.getAcquisitions = function() {
  * returns HealthCheck
  **/
 exports.getHealthCheck = function() {
+  logger.info("Entering Healthcheck");
   return new Promise(function(resolve, reject) {
     const vendor = process.env.VENDOR_NAME || "Vendor Not Known"
     const examples = {};

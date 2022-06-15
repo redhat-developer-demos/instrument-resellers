@@ -1,51 +1,36 @@
-const { faker } = require('@faker-js/faker');
-const createRandomUserSync = () =>{
-    const obj = {};
-    obj.firstName = faker.name.firstName();
-    obj.lastName = faker.name.lastName();
-    obj.email = faker.internet.email(obj.firstName, obj.lastName)
-    obj.phone = faker.phone.phoneNumber();
-    obj.userType = getRandomUserTypeSync();
-    obj.address = createRandomAddressSync()
-    return obj;
-};
-const createRandomManufacturerSync = () =>{
-    const obj = {};
-    obj.description = faker.lorem.words(10);
-    obj.name = faker.company.companyName();
-    obj.address = createRandomAddressSync();
-    return obj;
-};
-const createRandomAddressSync = () =>{
-    const state = faker.address.stateAbbr();
-    const obj = {};
-    obj.address_1 = faker.address.streetAddress();
-    obj.address_2 = faker.address.secondaryAddress();
-    obj.city = faker.address.cityName();
-    obj.state_province = state;
-    obj.zip_postal_code = fakerUS.address.zipCodeByState(state);
-    obj.country = 'USA';
+const {getRandomPurchaseSync,getRandomAcquisitionSync,getRandomRefurbishmentSync} = require("./workflowSeeder")
+const {logger} = require("../logger");
 
-    return obj;
-};
-
-const createAddressObjectSync = (address_1, address_2, city, state_province,zip_region_code, country) =>{
-    const obj = {};
-    obj.address_1 = address_1;
-    obj.address_2 = address_2;
-    obj.city = city;
-    obj.state_province = state_province;
-    obj.zip_region_code = zip_region_code;
-    obj.country = country || 'USA';
-
-    return obj;
-};
-
-const getRandomUserTypeSync = () =>{
-    const userTypes = ["OTHER","BUYER","SELLER"]
-    return userTypes[
-        Math.floor(Math.random() * userTypes.length)
-        ]
+// seed acquisitions
+const seedAcquisitions  = async(vendorType, count, connection) => {
+    for( let i = 0; i < count; i++){
+        const obj = getRandomAcquisitionSync(vendorType);
+        logger.info(`Data from seedAcquisitions: ${JSON.stringify(obj)}`)
+        // bind data to model
+    }
 }
 
-module.exports = {createRandomUserSync,createRandomManufacturerSync,createRandomAddressSync,createAddressObjectSync};
+// seed refurbishments
+const seedRefurbishments  = async(vendorType, count, connection) => {
+    for( let i = 0; i < count; i++){
+        const obj = getRandomRefurbishmentSync(vendorType);
+        logger.info(`Data from seedRefurbishments: ${JSON.stringify(obj)}`)
+        // bind data to model
+    }
+}
+
+// seed purchases
+const seedPurchases  = async(vendorType, count, connection) => {
+    for( let i = 0; i < count; i++){
+        const obj = getRandomPurchaseSync(vendorType);
+        logger.info(`Data from seedPurchases: ${JSON.stringify(obj)}`)
+    }
+}
+
+const seed = async(vendorType, count, connection) => {
+    await seedAcquisitions(vendorType, count, connection);
+    await seedRefurbishments(vendorType, count, connection);
+    await seedPurchases(vendorType, count, connection);
+}
+
+module.exports = {seed};

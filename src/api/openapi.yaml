@@ -537,7 +537,7 @@ components:
         $ref: '#/components/schemas/Purchase'
     Acquisition:
       required:
-      - date
+      - acquistionDate
       - instrument
       - price
       - seller
@@ -545,9 +545,9 @@ components:
       properties:
         id:
           type: number
-        date:
+        acquistionDate:
           type: string
-          description: The  date when the instrument was purchased
+          description: The  date when the instrument was acquired
           format: date-time
           example: 2021-06-20T01:02:03Z
         seller:

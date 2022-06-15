@@ -1,6 +1,6 @@
 const { faker } = require('@faker-js/faker');
-const {getRandomSaxophoneSync,getRandomBrassSync,getRandomClarinetSync} = require('instrumentSeeder')
-
+const {getRandomSaxophoneSync,getRandomBrassSync,getRandomClarinetSync} = require('./instrumentSeeder')
+const {createRandomUserSync}  = require('./user_manuSeeder')
 const randomIntFromIntervalSync = (min, max) => { // min and max included
     return Math.floor(Math.random() * (max - min + 1) + min);
 }
@@ -11,7 +11,7 @@ Date.prototype.addDays = function(days) {
     return date;
 }
 
-const {createRandomUserSync}  = require('seeder')
+
 
 const getInstrumentByVendorType = (vendorType) => {
     const obj = {};
@@ -53,6 +53,8 @@ const getRandomRefurbishmentSync = (vendorType) =>{
     obj.workToBeDone = `This instrument needs: ${faker.lorem.sentence()}`
     obj.startDate = new Date(faker.date.betweens('2022-01-01T00:00:00.000Z', Date.now()))
     obj.finishDate = faker.date.betweens(obj.startDate, obj.startDate.addDays(30))
+
+    return obj;
 }
 
 module.exports = {getRandomPurchaseSync,getRandomAcquisitionSync,getRandomRefurbishmentSync}

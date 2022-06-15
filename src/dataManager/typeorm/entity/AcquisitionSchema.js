@@ -12,17 +12,11 @@ module.exports = new EntitySchema({
         price: {
             type: "float"
         },
-        date: {
+        acquisitionDate: {
             type: "date"
         }
     },
     relations: {
-        address: {
-            target: "Address",
-            type: "one-to-one",
-            joinTable: true,
-            cascade: true
-        },
         seller: {
             target: "User",
             type: "one-to-one",

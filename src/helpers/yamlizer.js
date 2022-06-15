@@ -1,5 +1,6 @@
 const yaml = require('js-yaml');
 fs = require('fs');
+const {logger} = require("../logger");
 /**
  *
  * @param config is a JSON object as follows:
@@ -18,7 +19,7 @@ const modifyOpenApiSpecToVendorSync = (config) => {
     //if (! config.serverHost) throw new Error("No config.serverHost defined");
 
     const serverHost = config.serverHost || "http://localhost";
-    const serverPort = config.serverHost || 8088;
+    const serverPort = config.serverPort || 8088;
     const vendorName = config.vendorName || "Unknown";
     //if (! config.serverPort) throw new Error("No config.serverPort defined");
 
@@ -27,13 +28,15 @@ const modifyOpenApiSpecToVendorSync = (config) => {
     obj.info.title = vendorName
     //if (config.vendorName) obj.info.title = config.vendorName;
     //if ( config.serverHost &&  config.serverPort ) obj.servers[0]= {url: `${config.serverHost}:${config.serverPort}/v1`}
-
-    obj.servers[0]= {url: `${serverHost}:${serverPort}/v1`}
+    logger.info(`url: ${obj.servers[0]}`);
+    //obj.servers[0]= {url: `${serverHost}:${serverPort}/v1`}
+    obj.servers[0].url = `${serverHost}:${serverPort}/v1`;
+    logger.info("Yamilzer uses " + JSON.stringify(obj.servers[0].url));
 
     let yamlStr = yaml.safeDump(obj);
-    console.log(`Yamilizing INPUT ${config.inputYamlPath} to OUTPUT ${config.outputYamlPath} at ${Date.now()}`);
+    logger.info(`Yamilizing INPUT ${config.inputYamlPath} to OUTPUT ${config.outputYamlPath} at ${Date.now()}`);
     fs.writeFileSync(config.outputYamlPath, yamlStr, 'utf8');
-    console.log(`Yamilizing at ${Date.now()}`);
+    logger.info(`Yamilizing`);
     return config.outputYamlPath;
 }
 
