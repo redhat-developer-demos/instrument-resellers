@@ -17,7 +17,7 @@ const {
     ping
 } = require('../dataManager/mongoose/index');
 const {logger} = require('../logger');
-const {getConnection, getConnectionConfigSync} = require('../dataManager/mongoose/connection')
+const {getConnection, getConnectionUrlSync} = require('../dataManager/mongoose/connection')
 const seeder = require("../dataSeeding/instrumentSeeder");
 const {getPings} = require("../dataManager/mongoose");
 const expect = require('chai').expect;
@@ -41,16 +41,16 @@ describe('MongoDB Tests', () => {
 
     it('Can ping to DB', async () => {
         const message = "Hi there";
-        const config = getConnectionConfigSync()
-        await setPing(config.url,  message)
+        const url = getConnectionUrlSync()
+        await setPing(url,  message)
             .catch(e => {
                 logger.error(e)
             });
     }).timeout(5000);
 
     it('Can get Pings', async () => {
-        const config = getConnectionConfigSync()
-        const pings = await getPings(config.url)
+        const url = getConnectionUrlSync()
+        const pings = await getPings(url)
             .catch(e => {
                 logger.error(e);
             })

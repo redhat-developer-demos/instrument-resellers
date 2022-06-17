@@ -1,14 +1,10 @@
 const {getRandomPurchaseSync,getRandomAcquisitionSync,getRandomRefurbishmentSync} = require("./workflowSeeder")
-const {Refurbishment} = require('../dataManager/typeorm/model/Refurbishment')
-const {Purchase} = require('../dataManager/typeorm/model/Purchase')
-const {Acquisition} = require('../dataManager/typeorm/model/Acquisition')
 const {logger} = require("../logger");
-const {Instrument} = require("../dataManager/typeorm/model/Instrument");
 
 const {setAcquisition, setPurchase, setRefurbishment} = require('../dataManager/mongoose/index')
-const {getConnectionConfigSync} = require('../dataManager/mongoose/connection')
+const {getConnectionUrlSync} = require('../dataManager/mongoose/connection')
 
-const dbURL = getConnectionConfigSync().url;
+const dbURL = getConnectionUrlSync().url;
 // seed acquisitions
 const seedAcquisitions  = async(vendorType, count) => {
     for( let i = 0; i < count; i++){
