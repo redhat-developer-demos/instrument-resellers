@@ -42,6 +42,6 @@ const createResellerDatabase = async() =>{
     logger.info(`Creating reseller db with the name: ${resellerDbName}`)
     const resellerDb = await createResellerDb(conn, resellerDbName);
     logger.info(`Created reseller db with the name: ${resellerDbName}`)
-    return {resellerDb, conn};
+    return conn;
 }
 module.exports = {getAdminConnection, createResellerDatabase};

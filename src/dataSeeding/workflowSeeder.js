@@ -4,6 +4,7 @@ const {createRandomUserSync}  = require('./user_manuSeeder')
 const randomIntFromIntervalSync = (min, max) => { // min and max included
     return Math.floor(Math.random() * (max - min + 1) + min);
 }
+const DAYS_BACK = -60;
 
 Date.prototype.addDays = function(days) {
     const date = new Date(this.valueOf());
@@ -14,16 +15,16 @@ Date.prototype.addDays = function(days) {
 
 
 const getInstrumentByVendorType = (vendorType) => {
-    const obj = {};
+    let obj = {};
     switch (vendorType.toLowerCase()){
         case "clarinet":
-            obj.instrument =  getRandomClarinetSync();
+            obj = getRandomClarinetSync();
             break;
         case "brass":
-            obj.instrument =  getRandomBrassSync();
+            obj = getRandomBrassSync();
             break;
         case "saxophone":
-            obj.instrument =  getRandomSaxophoneSync();
+            obj= getRandomSaxophoneSync();
             break;
     }
     return obj;
@@ -33,7 +34,8 @@ const getRandomPurchaseSync = (vendorType) => {
     const obj = {};
     obj.buyer = createRandomUserSync()
     obj.price = randomIntFromIntervalSync(200, 1000);
-    obj.purchaseDate = faker.date.betweens('2022-01-01T00:00:00.000Z', Date.now())
+    const startDate = new Date(Date.now()).addDays((DAYS_BACK));
+    obj.purchaseDate = faker.date.between(startDate, Date.now())
     obj.instrument = getInstrumentByVendorType(vendorType)
     return obj;
 }
@@ -42,17 +44,19 @@ const getRandomAcquisitionSync = (vendorType) => {
     const obj = {};
     obj.seller = createRandomUserSync()
     obj.price = randomIntFromIntervalSync(200, 1000);
-    obj.date = faker.date.betweens('2022-01-01T00:00:00.000Z', Date.now())
-    obj.instrument = getInstrumentByVendorType(vendorType)
+    obj.date = faker.date.between('2022-01-01T00:00:00.000Z', Date.now())
+    obj.instrument = getInstrumentByVendorType(vendorType);
     return obj;
 }
 
 const getRandomRefurbishmentSync = (vendorType) =>{
-    const obj = {};
+    let obj= {};
     obj.instrument = getInstrumentByVendorType(vendorType)
-    obj.workToBeDone = `This instrument needs: ${faker.lorem.sentence()}`
-    obj.startDate = new Date(faker.date.betweens('2022-01-01T00:00:00.000Z', Date.now()))
-    obj.finishDate = faker.date.betweens(obj.startDate, obj.startDate.addDays(30))
+    obj.workToBeDone = `This instrument needs: ${faker.lorem.sentence()}`;
+    const startDate = new Date(Date.now()).addDays(DAYS_BACK);
+    obj.startDate = faker.date.between(startDate, Date.now());
+    const endDate = obj.startDate.addDays(30);
+    obj.finishDate = faker.date.between(obj.startDate, endDate)
 
     return obj;
 }

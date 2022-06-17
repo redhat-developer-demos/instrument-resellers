@@ -1,6 +1,7 @@
 #db
 
-containers/data
+containers/postgree/data
+containers/mongodb/data
 src/api/adjustedopenapi.yaml
 
 # Logs

@@ -12,7 +12,8 @@ docker run -d \
     -p 27017:27017 \
     --name mongy \
     -v $DATA_DIR:/data/db \
-    -e MONGODB_INITDB_ROOT_USERNAME=cool-db-user \
-    -e MONGODB_INITDB_ROOT_PASSWORD=cool-password \
+    -e MONGODB_INITDB_ROOT_USERNAME=simpleuser \
+    -e MONGODB_INITDB_ROOT_PASSWORD=simplepassword \
+    -e MONGO_INITDB_DATABASE=clydesclarinets \
     mongo:latest
 

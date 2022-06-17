@@ -1,5 +1,5 @@
 'use strict';
-const logger = require('winston');
+const logger = require('../logger');
 
 /**
  * Find an Acquisition by ID

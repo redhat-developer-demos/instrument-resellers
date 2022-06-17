@@ -32,32 +32,29 @@ const app = expressAppConfig.getApp();
 
 
 // Do the seeding if necessary
-const serverStartMessage = (serverHost, serverPort)=>{
+const serverStartMessage = (serverHost, serverPort) => {
     const url = `${serverHost}:${serverPort}`
     logger.info(`Your API entry point is ${url}/v1`);
     logger.info(`Swagger-ui is available on ${url}/docs`, serverPort);
 }
 
 
-if (process.env.SEEDER_INSTRUMENT) {
-    const seedCount = process.env.SEEDER_COUNT || 10
+if (process.env.SEEDER_DATA) {
+    let seedCount = Number(process.env.SEEDER_COUNT) || 10;
     const seedInstrument = process.env.SEEDER_INSTRUMENT;
-    createResellerDatabase()
-        .then((conn) => {
-            //logger.info(`Seeding ${JSON.stringify({seedInstrument, seedCount, conn})}`)
-            seed(seedInstrument, seedCount, conn)
-                .then(() => {
-                    // Initialize the Swagger middleware
-                    http.createServer(app).listen(serverPort, function () {
-                        serverStartMessage(process.env.SERVER_HOST,serverPort)
-                    });
-                })
+    logger.info(`Seeding with ${seedInstrument} by count ${seedCount}`)
+    seed(seedInstrument, seedCount)
+        .then(() => {
+            // Initialize the Swagger middleware
+            http.createServer(app).listen(serverPort, function () {
+                serverStartMessage(process.env.SERVER_HOST, serverPort)
+            });
         })
 } else {
     logger.info('No seeding in force')
     // Initialize the Swagger middleware
     http.createServer(app).listen(serverPort, function () {
-        serverStartMessage(process.env.SERVER_HOST,serverPort)
+        serverStartMessage(process.env.SERVER_HOST, serverPort)
     });
 }
 

@@ -1,33 +1,43 @@
 const mongoose = require('mongoose');
 
-const manufacturer = mongoose.Schema({
-    name: {type: String, required: true},
-    description: {type: String, required: true},
-    address: {type: address, required: true}
+const ping = mongoose.Schema({
+    message: {type: String},
+    created: {
+        type: Date,
+        default: Date.now
+    }
 })
-const instrument = mongoose.Schema({
-    instrument: {type: String, required: true},
-    type: {type: String, required: true},
-    name: {type: String, required: true},
-    manufacturer: {type: manufacturer, required: true},
-})
+
 const address = mongoose.Schema({
-    address_1: {type: String, required: true},
-    address_2: {type: String, required: true},
-    city: {type: String, required: true},
-    state_province: {type: String, required: true},
-    zip_region_code: {type: String, required: true},
-    country: {type: String, default: "USA", required: true},
+    address_1: {type: String},
+    address_2: {type: String},
+    city: {type: String},
+    state_province: {type: String},
+    zip_region_code: {type: String},
+    country: {type: String, default: "USA"},
     created: {
         type: Date,
         default: Date.now
     }
 });
+
+const manufacturer = mongoose.Schema({
+    name: {type: String},
+    description: {type: String},
+    address: {type: address}
+})
+const instrument = mongoose.Schema({
+    instrument: {type: String},
+    type: {type: String},
+    name: {type: String},
+    manufacturer: {type: manufacturer},
+})
+
 const user = mongoose.Schema({
-    firstName: {type: String, required: true},
-    lastName: {type: String, required: true},
-    email: {type: String, required: true},
-    phone: {type: String, required: true},
+    firstName: {type: String},
+    lastName: {type: String},
+    email: {type: String},
+    phone: {type: String},
     userType: {
         type: String,
         required: true,
@@ -35,7 +45,7 @@ const user = mongoose.Schema({
         default: "BUYER"
     },
     address: {
-        type: { address, required: true}
+        type: { address}
     },
     created: {
         type: Date,
@@ -43,9 +53,9 @@ const user = mongoose.Schema({
     }
 });
 const purchase = mongoose.Schema({
-    buyer: {type: user, required: true},
-    instrument: {type: instrument, required: true},
-    price: {type: Number, required: true},
+    buyer: {type: user},
+    instrument: {type: instrument},
+    price: {type: Number},
     purchaseDate: {
         type: Date,
         default: Date.now
@@ -56,9 +66,9 @@ const purchase = mongoose.Schema({
     }
 });
 const acquisition = mongoose.Schema({
-    seller: {type: user, required: true},
-    instrument: {type: instrument, required: true},
-    price: {type: Number, required: true},
+    seller: {type: user},
+    instrument: {type: instrument},
+    price: {type: Number},
     acquisitionDate: {
         type: Date,
         default: Date.now
@@ -69,9 +79,8 @@ const acquisition = mongoose.Schema({
     }
 });
 const refurbishment = mongoose.Schema({
-    description: {type: String, required: true},
-    workToBeDone: {type: String, required: true},
-    instrument: {type: instrument, required: true},
+    workToBeDone: {type: String},
+    instrument: {type: instrument},
     startDate: {
         type: Date,
         default: Date.now
@@ -92,4 +101,5 @@ const User = mongoose.model('User', user);
 const Purchase = mongoose.model('Purchase', purchase);
 const Acquisition = mongoose.model('Acquisition', acquisition);
 const Refurbishment = mongoose.model('Refurbishment', refurbishment);
-module.exports = {Refurbishment, Acquisition, Purchase, User, Address, Instrument,Manufacturer};
+const Ping = mongoose.model('Ping', ping);
+module.exports = { Refurbishment, Acquisition, Purchase, User, Address, Instrument,Manufacturer, Ping };
