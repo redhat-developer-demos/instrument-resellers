@@ -1,7 +1,9 @@
 'use strict';
 require('dotenv').config();
+const { faker } = require('@faker-js/faker');
 const {
     setPing,
+    getPing,
     getUsers,
     getUser,
     getInstruments,
@@ -37,15 +39,31 @@ describe('MongoDB Tests', () => {
         expect(connection).to.be.an('object');
         connection.disconnect();
 
-    }).timeout(5000);;;
+    }).timeout(5000);
 
     it('Can ping to DB', async () => {
-        const message = "Hi there";
-        const url = getConnectionUrlSync()
-        await setPing(url,  message)
+        const message = faker.lorem.words(10);
+        await setPing(message)
             .catch(e => {
                 logger.error(e)
             });
+        const pings = await getPings()
+        expect(pings).to.be.an('array');
+        const ping = await getPing(pings[0].id.toString())
+            .catch(e => {
+                logger.error(e);
+            })
+        expect(ping).to.be.an('object');
+        expect(ping.id).to.eq(pings[0].id.toString());
+
+    }).timeout(5000);
+
+    it('Can get ID from Acquisition', async () => {
+        const items = await getAcquisitions()
+        logger.info(`the it is ${items[0].id}`);
+        const id = items[0].id.toString();
+        const item = await getAcquisition(id)
+        expect(item).to.be.an('object');
     }).timeout(5000);
 
     it('Can get Pings', async () => {
@@ -54,6 +72,9 @@ describe('MongoDB Tests', () => {
             .catch(e => {
                 logger.error(e);
             })
+        pings.forEach(ping =>{
+            logger.info(`The ping.id is ${ping.id}`)
+        })
         logger.info(pings);
         expect(pings).to.be.an('array');
     });

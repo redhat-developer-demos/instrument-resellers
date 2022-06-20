@@ -2,6 +2,7 @@
 
 const utils = require('../utils/writer.js');
 const Reseller = require('../service/ResellerService');
+const {logger} = require('../logger')
 
 module.exports.getAcquisition = function getAcquisition (req, res, next, id) {
   Reseller.getAcquisition(id)

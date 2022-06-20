@@ -1,5 +1,16 @@
 'use strict';
-const logger = require('../logger');
+const {logger} = require('../logger');
+
+const {getAcquisition,
+  getAcquisitions,
+  getPurchases,
+  getPurchase,
+  getRefurbishments,
+  getRefurbishment,
+  getInstruments,
+  getInstrument,
+  getUser,
+  getUsers} = require('../dataManager/mongoose/index')
 
 /**
  * Find an Acquisition by ID
@@ -8,36 +19,9 @@ const logger = require('../logger');
  * id uuid ID of the purchase to return
  * returns Acquisition
  **/
-exports.getAcquisition = function(id) {
-  return new Promise(function(resolve, reject) {
-    const examples = {};
-    examples['application/json'] = {
-  "date" : "2021-06-20T01:02:03Z",
-  "seller" : {
-    "firstName" : "Sally",
-    "lastName" : "Smith",
-    "address" : {
-      "city" : "Anytown",
-      "zip_region_code" : "90001-1234",
-      "address_1" : "123 Maple Street",
-      "address_2" : "Unit 1",
-      "state_province" : "CA"
-    },
-    "phone" : "111-222-3333",
-    "id" : "id",
-    "userType" : "",
-    "email" : "sally.smith@example.com"
-  },
-  "price" : 539.5,
-  "instrument" : "",
-  "id" : "id"
-};
-    if (Object.keys(examples).length > 0) {
-      resolve(examples[Object.keys(examples)[0]]);
-    } else {
-      resolve();
-    }
-  });
+exports.getAcquisition = async function(id) {
+  const item = await getAcquisition(id);
+  return item;
 }
 
 
@@ -47,56 +31,9 @@ exports.getAcquisition = function(id) {
  *
  * returns ArrayOfAcquisitions
  **/
-exports.getAcquisitions = function() {
-  return new Promise(function(resolve, reject) {
-    const examples = {};
-    examples['application/json'] = [ {
-  "date" : "2021-06-20T01:02:03Z",
-  "seller" : {
-    "firstName" : "Sally",
-    "lastName" : "Smith",
-    "address" : {
-      "city" : "Anytown",
-      "zip_region_code" : "90001-1234",
-      "address_1" : "123 Maple Street",
-      "address_2" : "Unit 1",
-      "state_province" : "CA"
-    },
-    "phone" : "111-222-3333",
-    "id" : "id",
-    "userType" : "",
-    "email" : "sally.smith@example.com"
-  },
-  "price" : 539.5,
-  "instrument" : "",
-  "id" : "id"
-}, {
-  "date" : "2021-06-20T01:02:03Z",
-  "seller" : {
-    "firstName" : "Sally",
-    "lastName" : "Smith",
-    "address" : {
-      "city" : "Anytown",
-      "zip_region_code" : "90001-1234",
-      "address_1" : "123 Maple Street",
-      "address_2" : "Unit 1",
-      "state_province" : "CA"
-    },
-    "phone" : "111-222-3333",
-    "id" : "id",
-    "userType" : "",
-    "email" : "sally.smith@example.com"
-  },
-  "price" : 539.5,
-  "instrument" : "",
-  "id" : "id"
-} ];
-    if (Object.keys(examples).length > 0) {
-      resolve(examples[Object.keys(examples)[0]]);
-    } else {
-      resolve();
-    }
-  });
+exports.getAcquisitions = async function() {
+  const items = await getAcquisitions();
+  return items;
 }
 
 
@@ -106,21 +43,13 @@ exports.getAcquisitions = function() {
  *
  * returns HealthCheck
  **/
-exports.getHealthCheck = function() {
-  logger.info("Entering Healthcheck");
-  return new Promise(function(resolve, reject) {
-    const vendor = process.env.VENDOR_NAME || "Vendor Not Known"
-    const examples = {};
-    examples['application/json'] = {
-  "date" : new Date(Date.now()).toISOString(),
-  "message" : `Things are A-OK at ${vendor}`
-};
-    if (Object.keys(examples).length > 0) {
-      resolve(examples[Object.keys(examples)[0]]);
-    } else {
-      resolve();
-    }
-  });
+exports.getHealthCheck = async function() {
+  const vendor = process.env.VENDOR_NAME || "Vendor Not Known"
+  logger.info(`Healthcheck message: Things are A-OK at ${vendor}`);
+  return {
+    "date" : new Date(Date.now()).toISOString(),
+    "message" : `Things are A-OK at ${vendor}`
+  }
 }
 
 
@@ -131,33 +60,18 @@ exports.getHealthCheck = function() {
  * id uuid ID of the purchase to return
  * returns Instrument
  **/
-exports.getInstrument = function(id) {
-  return new Promise(function(resolve, reject) {
-    const examples = {};
-    examples['application/json'] = "";
-    if (Object.keys(examples).length > 0) {
-      resolve(examples[Object.keys(examples)[0]]);
-    } else {
-      resolve();
-    }
-  });
+exports.getInstrument = async function(id) {
+  const item = await getInstrument(id);
+  return item;
 }
-
 
 /**
  *
  * returns ArrayOfInstruments
  **/
-exports.getInstruments = function() {
-  return new Promise(function(resolve, reject) {
-    const examples = {};
-    examples['application/json'] = [ "", "" ];
-    if (Object.keys(examples).length > 0) {
-      resolve(examples[Object.keys(examples)[0]]);
-    } else {
-      resolve();
-    }
-  });
+exports.getInstruments = async function() {
+  const items = await getInstruments();
+  return items;
 }
 
 
@@ -227,36 +141,9 @@ exports.getManufacturers = function() {
  * id uuid ID of the purchase to return
  * returns Purchase
  **/
-exports.getPurchase = function(id) {
-  return new Promise(function(resolve, reject) {
-    const examples = {};
-    examples['application/json'] = {
-  "purchaseDate" : "2021-06-20T01:02:03Z",
-  "price" : 539.5,
-  "instrument" : "",
-  "id" : "id",
-  "buyer" : {
-    "firstName" : "Sally",
-    "lastName" : "Smith",
-    "address" : {
-      "city" : "Anytown",
-      "zip_region_code" : "90001-1234",
-      "address_1" : "123 Maple Street",
-      "address_2" : "Unit 1",
-      "state_province" : "CA"
-    },
-    "phone" : "111-222-3333",
-    "id" : "id",
-    "userType" : "",
-    "email" : "sally.smith@example.com"
-  }
-};
-    if (Object.keys(examples).length > 0) {
-      resolve(examples[Object.keys(examples)[0]]);
-    } else {
-      resolve();
-    }
-  });
+exports.getPurchase = async function(id) {
+  const items = await getPurchase(id);
+  return items;
 }
 
 
@@ -266,56 +153,9 @@ exports.getPurchase = function(id) {
  *
  * returns ArrayOfPurchases
  **/
-exports.getPurchases = function() {
-  return new Promise(function(resolve, reject) {
-    const examples = {};
-    examples['application/json'] = [ {
-  "purchaseDate" : "2021-06-20T01:02:03Z",
-  "price" : 539.5,
-  "instrument" : "",
-  "id" : "id",
-  "buyer" : {
-    "firstName" : "Sally",
-    "lastName" : "Smith",
-    "address" : {
-      "city" : "Anytown",
-      "zip_region_code" : "90001-1234",
-      "address_1" : "123 Maple Street",
-      "address_2" : "Unit 1",
-      "state_province" : "CA"
-    },
-    "phone" : "111-222-3333",
-    "id" : "id",
-    "userType" : "",
-    "email" : "sally.smith@example.com"
-  }
-}, {
-  "purchaseDate" : "2021-06-20T01:02:03Z",
-  "price" : 539.5,
-  "instrument" : "",
-  "id" : "id",
-  "buyer" : {
-    "firstName" : "Sally",
-    "lastName" : "Smith",
-    "address" : {
-      "city" : "Anytown",
-      "zip_region_code" : "90001-1234",
-      "address_1" : "123 Maple Street",
-      "address_2" : "Unit 1",
-      "state_province" : "CA"
-    },
-    "phone" : "111-222-3333",
-    "id" : "id",
-    "userType" : "",
-    "email" : "sally.smith@example.com"
-  }
-} ];
-    if (Object.keys(examples).length > 0) {
-      resolve(examples[Object.keys(examples)[0]]);
-    } else {
-      resolve();
-    }
-  });
+exports.getPurchases = async function() {
+  const items = await getPurchases();
+  return items;
 }
 
 
@@ -326,22 +166,9 @@ exports.getPurchases = function() {
  * id uuid ID of the Refurbishments to return
  * returns Refurbishment
  **/
-exports.getRefurbishment = function(id) {
-  return new Promise(function(resolve, reject) {
-    const examples = {};
-    examples['application/json'] = {
-  "workToBeDone" : "Needs a new bridge and intonation needs to be corrected",
-  "instrument" : "",
-  "finishDate" : "2021-07-15T01:02:03Z",
-  "id" : "id",
-  "startDate" : "2021-06-20T01:02:03Z"
-};
-    if (Object.keys(examples).length > 0) {
-      resolve(examples[Object.keys(examples)[0]]);
-    } else {
-      resolve();
-    }
-  });
+exports.getRefurbishment = async function(id) {
+  const items = await getRefurbishment(id);
+  return items;
 }
 
 
@@ -351,28 +178,9 @@ exports.getRefurbishment = function(id) {
  *
  * returns ArrayOfRefurbishments
  **/
-exports.getRefurbishments = function() {
-  return new Promise(function(resolve, reject) {
-    const examples = {};
-    examples['application/json'] = [ {
-  "workToBeDone" : "Needs a new bridge and intonation needs to be corrected",
-  "instrument" : "",
-  "finishDate" : "2021-07-15T01:02:03Z",
-  "id" : "id",
-  "startDate" : "2021-06-20T01:02:03Z"
-}, {
-  "workToBeDone" : "Needs a new bridge and intonation needs to be corrected",
-  "instrument" : "",
-  "finishDate" : "2021-07-15T01:02:03Z",
-  "id" : "id",
-  "startDate" : "2021-06-20T01:02:03Z"
-} ];
-    if (Object.keys(examples).length > 0) {
-      resolve(examples[Object.keys(examples)[0]]);
-    } else {
-      resolve();
-    }
-  });
+exports.getRefurbishments = async function() {
+  const items = await getRefurbishments();
+  return items;
 }
 
 
@@ -383,76 +191,20 @@ exports.getRefurbishments = function() {
  * id uuid ID of the purchase to return
  * returns User
  **/
-exports.getUser = function(id) {
-  return new Promise(function(resolve, reject) {
-    const examples = {};
-    examples['application/json'] = {
-  "firstName" : "Sally",
-  "lastName" : "Smith",
-  "address" : {
-    "city" : "Anytown",
-    "zip_region_code" : "90001-1234",
-    "address_1" : "123 Maple Street",
-    "address_2" : "Unit 1",
-    "state_province" : "CA"
-  },
-  "phone" : "111-222-3333",
-  "id" : "id",
-  "userType" : "",
-  "email" : "sally.smith@example.com"
-};
-    if (Object.keys(examples).length > 0) {
-      resolve(examples[Object.keys(examples)[0]]);
-    } else {
-      resolve();
-    }
-  });
+exports.getUser = async function(id) {
+  const item = await getUser(id);
+  return item;
 }
 
 
-/**
- * Gets a list of Users
- * Gets a list of Users
- *
- * returns ArrayOfUsers
- **/
-exports.getUsers = function() {
-  return new Promise(function(resolve, reject) {
-    const examples = {};
-    examples['application/json'] = [ {
-  "firstName" : "Sally",
-  "lastName" : "Smith",
-  "address" : {
-    "city" : "Anytown",
-    "zip_region_code" : "90001-1234",
-    "address_1" : "123 Maple Street",
-    "address_2" : "Unit 1",
-    "state_province" : "CA"
-  },
-  "phone" : "111-222-3333",
-  "id" : "id",
-  "userType" : "",
-  "email" : "sally.smith@example.com"
-}, {
-  "firstName" : "Sally",
-  "lastName" : "Smith",
-  "address" : {
-    "city" : "Anytown",
-    "zip_region_code" : "90001-1234",
-    "address_1" : "123 Maple Street",
-    "address_2" : "Unit 1",
-    "state_province" : "CA"
-  },
-  "phone" : "111-222-3333",
-  "id" : "id",
-  "userType" : "",
-  "email" : "sally.smith@example.com"
-} ];
-    if (Object.keys(examples).length > 0) {
-      resolve(examples[Object.keys(examples)[0]]);
-    } else {
-      resolve();
-    }
-  });
-}
+  /**
+   * Gets a list of Users
+   * Gets a list of Users
+   *
+   * returns ArrayOfUsers
+   **/
+  exports.getUsers = async function() {
+    const items = await getUsers();
+    return items;
+  }
 

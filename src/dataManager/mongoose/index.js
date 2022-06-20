@@ -1,16 +1,21 @@
 const mongoose = require('mongoose');
+const mongooseLeanVirtuals = require('mongoose-lean-virtuals');
+
+const {getConnectionUrlSync} = require('./connection');
+const {Ping, Acquisition, Refurbishment, Purchase, User, Instrument} = require('./schemas');
+
 const _ = require('lodash');
 const {logger} = require("../../logger");
 const moption = {
     useNewUrlParser: true,
     useUnifiedTopology: true,
-    useMongoClient: true
 };
 
 const schemas = require('./schemas');
 
-const setPing = async (connectionUrl, message)=> {
-    const conn = await mongoose.connect(connectionUrl);
+const setPing = async (message)=> {
+    const url = getConnectionUrlSync();
+    const conn = await mongoose.connect(url);
     logger.info({message:`Pinging at ${new Date()}`});
     const ping = new schemas.Ping();
     await ping.save();
@@ -19,57 +24,128 @@ const setPing = async (connectionUrl, message)=> {
     await conn.disconnect();
 };
 
-const getPings = async (connectionUrl)=> {
-    const conn = await mongoose.connect(connectionUrl);
+const getPings = async () => {
+    const url = getConnectionUrlSync();
+    logger.info(`Connecting getPings at url ${url}}`);
+    const conn = await mongoose.connect(url);
     logger.info({message:`Getting Pings at ${new Date()}`});
-    const items = await schemas.Ping.find({}).lean();
+    const items = await Ping.find({}).lean({ virtuals: true });
     logger.info({message:`Got Pings at ${new Date()}`, items});
-    await conn.disconnect();
     return items;
 };
 
-const getUsers = async (connectionUrl, moption)=> {
-    await mongoose.connect(connectionUrl, moption)
-        .then(result => {
-            logger.info({message:`Getting Users at ${new Date()}`});
-            const items = schemas.User.find({}).lean();
-            logger.info({message:`Got Users at ${new Date()}`, items});
-            return items;
-        });
-};
-
-const getUser = async (id)=> {
-    const item = await mongoose.connect(process.env.MONGODB_URL, moption)
-        .then(result => {
-            const rtn = schemas.User.findById( id);
-            logger.info(rtn);
-            return rtn;
-        });
+const getPing = async (id) => {
+    const url = getConnectionUrlSync();
+    logger.info(`Connecting getPings at url ${url}}`);
+    const conn = await mongoose.connect(url);
+    logger.info({message:`Getting Ping for ${id}`});
+    const item = await Ping.findById(id).lean({ virtuals: true });
+    logger.info({message:`Got Ping for ${id}), ${item}`});
     return item;
 };
 
-const getInstruments = async ()=> {
-    await mongoose.connect(process.env.MONGODB_URL, moption)
-        .then(result => {
-            logger.info({message:`Getting Instruments at ${new Date()}`});
-            const items = schemas.Instrument.find({}).lean();
-            logger.info({message:`Got Instruments at ${new Date()}`, items});
-            return items;
+const setUser = async (userObj)=> {
+    const url = getConnectionUrlSync();
+    logger.info(`Connecting purchase at url ${url}}`);
+    await mongoose.connect(url);
+    logger.info(`Adding user ${userObj}}`);
+    const user = new User();
+    user.firstName = userObj.firstName;
+    user.lastName = userObj.lastName;
+    user.email = userObj.email;
+    user.phone = userObj.phone;
+    user.userType = userObj.userType;
+    user.address = userObj.address;
+    await user.save();
+    logger.info(`Added user:  ${user}}`);
+};
+
+
+const getUsers = async ()=> {
+    const url = getConnectionUrlSync();
+    logger.info(`Connecting getUsers at url ${url}}`);
+    logger.info({message:`Getting Users at ${new Date()}`});
+    const items = await User.find({}).lean({ virtuals: true });
+    logger.info({message:`Got Users at ${new Date()}`, items});
+    return items;
+
+};
+
+const getUsersBySearch = async (searchObj)=> {
+    const url = getConnectionUrlSync();
+    logger.info(`Connecting getUsers at url ${url}}`);
+    logger.info({message:`Search users by criteria  ${searchObj}`});
+    const item = await User.exists(searchObj).lean({ virtuals: true })
+        .catch(e => {
+            logger.error(e);
+            throw e;
         });
+    logger.info(`Got Users by search ${item}`);
+    return item;
+};
+
+
+const getUser = async (id)=> {
+    const url = getConnectionUrlSync();
+    logger.info(`Connecting getUser at url ${url}}`);
+    await mongoose.connect(url)
+    logger.info(`Getting User by id: ${id}`);
+    const item = User.findById( id).lean({ virtuals: true });
+    logger.info(`Got User by id: ${id} ${item}`);
+    return item;
+};
+
+const getInstrumentsBySearch = async (searchObj)=> {
+    const url = getConnectionUrlSync();
+    logger.info(`Connecting getInstrumentsBySearch at url ${url}}`);
+    logger.info({message:`Search instrument by criteria  ${searchObj}`});
+    const items = await Instrument.exists(searchObj).lean({ virtuals: true })
+        .catch(e => {
+            logger.error(e);
+            throw e;
+        });
+    logger.info(`Got Instrument by search ${items}`);
+    return items;
+};
+
+
+const setInstrument = async (instrumentObject)=> {
+    const url = getConnectionUrlSync();
+    logger.info(`Connecting setInstruments at url ${url}}`);
+    await mongoose.connect(url);
+    logger.info(`Saving instrument with data ${instrumentObject}`);
+    const instrument = new Instrument();
+    instrument.name = instrumentObject.name;
+    instrument.instrument = instrumentObject.instrument;
+    instrument.type = instrumentObject.type;
+    instrument.manufacturer = instrumentObject.manufacturer;
+    await instrument.save()
+    logger.info(`Saved instrument with data ${instrumentObject}`);
+};
+const getInstruments = async ()=> {
+    const url = getConnectionUrlSync();
+    logger.info(`Connecting getInstruments at url ${url}}`);
+    await mongoose.connect(url);
+    logger.info(`Getting Instruments`);
+    const items = await Instrument.find({}).lean();
+    logger.info(`Got Instruments ${items}`);
+    return items;
 };
 
 const getInstrument = async (id)=> {
-    const item = await mongoose.connect(process.env.MONGODB_URL, moption)
-        .then(result => {
-            const rtn = schemas.Instrument.findById( id);
-            logger.info(rtn);
-            return rtn;
-        });
+    const url = getConnectionUrlSync();
+    logger.info(`Connecting getInstrument at url ${url}}`);
+    await mongoose.connect(url);
+    logger.info(`Getting Instrument by id: ${ id }`);
+    const item = await Instrument.findById( id);
+    logger.info(`Got Instrument ${item}`);
     return item;
 };
 
 const getManufacturers = async ()=> {
-    await mongoose.connect(process.env.MONGODB_URL, moption)
+    const url = getConnectionUrlSync();
+    logger.info(`Connecting getManufacturers at url ${url}}`);
+    await mongoose.connect(url)
         .then(result => {
             logger.info({message:`Getting Manufacturers at ${new Date()}`});
             const items = schemas.Manufacturer.find({}).lean();
@@ -79,7 +155,9 @@ const getManufacturers = async ()=> {
 };
 
 const getManufacturer = async (id)=> {
-    const item = await mongoose.connect(process.env.MONGODB_URL, moption)
+    const url = getConnectionUrlSync();
+    logger.info(`Connecting getManufacturer at url ${url}}`);
+    const item = await mongoose.connect(url)
         .then(result => {
             const rtn = schemas.Manufacturer.findById( id);
             logger.info(rtn);
@@ -89,12 +167,14 @@ const getManufacturer = async (id)=> {
 };
 
 
-const setPurchase = async (connectionUrl, purchaseObj)=> {
-    logger.info(`Connecting purchase at url ${connectionUrl}}`);
-    const conn = await mongoose.connect(connectionUrl);
+const setPurchase = async (purchaseObj)=> {
+    const url = getConnectionUrlSync();
+    logger.info(`Connecting purchase at url ${url}}`);
+    const conn = await mongoose.connect(url);
     logger.info(`Adding purchase ${purchaseObj}}`);
-    const purchase = new schemas.Purchase();
+    const purchase = new Purchase();
     purchase.buyer = purchaseObj.buyer;
+    purchaseObj.buyer.userType = 'BUYER';
     purchase.instrument = purchaseObj.instrument;
     purchase.price = purchaseObj.price;
     purchase.purchaseDate = purchaseObj.purchaseDate || new Date(Date.now());
@@ -103,29 +183,29 @@ const setPurchase = async (connectionUrl, purchaseObj)=> {
 };
 
 const getPurchases = async ()=> {
-    await mongoose.connect(process.env.MONGODB_URL, moption)
-        .then(result => {
-            logger.info({message:`Getting Purchases at ${new Date()}`});
-            const items = schemas.Purchase.find({}).lean();
-            logger.info({message:`Got Purchases at ${new Date()}`, items});
-            return items;
-        });
+    const url = getConnectionUrlSync();
+    logger.info(`Connecting getPurchases at url ${url}}`);
+    await mongoose.connect(url);
+    logger.info({message:`Getting Purchases at ${new Date()}`});
+    const items = await Purchase.find({}).lean();
+    logger.info({message:`Got Purchases at ${new Date()}`, items});
+    return items;
 };
 
 const getPurchase = async (id)=> {
-    const item = await mongoose.connect(process.env.MONGODB_URL, moption)
-        .then(result => {
-            const rtn = schemas.Purchase.findById( id);
-            logger.info(rtn);
-            return rtn;
-        });
+    const url = getConnectionUrlSync();
+    logger.info(`Connecting getPurchase at url ${url}}`);
+    await mongoose.connect(url)
+    logger.info(`Getting purchase by id ${id}`)
+    const item = await Purchase.findById( id);
+    logger.info(`Got purchase by id ${id}, ${item}`)
     return item;
 };
 
 
-const setAcquisition = async (connectionUrl, acquisitionObj)=> {
-    logger.info(`Connecting acquisition at url ${connectionUrl}}`);
-    await mongoose.connect(connectionUrl);
+const setAcquisition = async (acquisitionObj)=> {
+    const url = getConnectionUrlSync();
+    await mongoose.connect(url);
     logger.info(`Adding acquisition ${acquisitionObj}}`);
     const acquisition = new schemas.Acquisition();
     acquisition.seller = acquisitionObj.seller;
@@ -139,29 +219,33 @@ const setAcquisition = async (connectionUrl, acquisitionObj)=> {
 };
 
 const getAcquisitions = async ()=> {
-    await mongoose.connect(process.env.MONGODB_URL, moption)
-        .then(result => {
-            logger.info({message:`Getting Acquisitions at ${new Date()}`});
-            const items = schemas.Acquisition.find({}).lean();
-            logger.info({message:`Got Acquisitions at ${new Date()}`, items});
-            return items;
-        });
+    const url = getConnectionUrlSync()
+    logger.info(`Connecting getAcquisitions at url ${url}}`);
+    await mongoose.connect(url);
+    logger.info({message:`Getting Acquisitions at ${new Date()}`});
+    const items = await Acquisition.find({}).lean({ virtuals: true })
+        .catch(e =>{
+            logger.error(e);
+            throw e;
+    })
+    return items;
 };
 
 const getAcquisition = async (id)=> {
-    const item = await mongoose.connect(process.env.MONGODB_URL, moption)
-        .then(result => {
-            const rtn = schemas.Acquisition.findById( id);
-            logger.info(rtn);
-            return rtn;
-        });
-    return item;
+    const url = getConnectionUrlSync();
+    logger.info(`Connecting getAcquisition at url ${url}}`);
+    await mongoose.connect(url);
+    logger.info(`Getting Acquisition by id ${id}`)
+    const item = Acquisition.findById( id);
+    logger.info(`Got Acquisition by id ${id}, ${item}`)
+    return item
 };
 
 
-const setRefurbishment = async (connectionUrl, refurbishmentObj)=> {
-    logger.info(`Connecting refurbishment at url ${connectionUrl}}`);
-    await mongoose.connect(connectionUrl);
+const setRefurbishment = async (refurbishmentObj)=> {
+    const url = getConnectionUrlSync();
+    logger.info(`Connecting refurbishment at url ${url}}`);
+    await mongoose.connect(url);
     logger.info(`Adding refurbishment ${refurbishmentObj}}`);
     const refurbishment = new schemas.Refurbishment();
     refurbishment.instrument = refurbishmentObj.instrument;
@@ -175,43 +259,52 @@ const setRefurbishment = async (connectionUrl, refurbishmentObj)=> {
 };
 
 const getRefurbishments = async ()=> {
-    await mongoose.connect(process.env.MONGODB_URL, moption)
-        .then(result => {
-            logger.info({message:`Getting Refurbishments at ${new Date()}`});
-            const items = schemas.Refurbishment.find({}).lean();
-            logger.info({message:`Got Refurbishments at ${new Date()}`, items});
-            return items;
-        });
-};
+    const url = getConnectionUrlSync();
+    logger.info(`Connecting getRefurbishments at url ${url}}`);
+    await mongoose.connect(url);
+    logger.info({message: `Getting Refurbishments`});
+    const items = await Refurbishment.find({}).lean();
+    logger.info({message: `Got Refurbishments at ${items}`});
+    return items;
+}
 
 const getRefurbishment = async (id)=> {
-    const item = await mongoose.connect(process.env.MONGODB_URL, moption)
-        .then(result => {
-            const rtn = schemas.Refurbishment.findById( id);
-            logger.info(rtn);
-            return rtn;
-        });
+    const url = getConnectionUrlSync();
+    logger.info(`Connecting getRefurbishment at url ${url}}`);
+    logger.info({message: `Getting Refurbishment by ${id}`});
+    await mongoose.connect(url);
+    const item = await Refurbishment.findById( id);
+    logger.info({message: `Got Refurbishment by ${id}, ${item}`});
     return item;
 };
 
+    module.exports = {
+        setPing,
+        getPing,
+        getPings,
+        getUsers,
+        getUser,
+        getUsersBySearch,
+        getInstrumentsBySearch,
+        getInstruments,
+        setInstrument,
+        getInstrument,
+        getManufacturers,
+        getManufacturer,
+        getPurchases,
+        getPurchase,
+        setPurchase,
+        getAcquisitions,
+        getAcquisition,
+        setAcquisition,
+        getRefurbishments,
+        getRefurbishment,
+        setRefurbishment,
+        setUser,
+        getUser,
+        getUsers
+    };
 
-module.exports = {
-    setPing,
-    getPings,
-    getUsers,
-    getUser,
-    getInstruments,
-    getInstrument,
-    getManufacturers,
-    getManufacturer,
-    getPurchases,
-    getPurchase,
-    setPurchase,
-    getAcquisitions,
-    getAcquisition,
-    setAcquisition,
-    getRefurbishments,
-    getRefurbishment,
-    setRefurbishment
-};
+
+
 

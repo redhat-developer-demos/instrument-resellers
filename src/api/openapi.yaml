@@ -72,7 +72,7 @@ paths:
         style: simple
         explode: false
         schema:
-          type: number
+          $ref: '#/components/schemas/uuid'
       responses:
         "200":
           description: successful operation
@@ -120,7 +120,7 @@ paths:
         style: simple
         explode: false
         schema:
-          type: number
+          $ref: '#/components/schemas/uuid'
       responses:
         "200":
           description: successful operation
@@ -169,7 +169,7 @@ paths:
         style: simple
         explode: false
         schema:
-          type: number
+          $ref: '#/components/schemas/uuid'
       responses:
         "200":
           description: successful operation
@@ -218,7 +218,7 @@ paths:
         style: simple
         explode: false
         schema:
-          type: number
+          $ref: '#/components/schemas/uuid'
       responses:
         "200":
           description: successful operation
@@ -267,7 +267,7 @@ paths:
         style: simple
         explode: false
         schema:
-          type: number
+          $ref: '#/components/schemas/uuid'
       responses:
         "200":
           description: A Purchase
@@ -295,7 +295,7 @@ paths:
         style: simple
         explode: false
         schema:
-          type: number
+          $ref: '#/components/schemas/uuid'
       responses:
         "200":
           description: successful operation returns a Refurbishment
@@ -333,8 +333,8 @@ components:
   schemas:
     uuid:
       maxLength: 36
-      minLength: 36
-      pattern: "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$"
+      minLength: 8
+      pattern: ^[a-f\d]{24}$
       type: string
       description: Describes a string the represents a globally unique indentifier
     User:
@@ -348,7 +348,7 @@ components:
       type: object
       properties:
         id:
-          type: number
+          $ref: '#/components/schemas/uuid'
         firstName:
           type: string
           example: Sally
@@ -385,7 +385,7 @@ components:
       items:
         $ref: '#/components/schemas/User'
     UserType:
-      type: number
+      $ref: '#/components/schemas/uuid'
       enum:
       - 2
       - 1
@@ -401,7 +401,7 @@ components:
       type: object
       properties:
         id:
-          type: number
+          $ref: '#/components/schemas/uuid'
         address:
           $ref: '#/components/schemas/Address'
         name:
@@ -478,7 +478,7 @@ components:
         type: object
         properties:
           id:
-            type: number
+            $ref: '#/components/schemas/uuid'
           name:
             type: string
             example: Precision Bass
@@ -497,7 +497,7 @@ components:
       type: object
       properties:
         id:
-          type: number
+          $ref: '#/components/schemas/uuid'
         buyer:
           $ref: '#/components/schemas/User'
         instrument:
@@ -544,7 +544,7 @@ components:
       type: object
       properties:
         id:
-          type: number
+          $ref: '#/components/schemas/uuid'
         acquistionDate:
           type: string
           description: The  date when the instrument was acquired
@@ -591,7 +591,7 @@ components:
       type: object
       properties:
         id:
-          type: number
+          $ref: '#/components/schemas/uuid'
         instrument:
           $ref: '#/components/schemas/Instrument'
         workToBeDone:

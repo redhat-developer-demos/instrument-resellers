@@ -43,6 +43,7 @@ const getRandomPurchaseSync = (vendorType) => {
 const getRandomAcquisitionSync = (vendorType) => {
     const obj = {};
     obj.seller = createRandomUserSync()
+    obj.seller.userType = 'SELLER';
     obj.price = randomIntFromIntervalSync(200, 1000);
     obj.date = faker.date.between('2022-01-01T00:00:00.000Z', Date.now())
     obj.instrument = getInstrumentByVendorType(vendorType);

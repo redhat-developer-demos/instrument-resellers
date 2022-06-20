@@ -39,7 +39,7 @@ const serverStartMessage = (serverHost, serverPort) => {
 }
 
 
-if (process.env.SEEDER_DATA) {
+if (process.env.SEED_DATA && process.env.SEED_DATA.toLowerCase() !== 'false' ) {
     let seedCount = Number(process.env.SEEDER_COUNT) || 10;
     const seedInstrument = process.env.SEEDER_INSTRUMENT;
     logger.info(`Seeding with ${seedInstrument} by count ${seedCount}`)

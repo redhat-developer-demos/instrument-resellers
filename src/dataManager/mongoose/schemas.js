@@ -1,14 +1,17 @@
 const mongoose = require('mongoose');
 
-const ping = mongoose.Schema({
+const mongooseLeanVirtuals = require('mongoose-lean-virtuals');
+const ping = new mongoose.Schema({
     message: {type: String},
     created: {
         type: Date,
         default: Date.now
     }
-})
+});
 
-const address = mongoose.Schema({
+ping.plugin(mongooseLeanVirtuals);
+
+const address = new mongoose.Schema({
     address_1: {type: String},
     address_2: {type: String},
     city: {type: String},
@@ -21,19 +24,26 @@ const address = mongoose.Schema({
     }
 });
 
-const manufacturer = mongoose.Schema({
+address.plugin(mongooseLeanVirtuals);
+
+const manufacturer = new mongoose.Schema({
     name: {type: String},
     description: {type: String},
     address: {type: address}
 })
-const instrument = mongoose.Schema({
+
+manufacturer.plugin(mongooseLeanVirtuals);
+
+const instrument = new mongoose.Schema({
     instrument: {type: String},
     type: {type: String},
     name: {type: String},
     manufacturer: {type: manufacturer},
 })
 
-const user = mongoose.Schema({
+instrument.plugin(mongooseLeanVirtuals);
+
+const user = new mongoose.Schema({
     firstName: {type: String},
     lastName: {type: String},
     email: {type: String},
@@ -52,7 +62,10 @@ const user = mongoose.Schema({
         default: Date.now
     }
 });
-const purchase = mongoose.Schema({
+
+manufacturer.plugin(mongooseLeanVirtuals);
+
+const purchase = new mongoose.Schema({
     buyer: {type: user},
     instrument: {type: instrument},
     price: {type: Number},
@@ -65,7 +78,10 @@ const purchase = mongoose.Schema({
         default: Date.now
     }
 });
-const acquisition = mongoose.Schema({
+
+purchase.plugin(mongooseLeanVirtuals);
+
+const acquisition = new mongoose.Schema({
     seller: {type: user},
     instrument: {type: instrument},
     price: {type: Number},
@@ -78,7 +94,10 @@ const acquisition = mongoose.Schema({
         default: Date.now
     }
 });
-const refurbishment = mongoose.Schema({
+
+acquisition.plugin(mongooseLeanVirtuals);
+
+const refurbishment = new mongoose.Schema({
     workToBeDone: {type: String},
     instrument: {type: instrument},
     startDate: {
@@ -94,6 +113,9 @@ const refurbishment = mongoose.Schema({
         default: Date.now
     }
 });
+
+refurbishment.plugin(mongooseLeanVirtuals);
+
 const Manufacturer = mongoose.model('Manufacturer', manufacturer);
 const Instrument = mongoose.model('Instrument', instrument);
 const Address = mongoose.model('Address', address);
