@@ -12,8 +12,6 @@ Date.prototype.addDays = function(days) {
     return date;
 }
 
-
-
 const getInstrumentByVendorType = (vendorType) => {
     let obj = {};
     switch (vendorType.toLowerCase()){

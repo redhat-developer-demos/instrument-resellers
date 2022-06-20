@@ -1,5 +1,6 @@
 'use strict';
-require('dotenv').config();
+//require('dotenv').config();
+require('dotenv').config({path: __dirname + '/.env'})
 const path = require('path');
 const http = require('http');
 const {logger} = require("./logger");
@@ -30,8 +31,6 @@ const options = {
 const expressAppConfig = oas3Tools.expressAppConfig(adjustedSpecPath, options);
 const app = expressAppConfig.getApp();
 
-
-// Do the seeding if necessary
 const serverStartMessage = (serverHost, serverPort) => {
     const url = `${serverHost}:${serverPort}`
     logger.info(`Your API entry point is ${url}/v1`);
@@ -39,24 +38,9 @@ const serverStartMessage = (serverHost, serverPort) => {
 }
 
 
-if (process.env.SEED_DATA && process.env.SEED_DATA.toLowerCase() !== 'false' ) {
-    let seedCount = Number(process.env.SEEDER_COUNT) || 10;
-    const seedInstrument = process.env.SEEDER_INSTRUMENT;
-    logger.info(`Seeding with ${seedInstrument} by count ${seedCount}`)
-    seed(seedInstrument, seedCount)
-        .then(() => {
-            // Initialize the Swagger middleware
-            http.createServer(app).listen(serverPort, function () {
-                serverStartMessage(process.env.SERVER_HOST, serverPort)
-            });
-        })
-} else {
-    logger.info('No seeding in force')
-    // Initialize the Swagger middleware
-    http.createServer(app).listen(serverPort, function () {
-        serverStartMessage(process.env.SERVER_HOST, serverPort)
-    });
-}
+http.createServer(app).listen(serverPort, function () {
+    serverStartMessage(process.env.SERVER_HOST, serverPort)
+});
 
 
 

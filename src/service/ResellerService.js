@@ -9,6 +9,8 @@ const {getAcquisition,
   getRefurbishment,
   getInstruments,
   getInstrument,
+  getManufacturer,
+  getManufacturers,
   getUser,
   getUsers} = require('../dataManager/mongoose/index')
 
@@ -82,16 +84,9 @@ exports.getInstruments = async function() {
  * id uuid ID of the purchase to return
  * returns Instrument
  **/
-exports.getManufacturer = function(id) {
-  return new Promise(function(resolve, reject) {
-    const examples = {};
-    examples['application/json'] = "";
-    if (Object.keys(examples).length > 0) {
-      resolve(examples[Object.keys(examples)[0]]);
-    } else {
-      resolve();
-    }
-  });
+exports.getManufacturer = async function(id) {
+  const item = await getManufacturer(id);
+  return item;
 }
 
 
@@ -101,38 +96,10 @@ exports.getManufacturer = function(id) {
  *
  * returns ArrayOfManufacturers
  **/
-exports.getManufacturers = function() {
-  return new Promise(function(resolve, reject) {
-    const examples = {};
-    examples['application/json'] = [ {
-  "address" : {
-    "city" : "Anytown",
-    "zip_region_code" : "90001-1234",
-    "address_1" : "123 Maple Street",
-    "address_2" : "Unit 1",
-    "state_province" : "CA"
-  },
-  "name" : "Yamaha Instruments",
-  "id" : "id"
-}, {
-  "address" : {
-    "city" : "Anytown",
-    "zip_region_code" : "90001-1234",
-    "address_1" : "123 Maple Street",
-    "address_2" : "Unit 1",
-    "state_province" : "CA"
-  },
-  "name" : "Yamaha Instruments",
-  "id" : "id"
-} ];
-    if (Object.keys(examples).length > 0) {
-      resolve(examples[Object.keys(examples)[0]]);
-    } else {
-      resolve();
-    }
-  });
+exports.getManufacturers = async function() {
+  const items = await getManufacturers();
+  return items;
 }
-
 
 /**
  * Find Purchase by ID

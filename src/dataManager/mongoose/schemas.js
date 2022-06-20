@@ -54,16 +54,14 @@ const user = new mongoose.Schema({
         enum: ["OTHER", "BUYER", "SELLER"],
         default: "BUYER"
     },
-    address: {
-        type: { address}
-    },
+    address: { type: address},
     created: {
         type: Date,
         default: Date.now
     }
 });
 
-manufacturer.plugin(mongooseLeanVirtuals);
+user.plugin(mongooseLeanVirtuals);
 
 const purchase = new mongoose.Schema({
     buyer: {type: user},
