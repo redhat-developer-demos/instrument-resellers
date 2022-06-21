@@ -62,7 +62,7 @@ const createBrassManufacturersSync = () =>{
 
     obj = {};
     obj.description = "Sells trumpets, fugelhorns and trombones";
-    obj.name = "Jeam Paul";
+    obj.name = "Jean Paul";
     obj.address = generalSeeder.createAddressObjectSync("10600 NW 29th Terrace",
         null,"Doral","FL", "33172", "USA");
 
