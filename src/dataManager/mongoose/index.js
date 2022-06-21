@@ -1,18 +1,19 @@
 const mongoose = require('mongoose');
-const mongooseLeanVirtuals = require('mongoose-lean-virtuals');
 
 const {getConnectionUrlSync} = require('./connection');
 const {Ping, Acquisition, Refurbishment, Purchase, User, Instrument, Manufacturer} = require('./schemas');
 
 const _ = require('lodash');
 const {logger} = require("../../logger");
-const moption = {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-};
 
 const schemas = require('./schemas');
-
+/**
+ * Stores a simple message in the datasource. The purpose is to provide
+ * a simple way to test data persistence under MongoDB. Use getPing(id) or getPings()
+ * to retrieve a message(s).
+ * @param message
+ * @returns {Promise<void>}
+ */
 const setPing = async (message) => {
     const url = getConnectionUrlSync();
     const conn = await mongoose.connect(url);
@@ -23,7 +24,10 @@ const setPing = async (message) => {
     logger.info(`found this ${doc}`)
     await conn.disconnect();
 };
-
+/**
+ * Gets pings from the datastore.
+ * @returns {Promise<*>}
+ */
 const getPings = async () => {
     const url = getConnectionUrlSync();
     logger.info(`Connecting getPings at url ${url}}`);
@@ -33,7 +37,11 @@ const getPings = async () => {
     logger.info({message: `Got Pings at ${new Date()}`, items});
     return items;
 };
-
+/**
+ * Gets a ping by id.
+ * @param id
+ * @returns {Promise<*>}
+ */
 const getPing = async (id) => {
     const url = getConnectionUrlSync();
     logger.info(`Connecting getPings at url ${url}}`);
@@ -43,7 +51,11 @@ const getPing = async (id) => {
     logger.info({message: `Got Ping for ${id}), ${item}`});
     return item;
 };
-
+/**
+ * Sets a user to the datastore.
+ * @param userObj a JSON object that defines the user data
+ * @returns {Promise<void>}
+ */
 const setUser = async (userObj) => {
     const url = getConnectionUrlSync();
     logger.info(`Connecting purchase at url ${url}}`);
@@ -60,7 +72,10 @@ const setUser = async (userObj) => {
     logger.info(`Added user:  ${user}}`);
 };
 
-
+/**
+ * gets the users from the datastore
+ * @returns {Promise<*>}
+ */
 const getUsers = async () => {
     const url = getConnectionUrlSync();
     logger.info(`Connecting getUsers at url ${url}}`);
@@ -70,7 +85,12 @@ const getUsers = async () => {
     return items;
 
 };
-
+/**
+ *
+ * @param searchObj the JSON object the describes the search criteria according to
+ * MongoDB search syntax
+ * @returns {Promise<*>}
+ */
 const getUsersBySearch = async (searchObj) => {
     const url = getConnectionUrlSync();
     logger.info(`Connecting getUsers at url ${url}}`);
@@ -84,7 +104,11 @@ const getUsersBySearch = async (searchObj) => {
     return item;
 };
 
-
+/**
+ * Gets a user according to unique identifier
+ * @param id
+ * @returns {Promise<Query<LeanDocument<Require_id<unknown>> | LeanDocument<Require_id<unknown>>[], Document<unknown, any, unknown> & Require_id<unknown>, {}, unknown>>}
+ */
 const getUser = async (id) => {
     const url = getConnectionUrlSync();
     logger.info(`Connecting getUser at url ${url}}`);
@@ -94,7 +118,12 @@ const getUser = async (id) => {
     logger.info(`Got User by id: ${id} ${item}`);
     return item;
 };
-
+/**
+ *
+ * @param searchObj the JSON object the describes the search criteria according to
+ * MongoDB search syntax
+ * @returns {Promise<*>}
+ */
 const getInstrumentsBySearch = async (searchObj) => {
     const url = getConnectionUrlSync();
     logger.info(`Connecting getInstrumentsBySearch at url ${url}}`);
@@ -108,7 +137,11 @@ const getInstrumentsBySearch = async (searchObj) => {
     return items;
 };
 
-
+/**
+ * Store an instrument in the datastore
+ * @param instrumentObject the JSON object that describes the user data to be stored.
+ * @returns {Promise<void>}
+ */
 const setInstrument = async (instrumentObject) => {
     const url = getConnectionUrlSync();
     logger.info(`Connecting setInstruments at url ${url}}`);
@@ -122,6 +155,10 @@ const setInstrument = async (instrumentObject) => {
     await instrument.save()
     logger.info(`Saved instrument with data ${instrumentObject}`);
 };
+/**
+ * Gets the instruments in the datastore
+ * @returns {Promise<*>}
+ */
 const getInstruments = async () => {
     const url = getConnectionUrlSync();
     logger.info(`Connecting getInstruments at url ${url}}`);
@@ -131,7 +168,11 @@ const getInstruments = async () => {
     logger.info(`Got Instruments ${items}`);
     return items;
 };
-
+/**
+ * Gets an instrument according to a unique identifier
+ * @param id
+ * @returns {Promise<*>}
+ */
 const getInstrument = async (id) => {
     const url = getConnectionUrlSync();
     logger.info(`Connecting getInstrument at url ${url}}`);

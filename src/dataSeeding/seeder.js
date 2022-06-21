@@ -1,7 +1,6 @@
 const {getRandomPurchaseSync, getRandomAcquisitionSync, getRandomRefurbishmentSync} = require("./workflowSeeder")
 const {logger} = require("../logger");
 
-
 const {
     setAcquisition, setPurchase, setRefurbishment,
     getUsersBySearch,
@@ -10,14 +9,20 @@ const {
     setInstrument,
     getManufacturersBySearch
 } = require('../dataManager/mongoose/index');
+
 const {setManufacturer} = require("../dataManager/mongoose");
 
-//const {getConnectionUrlSync} = require('../dataManager/mongoose/connection');
-
-// seed acquisitions
-const seedAcquisitions = async (vendorType, count) => {
+/**
+ * Seeds acquisitions. An acquisition is an instrument that has been acquired for resale.
+ * @param resellerInstrumentType {string}, this parameter supports the
+ *  following values, clarinet, saxophone, brass
+ * @param count, {number}, the number of records to generate for acquisitions.
+ *
+ * @returns {Promise<void>}
+ */
+const seedAcquisitions = async (resellerInstrumentType, count) => {
     for (let i = 0; i < count; i++) {
-        const obj = getRandomAcquisitionSync(vendorType);
+        const obj = getRandomAcquisitionSync(resellerInstrumentType);
         logger.info(`Setting acquisition with data: ${JSON.stringify(obj)}`)
         await setAcquisition(obj);
         logger.info(`Set acquisition with data`)
@@ -28,10 +33,19 @@ const seedAcquisitions = async (vendorType, count) => {
     }
 }
 
-// seed refurbishments
-const seedRefurbishments = async (vendorType, count) => {
+/**
+ *
+ * Seeds refurbishments. A refurbishment is an instrument that needs repair
+ * and upgrade in order to be sold.
+ * @param resellerInstrumentType {string}, this parameter supports the
+ *  following values, clarinet, saxophone, brass
+ * @param count, {number}, the number of records to generate for refurbishments.
+ *
+ * @returns {Promise<void>}
+ */
+const seedRefurbishments = async (resellerInstrumentType, count) => {
     for (let i = 0; i < count; i++) {
-        const obj = getRandomRefurbishmentSync(vendorType);
+        const obj = getRandomRefurbishmentSync(resellerInstrumentType);
         logger.info(`Setting refurbishment with data: ${JSON.stringify(obj)}`)
         await setRefurbishment(obj);
         logger.info(`Set refurbishment with data`);
@@ -41,10 +55,17 @@ const seedRefurbishments = async (vendorType, count) => {
     }
 }
 
-// seed purchases
-const seedPurchases = async (vendorType, count, connection) => {
+/**
+ *
+ * Seeds purchases. A purchase is an instrument that has been sold.
+ * @param resellerInstrumentType {string}, this parameter supports the
+ *  following values, clarinet, saxophone, brass
+ * @param count, {number}, the number of records to generate for refurbishments.
+ * @returns {Promise<void>}
+ */
+const seedPurchases = async (resellerInstrumentType, count) => {
     for (let i = 0; i < count; i++) {
-        const obj = getRandomPurchaseSync(vendorType);
+        const obj = getRandomPurchaseSync(resellerInstrumentType);
         logger.info(`Setting purchase with data: ${JSON.stringify(obj)}`)
         await setPurchase(obj);
         logger.info(`Set purchase with data`)
@@ -54,6 +75,12 @@ const seedPurchases = async (vendorType, count, connection) => {
     }
 }
 
+/**
+ * Saves the instrument and manufacturer associate with an acquisition or purchase
+ * @param instrumentObj {object} The object that contains the instrument and its
+ * instrument
+ * @returns {Promise<void>}
+ */
 const saveInstrumentAndManufacturer = async (instrumentObj) => {
     // save the instrument
     const instrument = await getInstrumentsBySearch({name: instrumentObj.name})
@@ -70,7 +97,12 @@ const saveInstrumentAndManufacturer = async (instrumentObj) => {
         logger.info(`Saved manufacturer as  ${instrumentObj.manufacturer}`);
     }
 }
-
+/**
+ * Saves a user to the data source provided that the user does not
+ * exist already according to firstName and lastName
+ * @param userOjb The object that contains the user data
+ * @returns {Promise<void>}
+ */
 const saveUser = async (userOjb) => {
     const users = await getUsersBySearch({firstName: userOjb.firstName, lastName: userOjb.lastName})
     if (!users) {
@@ -79,11 +111,22 @@ const saveUser = async (userOjb) => {
         logger.info(`Saved user as ${userOjb}`);
     }
 }
-
-const seed = async (vendorType, count) => {
-    await seedAcquisitions(vendorType, count);
-    await seedRefurbishments(vendorType, count);
-    await seedPurchases(vendorType, count);
+/**
+ * This is the entry point for data seeding
+ * @param resellerInstrumentType {string}, this parameter supports the
+ *  following values, clarinet, saxophone, brass
+ * @param count, {number}, the number of records to generate for acquisitions, refurbishments
+ *  and purchases. An acquisition is an instrument that has been acquired for resale.
+ *
+ *  A refurbishment is an instrument that need repair in order to be sold.
+ *
+ *  A purchase is an instrument that has been sold.
+ * @returns {Promise<void>}
+ */
+const seed = async (resellerInstrumentType, count) => {
+    await seedAcquisitions(resellerInstrumentType, count);
+    await seedRefurbishments(resellerInstrumentType, count);
+    await seedPurchases(resellerInstrumentType, count);
 }
 
 module.exports = {seed};
