@@ -2,17 +2,24 @@ const {logger} = require("../../logger");
 const mongoose = require("mongoose");
 
 if (!process.env.MONGODB_URL)throw new Error('The required environment variable, MONGODB_URL does not exist or has no value');
+if (!process.env.RESELLER_DB_NAME)throw new Error('The required environment variable, RESELLER_DB_NAME does not exist or has no value');
 let connection;
 
 const getConnection = async () => {
     if (!connection) {
-        const url = getConnectionUrlSync()
-        connection = await mongoose.connect(url).catch(e =>{
+        const url = process.env.MONGODB_URL;
+        const dbName = process.env.RESELLER_DB_NAME;
+        let conn;
+        conn = await mongoose.connect(url).catch(e =>{
             logger.error(e);
             throw e;
-        }
-    )
-        logger.info("logged into Mongodb")
+        });
+        if(conn.connections[0]){
+            conn.connections[0].useDb(dbName);
+            logger.info("logged into Mongodb")
+        };
+
+        connection = conn;
     }
     return connection
 }

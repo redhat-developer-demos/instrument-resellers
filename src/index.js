@@ -7,7 +7,6 @@ const {logger} = require("./logger");
 const {seed} = require("./dataSeeding/seeder")
 const oas3Tools = require('oas3-tools');
 const {modifyOpenApiSpecToVendorSync} = require('./helpers/yamlizer')
-const {getAdminConnection, createResellerDatabase} = require('./helpers/dbAdminHelper')
 
 const serverPort = process.env.SERVER_PORT || 8088;
 const specPath = path.join(__dirname, 'api/openapi.yaml')

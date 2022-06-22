@@ -30,13 +30,51 @@ docker tag instrument_reseller 192.168.86.34:5000/instrumentreseller
 docker push 192.168.86.34:5000/instrumentreseller
 ```
 
-# Create Instrument Reseller in a Linux container
+# Create Instrument Reseller in as Linux containers
+
+## Seeding a Reseller's data using a Linux container
+
+### "Environment variables"
+
+**Format:**
+
+```text
+SEEDER_INSTRUMENT="<instrument_type>" #choose from clarinet, brass or saxophone
+SEEDER_COUNT=<number_acquisitions_refurbishments_and_purchases_to_create>
+RESELLER_DB_NAME="<reseller_database_name>"
+MONGODB_URL=mongodb+srv://<username>:<password>@<host_name>:<port_where_applicable>
+```
+
+**Example:**
+
+```text
+SEEDER_INSTRUMENT="clarinet"
+SEEDER_COUNT=10
+RESELLER_DB_NAME="clarinets"
+MONGODB_URL=mongodb+srv://my-user:mypassword@my-user:mypassword@remotehost:8001?authMechanism=SCRAM-SHA-256&authSource=admin>
+```
+
+### "Running the Linux container
+
+```
+docker run -d -e SEEDER_INSTRUMENT="clarinet" \
+-e SEEDER_COUNT=10 \
+-e RESELLER_DB_NAME="clarinets" \
+-e MONGODB_URL="mongodb://my-user:mypassword@remotehost:8001/clarinets?authMechanism=SCRAM-SHA-256&authSource=admin"
+--name reseller_seeder \
+quay.io/reselbob/instrumentresellerseeder:v.01
+```
+
+## Running a Reseller's website
+
+
 
 ```
 docker run -d -e SERVER_PORT="8088" \
 -e SERVER_HOST="http://localhost" \
 -e SEEDER_INSTRUMENT="CLARINET" \
 -e VENDOR_NAME="Clyde's Clarinets" \
+-e MONGODB_URL="mongodb+srv://my-user:mypassword@example-mongodb-svc.mongodb.svc.cluster.local?authMechanism=SCRAM-SHA-256&authSource=admin"
 -p 8088:8088 \
 --name my_instrument_reseller \
 quay.io/reselbob/instrumentreseller:v.03

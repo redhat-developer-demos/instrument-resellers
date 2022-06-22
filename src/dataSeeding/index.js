@@ -12,7 +12,7 @@
  */
 
 const path = require('path');
-const workingDir = path.resolve(__dirname, '../.env')
+const workingDir = path.resolve('./.env')
 require('dotenv').config({ path: workingDir });
 const {logger} = require("../logger");
 logger.info(process.env)

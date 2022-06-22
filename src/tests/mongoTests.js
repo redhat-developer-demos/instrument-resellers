@@ -67,7 +67,7 @@ describe('MongoDB Tests', () => {
     }).timeout(5000);
 
     it('Can get Pings', async () => {
-        const url = getConnectionUrlSync()
+        // const url = getConnectionUrlSync()
         const pings = await getPings(url)
             .catch(e => {
                 logger.error(e);
