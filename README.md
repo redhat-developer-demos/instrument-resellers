@@ -63,7 +63,7 @@ docker tag instrumentresellerseeder 192.168.86.34:5000/instrumentresellerseeder
 docker push 192.168.86.34:5000/instrumentresellerseeder
 ```
 
-## "Running the Linux container for data seeding
+## Running the Linux container for data seeding
 
 ```
 docker run -d -e SEEDER_INSTRUMENT="clarinet" \
@@ -78,13 +78,17 @@ quay.io/reselbob/instrumentresellerseeder:v.01
 
 ## Environment variables with sample data
 
+**Example:**
+```
 SERVER_PORT=8088
 SERVER_HOST="http://localhost"
 SEEDER_INSTRUMENT="saxophone"
 VENDOR_NAME="Sidney's Saxophones"
-MONGODB_URL=mongodb+srv://reselbob:kk2udhdK1RwvxVCA@cluster0.oewnd.mongodb.net
+MONGODB_URL="mongodb+srv://my-user:mypassword@example-mongodb-svc.mongodb.svc.cluster.local?authMechanism=SCRAM-SHA-256&authSource=admin"
 RESELLER_DB_NAME="saxophones"
 MONGODB_SERVICE=""
+```
+
 ## Creating the Container Image for Instrument Reseller
 
 ```
