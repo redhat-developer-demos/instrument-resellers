@@ -1,5 +1,4 @@
 # instrument-resellers
-
 ```
 UNDER CONSTRUCTION
 ```
@@ -29,6 +28,8 @@ The second part of the project is the actual reseller application that publishes
 
 The setup process for the project is to first install and run the Data Seeder for each reseller and then deploy the API application for each reseller.
 
+![basic image](./images/basic-process.png)
+
 
 # Installing and running the Instrument Reseller Data Seeder
 
@@ -54,8 +55,7 @@ MONGODB_URL=mongodb+srv://my-user:mypassword@my-user:mypassword@remotehost:8001?
 
 ## Creating the Container Image for Instrument Reseller Data Seeding
 
-```
-# Ignore for now
+```bash
 docker build -t instrumentresellerseeder ./Seederfile
 
 docker tag instrumentresellerseeder 192.168.86.34:5000/instrumentresellerseeder
@@ -65,7 +65,7 @@ docker push 192.168.86.34:5000/instrumentresellerseeder
 
 ## Running the Linux container for data seeding
 
-```
+```bash
 docker run -d -e SEEDER_INSTRUMENT="clarinet" \
 -e SEEDER_COUNT=10 \
 -e RESELLER_DB_NAME="clarinets" \
@@ -78,20 +78,31 @@ quay.io/reselbob/instrumentresellerseeder:v.01
 
 ## Environment variables with sample data
 
-**Example:**
+**Format:**
+
+```text
+SERVER_PORT=8088
+SERVER_HOST=http://<DNS_NAME>
+SEEDER_INSTRUMENT="<instrument_type>" #choose from clarinet, brass or saxophone
+VENDOR_NAME="<BUSINESS_NAME_OF_VENDOR>"
+MONGODB_URL="mongodb+srv://my-user:mypassword@example-mongodb-svc.mongodb.svc.cluster.local?authMechanism=SCRAM-SHA-256&authSource=admin"
+RESELLER_DB_NAME="<reseller_database_name>"
 ```
+
+
+**Example:**
+```text
 SERVER_PORT=8088
 SERVER_HOST="http://localhost"
 SEEDER_INSTRUMENT="saxophone"
 VENDOR_NAME="Sidney's Saxophones"
 MONGODB_URL="mongodb+srv://my-user:mypassword@example-mongodb-svc.mongodb.svc.cluster.local?authMechanism=SCRAM-SHA-256&authSource=admin"
 RESELLER_DB_NAME="saxophones"
-MONGODB_SERVICE=""
 ```
 
 ## Creating the Container Image for Instrument Reseller
 
-```
+```bash
 # Ignore for now
 docker build -t instrumentreseller ./Resellerfile
 
@@ -101,7 +112,7 @@ docker push 192.168.86.34:5000/instrumentreseller
 ```
 ## Running a Reseller's website as a container
 
-```
+```bash
 docker run -d -e SERVER_PORT="8088" \
 -e SERVER_HOST="http://localhost" \
 -e SEEDER_INSTRUMENT="CLARINET" \
