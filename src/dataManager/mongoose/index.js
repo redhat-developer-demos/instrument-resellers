@@ -69,7 +69,7 @@ const setUser = async (userObj) => {
     user.userType = userObj.userType;
     user.address = userObj.address;
     await user.save();
-    logger.info(`Added user:  ${user}}`);
+    logger.info(`Added user:  ${user}`);
 };
 
 /**
@@ -79,9 +79,9 @@ const setUser = async (userObj) => {
 const getUsers = async () => {
     // const url = getConnectionUrlSync();
     // logger.info(`Connecting getUsers at url ${url}}`);
-    logger.info({message: `Getting Users at ${new Date()}`});
+    logger.info({message: `Getting Users`});
     const items = await User.find({}).lean({virtuals: true});
-    logger.info({message: `Got Users at ${new Date()}`, items});
+    logger.info({message: `Got Users at ${items}`});
     return items;
 
 };
@@ -199,7 +199,7 @@ const setManufacturer = async (manufacturerObject) => {
 const getManufacturersBySearch = async (searchObj) => {
     // const url = getConnectionUrlSync();
     // logger.info(`Connecting getManufacturersBySearch at url ${url}}`);
-    logger.info({message: `Search manufacturer by criteria  ${searchObj}`});
+    logger.info(`Search manufacturer by criteria  ${searchObj}`);
     const items = await Manufacturer.exists(searchObj).lean({virtuals: true})
         .catch(e => {
             logger.error(e);
