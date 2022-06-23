@@ -23,7 +23,7 @@ const {setManufacturer} = require("../dataManager/mongoose");
 const seedAcquisitions = async (resellerInstrumentType, count) => {
     for (let i = 0; i < count; i++) {
         const obj = getRandomAcquisitionSync(resellerInstrumentType);
-        logger.info(`Setting acquisition with data: ${JSON.stringify(obj)}`)
+        logger.info(`Setting acquisition with data: ${obj}`)
         await setAcquisition(obj);
         logger.info(`Set acquisition with data`)
         // save the instrument and manufacturer

@@ -10,13 +10,14 @@ const getConnection = async () => {
         const url = process.env.MONGODB_URL;
         const dbName = process.env.RESELLER_DB_NAME;
         let conn;
+        logger.info(`Attempting to connect at url: ${url} and dbName : ${dbName}`)
         conn = await mongoose.connect(url).catch(e =>{
             logger.error(e);
             throw e;
         });
         if(conn.connections[0]){
             conn.connections[0].useDb(dbName);
-            logger.info("logged into Mongodb")
+            logger.info(`Connected to MongoDB at url: ${url} and dbName : ${dbName}`)
         };
 
         connection = conn;

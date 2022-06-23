@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 
-const {getConnectionUrlSync, getConnection} = require('./connection');
+const { getConnection} = require('./connection');
 const {Ping, Acquisition, Refurbishment, Purchase, User, Instrument, Manufacturer} = require('./schemas');
 
 const _ = require('lodash');
