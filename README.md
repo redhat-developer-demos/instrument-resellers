@@ -63,7 +63,7 @@ MONGODB_URL=mongodb+srv://my-user:mypassword@my-user:mypassword@remotehost:8001?
 
 ## Creating the Container Image for Instrument Reseller Data Seeding
 
-The following will build and push the data seeder container image to a private container registry running at host `192.168.86.34:5000`
+The following will build and push the data seeder container image to a private container registry running at host `192.168.86.34:5000` using `docker`
 
 ```bash
 docker build -t instrumentresellerseeder ./Seederfile
@@ -73,6 +73,16 @@ docker tag instrumentresellerseeder 192.168.86.34:5000/instrumentresellerseeder:
 docker push 192.168.86.34:5000/instrumentresellerseeder
 ```
 
+The following will build and push to the container image repository using `buildah`.
+
+```bash
+buildah bud -t instrumentresellerseeder ./Seederfile
+
+buildah tag instrumentresellerseeder 192.168.86.34:5000/instrumentresellerseeder:v.09
+
+buildah push 192.168.86.34:5000/instrumentresellerseeder
+```
+
 ## Running the Linux container for data seeding
 
 ```bash
@@ -80,8 +90,8 @@ docker run -d -e RESELLER_INSTRUMENT="clarinet" \
 -e SEEDER_COUNT=10 \
 -e RESELLER_DB_NAME="clarinets" \
 -e MONGODB_URL="mongodb://my-user:mypassword@remotehost:8001" \
---name reseller_seeder \
-quay.io/reselbob/instrumentresellerseeder:v.01
+--name clarinet_seeder \
+quay.io/reselbob/instrumentresellerseeder:v.09
 ```
 
 # Installing and running the Instrument Reseller Web Application
@@ -109,7 +119,7 @@ SERVER_HOST="http://localhost"
 RESELLER_INSTRUMENT="saxophone"
 RESELLER_NAME="Sidney's Saxophones"
 RESELLER_DB_NAME="saxophones"
-MONGODB_URL="mongodb+srv://my-user:mypassword@example-mongodb-svc.mongodb.svc.cluster.local?authMechanism=SCRAM-SHA-256&authSource=admin"
+MONGODB_URL="mongodb+srv://my-user:mypassword@example-mongodb-svc.mongodb.svc.cluster.local"
 
 ```
 
@@ -122,7 +132,7 @@ MONGODB_URL="mongodb+srv://my-user:mypassword@example-mongodb-svc.mongodb.svc.cl
 
 ## Creating the Container Image for the Instrument Reseller application
 
-The following will build and push the Instrument Reseller container image to a private container registry running at host `192.168.86.34:5000`
+The following will build and push the Instrument Reseller container image to a private container registry running at host `192.168.86.34:5000` using `docker`.
 
 ```bash
 docker build -t instrumentreseller ./Resellerfile
@@ -131,6 +141,18 @@ docker tag instrumentreseller 192.168.86.34:5000/instrumentreseller:v.09
 
 docker push 192.168.86.34:5000/instrumentreseller
 ```
+
+The following will build and push the Instrument Reseller container image using `buildah`:
+
+```bash
+buildah build -t instrumentreseller ./Resellerfile
+
+buildah tag instrumentreseller 192.168.86.34:5000/instrumentreseller:v.09
+
+buildah push 192.168.86.34:5000/instrumentreseller
+```
+
+
 ## Running a Reseller's application as a container
 
 ```bash
@@ -141,6 +163,6 @@ docker run -d -e SERVER_PORT="8088" \
 -e RESELLER_DB_NAME="clarinets" \
 -e MONGODB_URL="mongodb+srv://my-user:mypassword@example-mongodb-svc.mongodb.svc.cluster.local" \
 -p 8088:8088 \
---name my_instrument_reseller \
-quay.io/reselbob/instrumentreseller:v.03
+--name clarinet_reseller \
+quay.io/reselbob/instrumentreseller:v.09
 ```
