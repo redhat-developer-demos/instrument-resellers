@@ -3,4 +3,4 @@ WORKDIR /usr/src/app
 COPY ./src/. /usr/src/app
 RUN npm install
 EXPOSE 8088
-CMD  ["node", " dataSeeding/index.js"]
+CMD  ["node", "dataSeeding/index.js"]
