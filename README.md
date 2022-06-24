@@ -138,6 +138,7 @@ docker run -d -e SERVER_PORT="8088" \
 -e SERVER_HOST="http://localhost" \
 -e RESELLER_INSTRUMENT="CLARINET" \
 -e RESELLER_NAME="Clyde's Clarinets" \
+-e RESELLER_DB_NAME="clarinets" \
 -e MONGODB_URL="mongodb+srv://my-user:mypassword@example-mongodb-svc.mongodb.svc.cluster.local" \
 -p 8088:8088 \
 --name my_instrument_reseller \
