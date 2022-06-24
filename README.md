@@ -68,7 +68,7 @@ The following will build and push the data seeder container image to a private c
 ```bash
 docker build -t instrumentresellerseeder ./Seederfile
 
-docker tag instrumentresellerseeder 192.168.86.34:5000/instrumentresellerseeder
+docker tag instrumentresellerseeder 192.168.86.34:5000/instrumentresellerseeder:v.09
 
 docker push 192.168.86.34:5000/instrumentresellerseeder
 ```
@@ -127,7 +127,7 @@ The following will build and push the Instrument Reseller container image to a p
 ```bash
 docker build -t instrumentreseller ./Resellerfile
 
-docker tag instrumentreseller 192.168.86.34:5000/instrumentreseller
+docker tag instrumentreseller 192.168.86.34:5000/instrumentreseller:v.09
 
 docker push 192.168.86.34:5000/instrumentreseller
 ```
