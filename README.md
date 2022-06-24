@@ -125,7 +125,6 @@ MONGODB_URL="mongodb+srv://my-user:mypassword@example-mongodb-svc.mongodb.svc.cl
 The following will build and push the Instrument Reseller container image to a private container registry running at host `192.168.86.34:5000`
 
 ```bash
-# Ignore for now
 docker build -t instrumentreseller ./Resellerfile
 
 docker tag instrumentreseller 192.168.86.34:5000/instrumentreseller
