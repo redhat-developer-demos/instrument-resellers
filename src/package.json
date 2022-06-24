@@ -21,7 +21,8 @@
     "mongoose": "^6.3.8",
     "mongoose-lean-virtuals": "^0.9.1",
     "oas3-tools": "^2.2.3",
-    "pg": "^8.7.3"
+    "pg": "^8.7.3",
+    "winston": "^3.8.0"
   },
   "devDependencies": {
     "@faker-js/faker": "^7.1.0",
