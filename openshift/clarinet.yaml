@@ -29,13 +29,16 @@ spec:
         - name: clydesclarinets
           image: quay.io/reselbob/instrumentreseller:v.03
           env:
-            - name: VENDOR_NAME
+            - name: RESELLER_NAME
               value: "Clyde's Clarinets"
-            - name: SEEDER_INSTRUMENT
-              value: "CLARINET"
+            - name: RESELLER_INSTRUMENT
+              value: "clarinet"
+            - name: RESELLER_DB_NAME
+              value: "clarinets"
+            - name: MONGODB_URL
+              value: "<mongodb_url>"
           ports:
             - containerPort: 8088
-
 ---
 
 apiVersion: v1

@@ -3,6 +3,7 @@ const {logger} = require("../logger");
 
 const {
     setAcquisition, setPurchase, setRefurbishment,
+    getRefurbishments,
     getUsersBySearch,
     setUser,
     getInstrumentsBySearch,
@@ -124,6 +125,12 @@ const saveUser = async (userOjb) => {
  * @returns {Promise<void>}
  */
 const seed = async (resellerInstrumentType, count) => {
+    //check to make sure that they datastore has not been seeded
+    const items  = await getRefurbishments();
+    if(items && items.length > 0){
+        logger.info(`The datastore for ${process.env.RESELLER_INSTRUMENT} has already been seeded.`)
+        return;
+    }
     await seedAcquisitions(resellerInstrumentType, count);
     await seedRefurbishments(resellerInstrumentType, count);
     await seedPurchases(resellerInstrumentType, count);

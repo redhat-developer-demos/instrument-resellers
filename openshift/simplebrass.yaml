@@ -9,7 +9,7 @@ spec:
     - name: mybrass
       image: quay.io/reselbob/instrumentreseller:v.03
       env:
-        - name: VENDOR_NAME
+        - name: RESELLER_NAME
           value: "Betty's Brass"
         - name: DEMO_FAREWELL
           value: "Such a sweet sorrow"

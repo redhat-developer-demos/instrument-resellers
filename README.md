@@ -35,10 +35,12 @@ The setup process for the project is to first install and run the Data Seeder fo
 
 ## Environment variables
 
+The data seeder requires that the following environment variables are present in the process in which the application is running.
+
 **Format:**
 
 ```text
-SEEDER_INSTRUMENT="<instrument_type>" #choose from clarinet, brass or saxophone
+RESELLER_INSTRUMENT="<instrument_type>" #choose from clarinet, brass or saxophone
 SEEDER_COUNT=<number_acquisitions_refurbishments_and_purchases_to_create>
 RESELLER_DB_NAME="<reseller_database_name>"
 MONGODB_URL=mongodb+srv://<username>:<password>@<host_name>:<port_where_applicable>
@@ -47,13 +49,21 @@ MONGODB_URL=mongodb+srv://<username>:<password>@<host_name>:<port_where_applicab
 **Example:**
 
 ```text
-SEEDER_INSTRUMENT="clarinet"
+RESELLER_INSTRUMENT="clarinet"
 SEEDER_COUNT=10
 RESELLER_DB_NAME="clarinets"
 MONGODB_URL=mongodb+srv://my-user:mypassword@my-user:mypassword@remotehost:8001?authMechanism=SCRAM-SHA-256&authSource=admin>
 ```
 
+## Running the data seeder application from source
+
+`npm install`
+
+`npm run seed`
+
 ## Creating the Container Image for Instrument Reseller Data Seeding
+
+The following will build and push the data seeder container image to a private container registry running at host `192.168.86.34:5000`
 
 ```bash
 docker build -t instrumentresellerseeder ./Seederfile
@@ -66,10 +76,10 @@ docker push 192.168.86.34:5000/instrumentresellerseeder
 ## Running the Linux container for data seeding
 
 ```bash
-docker run -d -e SEEDER_INSTRUMENT="clarinet" \
+docker run -d -e RESELLER_INSTRUMENT="clarinet" \
 -e SEEDER_COUNT=10 \
 -e RESELLER_DB_NAME="clarinets" \
--e MONGODB_URL="mongodb://my-user:mypassword@remotehost:8001/clarinets?authMechanism=SCRAM-SHA-256&authSource=admin"
+-e MONGODB_URL="mongodb://my-user:mypassword@remotehost:8001"
 --name reseller_seeder \
 quay.io/reselbob/instrumentresellerseeder:v.01
 ```
@@ -78,15 +88,17 @@ quay.io/reselbob/instrumentresellerseeder:v.01
 
 ## Environment variables with sample data
 
+The application requires that the following environment variables are present in the process in which the application is running.
+
 **Format:**
 
 ```text
 SERVER_PORT=8088
 SERVER_HOST=http://<DNS_NAME>
-SEEDER_INSTRUMENT="<instrument_type>" #choose from clarinet, brass or saxophone
-VENDOR_NAME="<BUSINESS_NAME_OF_VENDOR>"
-MONGODB_URL="mongodb+srv://my-user:mypassword@example-mongodb-svc.mongodb.svc.cluster.local?authMechanism=SCRAM-SHA-256&authSource=admin"
+RESELLER_INSTRUMENT="<instrument_type>" #choose from clarinet, brass or saxophone
+RESELLER_NAME="<BUSINESS_NAME_OF_VENDOR>"
 RESELLER_DB_NAME="<reseller_database_name>"
+MONGODB_URL=mongodb+srv://<username>:<password>@<host_name>:<port_where_applicable>
 ```
 
 
@@ -94,13 +106,23 @@ RESELLER_DB_NAME="<reseller_database_name>"
 ```text
 SERVER_PORT=8088
 SERVER_HOST="http://localhost"
-SEEDER_INSTRUMENT="saxophone"
-VENDOR_NAME="Sidney's Saxophones"
-MONGODB_URL="mongodb+srv://my-user:mypassword@example-mongodb-svc.mongodb.svc.cluster.local?authMechanism=SCRAM-SHA-256&authSource=admin"
+RESELLER_INSTRUMENT="saxophone"
+RESELLER_NAME="Sidney's Saxophones"
 RESELLER_DB_NAME="saxophones"
+MONGODB_URL="mongodb+srv://my-user:mypassword@example-mongodb-svc.mongodb.svc.cluster.local?authMechanism=SCRAM-SHA-256&authSource=admin"
+
 ```
 
-## Creating the Container Image for Instrument Reseller
+## Running a Reseller's application from source
+
+`npm install`
+
+`npm start`
+
+
+## Creating the Container Image for the Instrument Reseller application
+
+The following will build and push the Instrument Reseller container image to a private container registry running at host `192.168.86.34:5000`
 
 ```bash
 # Ignore for now
@@ -110,27 +132,15 @@ docker tag instrumentreseller 192.168.86.34:5000/instrumentreseller
 
 docker push 192.168.86.34:5000/instrumentreseller
 ```
-## Running a Reseller's website as a container
+## Running a Reseller's application as a container
 
 ```bash
 docker run -d -e SERVER_PORT="8088" \
 -e SERVER_HOST="http://localhost" \
--e SEEDER_INSTRUMENT="CLARINET" \
--e VENDOR_NAME="Clyde's Clarinets" \
--e MONGODB_URL="mongodb+srv://my-user:mypassword@example-mongodb-svc.mongodb.svc.cluster.local?authMechanism=SCRAM-SHA-256&authSource=admin"
+-e RESELLER_INSTRUMENT="CLARINET" \
+-e RESELLER_NAME="Clyde's Clarinets" \
+-e MONGODB_URL="mongodb+srv://my-user:mypassword@example-mongodb-svc.mongodb.svc.cluster.local
 -p 8088:8088 \
 --name my_instrument_reseller \
 quay.io/reselbob/instrumentreseller:v.03
-```
-
-# Optional stuff
-
-## Create Postgres DB in a Linux container
-
-Upcoming version of Instrument reseller will support data seeding. So, you will need a Postgres container up and running to support backend data storage.
-
-This is a future feature. You do not need to have Postgres running now.
-
-```
-docker run --name posty -p 5432:5432 -v postgres-volume:/var/lib/postgresql/data -e POSTGRES_PASSWORD=mypassword -d postgres
 ```

@@ -7,19 +7,13 @@ let connection;
 
 const getConnection = async () => {
     if (!connection) {
-        const url = process.env.MONGODB_URL;
-        const dbName = process.env.RESELLER_DB_NAME;
+        const url = `${process.env.MONGODB_URL}/${process.env.RESELLER_DB_NAME}`;
         let conn;
-        logger.info(`Attempting to connect at url: ${url} and dbName : ${dbName}`)
+        logger.info(`Attempting to connect at url: ${process.env.MONGODB_URL} and dbName : ${process.env.RESELLER_DB_NAME}`)
         conn = await mongoose.connect(url).catch(e =>{
             logger.error(e);
             throw e;
         });
-        if(conn.connections[0]){
-            conn.connections[0].useDb(dbName);
-            logger.info(`Connected to MongoDB at url: ${url} and dbName : ${dbName}`)
-        };
-
         connection = conn;
     }
     return connection

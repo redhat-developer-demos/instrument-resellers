@@ -46,7 +46,7 @@ exports.getAcquisitions = async function() {
  * returns HealthCheck
  **/
 exports.getHealthCheck = async function() {
-  const vendor = process.env.VENDOR_NAME || "Vendor Not Known"
+  const vendor = process.env.RESELLER_NAME || "Vendor Not Known"
   logger.info(`Healthcheck message: Things are A-OK at ${vendor}`);
   return {
     "date" : new Date(Date.now()).toISOString(),

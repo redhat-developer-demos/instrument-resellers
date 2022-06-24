@@ -4,20 +4,21 @@ require('dotenv').config({path: __dirname + '/.env'})
 const path = require('path');
 const http = require('http');
 const {logger} = require("./logger");
-const {seed} = require("./dataSeeding/seeder")
 const oas3Tools = require('oas3-tools');
 const {modifyOpenApiSpecToVendorSync} = require('./helpers/yamlizer')
 
 const serverPort = process.env.SERVER_PORT || 8088;
+const serverHost = process.env.SERVER_HOST || 'http://localhost';
+const vendorName = process.env.RESELLER_NAME || 'Unknown'
 const specPath = path.join(__dirname, 'api/openapi.yaml')
 let adjustedSpecPath = path.join(__dirname, 'api/adjustedopenapi.yaml')
 
 adjustedSpecPath = modifyOpenApiSpecToVendorSync({
     inputYamlPath: specPath,
     outputYamlPath: adjustedSpecPath,
-    vendorName: process.env.VENDOR_NAME,
-    serverHost: process.env.SERVER_HOST,
-    serverPort: process.env.SERVER_PORT
+    vendorName: process.env.RESELLER_NAME,
+    serverHost: serverHost,
+    serverPort: serverPort
 })
 
 

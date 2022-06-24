@@ -5,9 +5,7 @@ metadata:
   name: sidneyssaxes
   labels:
     name: sidneyssaxes
-
 ---
-
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -29,15 +27,17 @@ spec:
         - name: sidneyssaxes
           image: quay.io/reselbob/instrumentreseller:v.03
           env:
-            - name: VENDOR_NAME
-              value: "Sidney's Saxophones"
-            - name: SEEDER_INSTRUMENT
-              value: "SAXOPHONE"
+          - name: RESELLER_NAME
+            value: "Sidney's Saxophones"
+          - name: RESELLER_INSTRUMENT
+            value: "saxophone"
+          - name: RESELLER_DB_NAME
+            value: "saxophones"
+          - name: MONGODB_URL
+            value: "<mongodb_url>"
           ports:
             - containerPort: 8088
-
 ---
-
 apiVersion: v1
 kind: Service
 metadata:

@@ -7,7 +7,6 @@ metadata:
     name: bettysbrass
 
 ---
-
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -29,15 +28,30 @@ spec:
         - name: bettysbrass
           image: quay.io/reselbob/instrumentreseller:v.03
           env:
-            - name: VENDOR_NAME
+            - name: RESELLER_NAME
               value: "Betty's Brass"
-            - name: SEEDER_INSTRUMENT
-              value: "BRASS"
+            - name: RESELLER_INSTRUMENT
+              value: "brass"
+            - name: RESELLER_DB_NAME
+              value: "brass"
+            - name: MONGODB_URL
+              valueFrom:
+                secretKeyRef:
+                  name: mongo_url
+                  key: url
           ports:
             - containerPort: 8088
+---
+apiVersion: v1
+kind: Secret
+metadata:
+  name: mongo_url
+  namespace: bettysbrass
+type: Opaque
+stringData:
+  url: <mongo-url-here>
 
 ---
-
 apiVersion: v1
 kind: Service
 metadata:

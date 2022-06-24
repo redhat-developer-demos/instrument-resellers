@@ -9,21 +9,33 @@ The port on which to run the application server. The default is `8088`.
 
 **Example:** `SERVER_PORT=8777`
 
-## `SEEDER_INSTRUMENT`
+## `RESELLER_INSTRUMENT`
 
-The instrument for which seed data will be injected into the SaaS. There are three value to choose from:
+The instrument that the reseller is supporting. There are three value to choose from:
 
-* `CLARINET`
-* `BRASS`
-* `SAXOPHONE`
+* `clarinet`
+* `brass`
+* `saxophone`
 
-**Example:** `SEEDER_INSTRUMENT=CLARINET`
+**Example:** `RESELLER_INSTRUMENT=clarinet`
 
-## `VENDOR_NAME`
+## `RESELLER_NAME`
 
 The business name of the vendor using the SaaS.
 
-**Example:** `VENDOR_NAME="Clyde's Clarinets"`
+**Example:** `RESELLER_NAME="Clyde's Clarinets"`
+
+## `RESELLER_DB_NAME`
+
+The name of the MongoDB database that the application is to use.
+
+**Example:** `clarinets`
+
+## `MONGODB_URL`
+
+The URL to the mongodb server that the application is to use.
+
+**Example:** `mongodb+srv://<username>:<password>@<remote_server_dns>:<port_if_needed>`
 
 # Running the server
 To run the server, run:
