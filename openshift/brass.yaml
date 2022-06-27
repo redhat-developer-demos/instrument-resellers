@@ -64,7 +64,7 @@ metadata:
   namespace: bettysbrass
 type: Opaque
 stringData:
-  url: <mongo-url-here> #put the real URL here
+  url: <mongo-url-here>
 
 ---
 apiVersion: v1

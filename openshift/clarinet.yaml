@@ -80,7 +80,7 @@ metadata:
   namespace: clydesclarinets
 type: Opaque
 stringData:
-  url: <mongo-url-here> #put the real URL here
+  url: <mongo-url-here>
 # ---
 # apiVersion: route.openshift.io/v1
 # kind: Route
