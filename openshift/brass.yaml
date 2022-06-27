@@ -79,7 +79,6 @@ spec:
     - protocol: TCP
       port: 8088
       targetPort: 8088
-  type: LoadBalancer
 # ---
 # apiVersion: route.openshift.io/v1
 # kind: Route
