@@ -40,7 +40,7 @@ spec:
                   key: url
       containers:
         - name: sidneyssaxes
-          image: quay.io/reselbob/instrumentreseller:v.03
+          image: quay.io/reselbob/instrumentreseller:v.09
           env:
           - name: RESELLER_NAME
             value: "Sidney's Saxophones"
