@@ -30,6 +30,8 @@ spec:
           env:
             - name: RESELLER_DB_NAME
               value: "brass"
+            - name: RESELLER_INSTRUMENT
+              value: "brass"
             - name: SEEDER_COUNT
               value: "10"
             - name: MONGODB_URL
