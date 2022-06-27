@@ -14,14 +14,14 @@ MONGOURL=$1
 
 echo 1 is $MONGOURL
 
-sed -i "s|<mongo-url-here>|${MURL}|g" ./brass.yaml
+sed -i "s|<mongo-url-here>|${MONGOURL}|g" ./brass.yaml
 
 echo brass replaced with $MONGOURL
 
-sed -i "s|<mongo-url-here>|${MURL}|g" ./saxophone.yaml
+sed -i "s|<mongo-url-here>|${MONGOURL}|g" ./saxophone.yaml
 
 echo saxophone replaced with $MONGOURL
 
-sed -i "s|<mongo-url-here>|${MURL}|g" ./clarinet.yaml
+sed -i "s|<mongo-url-here>|${MONGOURL}|g" ./clarinet.yaml
 
 echo clarinet replaced with $MONGOURL
