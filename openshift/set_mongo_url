@@ -6,7 +6,7 @@
 # MONGO_DB_CONNECTIONSTRING_AS_URL is of the mongodb connection string
 
 if [ -z "$1" ]; then
-  echo "ERRROR: Missing the single  parameter for Mongo Connectionstring;
+  echo "ERRROR: Missing the single  parameter for Mongo Connectionstring"
   exit 22;
 fi
 
