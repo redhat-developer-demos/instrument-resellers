@@ -1,0 +1,23 @@
+#!/usr/bin/env bash
+
+# You use the script by calling
+# set_mongo_url MONGO_DB_CONNECTIONSTRING_AS_URL
+# WHERE
+# MONGO_DB_CONNECTIONSTRING_AS_URL is the mongodb connection string
+
+if [ -z "$1" ]; then
+  echo "No parameter for MONGO_DB_CONNECTIONSTRING";
+  exit 22;
+fi
+
+sed -i 's/<mongo-url-here>/$1' ./brass.yaml
+
+echo brass replaced with $1
+
+sed -i 's/<mongo-url-here>/$1' ./saxophone.yaml
+
+echo saxophone replaced with $1
+
+sed -i 's/<mongo-url-here>/$1' ./clarinet.yaml
+
+echo clarinet replaced with $1

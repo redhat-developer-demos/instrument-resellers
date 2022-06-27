@@ -47,8 +47,11 @@ spec:
           - name: RESELLER_DB_NAME
             value: "saxophones"
           - name: MONGODB_URL
-            value: "<mongodb_url>"
-          ports:
+            valueFrom:
+              secretKeyRef:
+                name: mongo-url
+                key: url
+                ports:
             - containerPort: 8088
 ---
 apiVersion: v1
@@ -68,7 +71,7 @@ spec:
 apiVersion: v1
 kind: Secret
 metadata:
-  name: mongo_url
+  name: mongo-url
   namespace: sidneyssaxes
 type: Opaque
 stringData:
