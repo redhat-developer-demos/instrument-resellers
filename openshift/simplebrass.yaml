@@ -7,12 +7,26 @@ metadata:
 spec:
   containers:
     - name: mybrass
-      image: quay.io/reselbob/instrumentreseller:v.03
+      image: quay.io/reselbob/instrumentresellerseeder:v.09
       env:
-        - name: RESELLER_NAME
-          value: "Betty's Brass"
-        - name: DEMO_FAREWELL
-          value: "Such a sweet sorrow"
+        - name: RESELLER_DB_NAME
+          value: "brass"
+        - name: SEEDER_COUNT
+          value: "10"
+        - name: MONGODB_URL
+          valueFrom:
+            secretKeyRef:
+              name: mongo-url
+              key: url
       ports:
         - containerPort: 8088
   restartPolicy: Always
+  ---
+  apiVersion: v1
+  kind: Secret
+  metadata:
+    name: mongo-url
+    namespace: sidneyssaxes
+  type: Opaque
+  stringData:
+    url: <mongo-url-here> #put the real URL here
