@@ -31,6 +31,8 @@ spec:
               value: "saxophones"
             - name: SEEDER_COUNT
               value: "10"
+            - name: RESELLER_INSTRUMENT
+              value: "saxophone"
             - name: MONGODB_URL
               valueFrom:
                 secretKeyRef:

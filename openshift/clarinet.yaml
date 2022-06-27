@@ -33,6 +33,8 @@ spec:
               value: "clarinets"
             - name: SEEDER_COUNT
               value: "10"
+            - name: RESELLER_INSTRUMENT
+              value: "clarinet"
             - name: MONGODB_URL
               valueFrom:
                 secretKeyRef:
