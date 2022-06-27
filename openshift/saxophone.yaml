@@ -66,7 +66,7 @@ spec:
     - protocol: TCP
       port: 8088
       targetPort: 8088
-
+  type: LoadBalancer
 ---
 apiVersion: v1
 kind: Secret
@@ -77,17 +77,16 @@ type: Opaque
 stringData:
   url: <mongo-url-here> #put the real URL here
 
----
-
-apiVersion: route.openshift.io/v1
-kind: Route
-metadata:
-  name: sidneyssaxes
-  namespace: sidneyssaxes
-spec:
-  host: sidneyssaxes-sidneyssaxes.cluster.local
-  port:
-    targetPort: 8088
-  to:
-    kind: Service
-    name: sidneyssaxes
+# ---
+# apiVersion: route.openshift.io/v1
+# kind: Route
+# metadata:
+#   name: sidneyssaxes
+#   namespace: sidneyssaxes
+# spec:
+#   host: sidneyssaxes-sidneyssaxes.cluster.local
+#   port:
+#     targetPort: 8088
+#   to:
+#     kind: Service
+#     name: sidneyssaxes

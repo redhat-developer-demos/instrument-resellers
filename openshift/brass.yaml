@@ -79,18 +79,17 @@ spec:
     - protocol: TCP
       port: 8088
       targetPort: 8088
-
----
-
-apiVersion: route.openshift.io/v1
-kind: Route
-metadata:
-  name: bettysbrass
-  namespace: bettysbrass
-spec:
-  host: bettysbrass-bettysbrass.cluster.local
-  port:
-    targetPort: 8088
-  to:
-    kind: Service
-    name: bettysbrass
+  type: LoadBalancer
+# ---
+# apiVersion: route.openshift.io/v1
+# kind: Route
+# metadata:
+#   name: bettysbrass
+#   namespace: bettysbrass
+# spec:
+#   host: bettysbrass-bettysbrass.cluster.local
+#   port:
+#     targetPort: 8088
+#   to:
+#     kind: Service
+#     name: bettysbrass

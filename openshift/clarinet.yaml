@@ -69,7 +69,7 @@ spec:
     - protocol: TCP
       port: 8088
       targetPort: 8088
-
+  type: LoadBalancer
 ---
 apiVersion: v1
 kind: Secret
@@ -79,17 +79,16 @@ metadata:
 type: Opaque
 stringData:
   url: <mongo-url-here> #put the real URL here
----
-
-apiVersion: route.openshift.io/v1
-kind: Route
-metadata:
-  name: clydesclarinets
-  namespace: clydesclarinets
-spec:
-  host: clydesclarinets-clydesclarinets.cluster.local
-  port:
-    targetPort: 8088
-  to:
-    kind: Service
-    name: clydesclarinets
+# ---
+# apiVersion: route.openshift.io/v1
+# kind: Route
+# metadata:
+#   name: clydesclarinets
+#   namespace: clydesclarinets
+# spec:
+#   host: clydesclarinets-clydesclarinets.cluster.local
+#   port:
+#     targetPort: 8088
+#   to:
+#     kind: Service
+#     name: clydesclarinets
