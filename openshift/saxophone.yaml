@@ -39,21 +39,21 @@ spec:
                   name: mongo-url
                   key: url
       containers:
-        - name: sidneyssaxes
+        - name: sidneyssaxophone
           image: quay.io/reselbob/instrumentreseller:v.09
           env:
-          - name: RESELLER_NAME
-            value: "Sidney's Saxophones"
-          - name: RESELLER_INSTRUMENT
-            value: "saxophone"
-          - name: RESELLER_DB_NAME
-            value: "saxophones"
-          - name: MONGODB_URL
-            valueFrom:
-              secretKeyRef:
-                name: mongo-url
-                key: url
-                ports:
+            - name: RESELLER_NAME
+              value: "Sidney's Saxophones"
+            - name: RESELLER_INSTRUMENT
+              value: "saxophone"
+            - name: RESELLER_DB_NAME
+              value: "saxophones"
+            - name: MONGODB_URL
+              valueFrom:
+                secretKeyRef:
+                  name: mongo-url
+                  key: url
+          ports:
             - containerPort: 8088
 ---
 apiVersion: v1
@@ -77,7 +77,7 @@ metadata:
   namespace: sidneyssaxes
 type: Opaque
 stringData:
-  url: <mongo-url-here>
+  url: mongodb+srv://reseller_user:F1TC7lO5IVA6ZVBz@cluster0.oewnd.mongodb.net #put the real URL here
 
 # ---
 # apiVersion: route.openshift.io/v1
