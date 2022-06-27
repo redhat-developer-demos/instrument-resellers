@@ -3,10 +3,10 @@
 # You use the script by calling
 # set_mongo_url MONGO_DB_CONNECTIONSTRING_AS_URL
 # WHERE
-# MONGO_DB_CONNECTIONSTRING_AS_URL is the mongodb connection string
+# MONGO_DB_CONNECTIONSTRING_AS_URL is of the mongodb connection string
 
 if [ -z "$1" ]; then
-  echo "No parameter for MONGO_DB_CONNECTIONSTRING";
+  echo "ERRROR: Missing the single  parameter for Mongo Connectionstring;
   exit 22;
 fi
 
