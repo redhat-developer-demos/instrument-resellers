@@ -89,6 +89,7 @@ buildah push 192.168.86.34:5000/instrumentresellerseeder
 docker run -d -e RESELLER_INSTRUMENT="clarinet" \
 -e SEEDER_COUNT=10 \
 -e RESELLER_DB_NAME="clarinets" \
+-e RESELLER_INSTRUMENT="clarinet" \
 -e MONGODB_URL="mongodb://my-user:mypassword@remotehost:8001" \
 --name clarinet_seeder \
 quay.io/reselbob/instrumentresellerseeder:v.09

@@ -29,7 +29,6 @@ exports.getAcquisition = async function(id) {
 
 /**
  * Returns a list of Acquisitions
- * Returns a list of Acquisitions
  *
  * returns ArrayOfAcquisitions
  **/
@@ -40,8 +39,7 @@ exports.getAcquisitions = async function() {
 
 
 /**
- * Gets the current healthcheack
- * Gets the current healthcheack
+ * Gets the current healthcheck
  *
  * returns HealthCheck
  **/
@@ -81,7 +79,7 @@ exports.getInstruments = async function() {
  * Find an Manufacturers by ID
  * Returns a single Manufacturer
  *
- * id uuid ID of the purchase to return
+ * id {uuid} ID of the purchase to return
  * returns Instrument
  **/
 exports.getManufacturer = async function(id) {
@@ -91,7 +89,6 @@ exports.getManufacturer = async function(id) {
 
 
 /**
- * Returns a list of Manufacturers
  * Returns a list of Manufacturers
  *
  * returns ArrayOfManufacturers
@@ -116,7 +113,6 @@ exports.getPurchase = async function(id) {
 
 /**
  * Gets a list of Purchases
- * Gets a list of Purchases
  *
  * returns ArrayOfPurchases
  **/
@@ -128,9 +124,9 @@ exports.getPurchases = async function() {
 
 /**
  * Find Purchase by ID
- * Returns a single Refurbishments
+ * Returns a single Refurbishment
  *
- * id uuid ID of the Refurbishments to return
+ * id {uuid} ID of the Refurbishments to return
  * returns Refurbishment
  **/
 exports.getRefurbishment = async function(id) {
@@ -141,7 +137,6 @@ exports.getRefurbishment = async function(id) {
 
 /**
  * Gets a list of Refurbishments
- * Gets a list of Refurbishments
  *
  * returns ArrayOfRefurbishments
  **/
@@ -150,12 +145,11 @@ exports.getRefurbishments = async function() {
   return items;
 }
 
-
 /**
  * Find User by ID
  * Returns a single User
  *
- * id uuid ID of the purchase to return
+ * id {uuid} ID of the purchase to return
  * returns User
  **/
 exports.getUser = async function(id) {
@@ -165,7 +159,6 @@ exports.getUser = async function(id) {
 
 
   /**
-   * Gets a list of Users
    * Gets a list of Users
    *
    * returns ArrayOfUsers
