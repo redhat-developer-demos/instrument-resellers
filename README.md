@@ -146,7 +146,7 @@ docker push 192.168.86.34:5000/instrumentreseller
 The following will build and push the Instrument Reseller container image using `buildah`:
 
 ```bash
-buildah build -t instrumentreseller ./Resellerfile
+buildah bud -t instrumentreseller ./Resellerfile
 
 buildah tag instrumentreseller 192.168.86.34:5000/instrumentreseller:v.09
 

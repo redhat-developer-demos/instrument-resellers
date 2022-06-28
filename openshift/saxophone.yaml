@@ -78,16 +78,16 @@ type: Opaque
 stringData:
   url: <mongo-url-here>
 
-# ---
-# apiVersion: route.openshift.io/v1
-# kind: Route
-# metadata:
-#   name: sidneyssaxes
-#   namespace: sidneyssaxes
-# spec:
-#   host: sidneyssaxes-sidneyssaxes.cluster.local
-#   port:
-#     targetPort: 8088
-#   to:
-#     kind: Service
-#     name: sidneyssaxes
+#---
+#apiVersion: route.openshift.io/v1
+#kind: Route
+#metadata:
+#  name: sidneyssaxes
+#  namespace: sidneyssaxes
+#spec:
+#  host: sidneyssaxes-sidneyssaxes.cluster.local
+#  port:
+#    targetPort: 8088
+#  to:
+#    kind: Service
+#    name: sidneyssaxes

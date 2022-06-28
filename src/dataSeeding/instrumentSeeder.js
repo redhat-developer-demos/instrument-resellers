@@ -30,16 +30,6 @@ const createBrassTypesSync = () =>{
     obj.type = "bass"
     items.push(obj);
 
-    obj = {};
-    obj.instrument = "clarinet"
-    obj.type = "bass"
-    items.push(obj);
-
-    obj = {};
-    obj.instrument = "clarinet"
-    obj.type = "contrabass"
-    items.push(obj);
-
     return items;
 };
 
