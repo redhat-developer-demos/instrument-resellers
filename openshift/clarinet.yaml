@@ -87,7 +87,7 @@ metadata:
   name: instrumentreseller
   namespace: clydesclarinets
 spec:
-  host: clydesclarinets.cluster.local
+  host: clydesclarinets.com
   port:
     targetPort: 8088
   to:
