@@ -2,29 +2,29 @@
 kind: Namespace
 apiVersion: v1
 metadata:
-  name: sidneyssaxes
+  name: sidneyssaxophones
   labels:
-    name: sidneyssaxes
+    name: sidneyssaxophones
 ---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: sidneyssaxes
-  namespace: sidneyssaxes
+  name: instrumentreseller
+  namespace: sidneyssaxophones
   labels:
-    app: sidneyssaxes
+    app: instrumentreseller
 spec:
   replicas: 3
   selector:
     matchLabels:
-      app: sidneyssaxes
+      app: instrumentreseller
   template:
     metadata:
       labels:
-        app: sidneyssaxes
+        app: instrumentreseller
     spec:
       initContainers:
-        - name: saxophonesseeder
+        - name: seeder
           image: quay.io/reselbob/instrumentresellerseeder:v.09
           env:
             - name: RESELLER_DB_NAME
@@ -39,7 +39,7 @@ spec:
                   name: mongo-url
                   key: url
       containers:
-        - name: sidneyssaxophone
+        - name: instrumentreseller
           image: quay.io/reselbob/instrumentreseller:v.09
           env:
             - name: RESELLER_NAME
@@ -59,11 +59,11 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: sidneyssaxes
-  namespace: sidneyssaxes
+  name: instrumentreseller
+  namespace: sidneyssaxophones
 spec:
   selector:
-    app: sidneyssaxes
+    app: instrumentreseller
   ports:
     - protocol: TCP
       port: 8088
@@ -73,21 +73,21 @@ apiVersion: v1
 kind: Secret
 metadata:
   name: mongo-url
-  namespace: sidneyssaxes
+  namespace: sidneyssaxophones
 type: Opaque
 stringData:
   url: <mongo-url-here>
 
-#---
-#apiVersion: route.openshift.io/v1
-#kind: Route
-#metadata:
-#  name: sidneyssaxes
-#  namespace: sidneyssaxes
-#spec:
-#  host: sidneyssaxes-sidneyssaxes.cluster.local
-#  port:
-#    targetPort: 8088
-#  to:
-#    kind: Service
-#    name: sidneyssaxes
+---
+apiVersion: route.openshift.io/v1
+kind: Route
+metadata:
+  name: instrumentreseller
+  namespace: sidneyssaxophones
+spec:
+  host: sidneyssaxophones.cluster.local
+  port:
+    targetPort: 8088
+  to:
+    kind: Service
+    name: instrumentreseller

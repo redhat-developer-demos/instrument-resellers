@@ -10,22 +10,22 @@ metadata:
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: bettysbrass
+  name: instrumentreseller
   namespace: bettysbrass
   labels:
-    app: bettysbrass
+    app: instrumentreseller
 spec:
   replicas: 3
   selector:
     matchLabels:
-      app: bettysbrass
+      app: instrumentreseller
   template:
     metadata:
       labels:
-        app: bettysbrass
+        app: instrumentreseller
     spec:
       initContainers:
-        - name: brassseeder
+        - name: seeder
           image: quay.io/reselbob/instrumentresellerseeder:v.09
           env:
             - name: RESELLER_DB_NAME
@@ -40,7 +40,7 @@ spec:
                   name: mongo-url
                   key: url
       containers:
-        - name: bettysbrass
+        - name: instrumentreseller
           image: quay.io/reselbob/instrumentreseller:v.09
           env:
             - name: RESELLER_NAME
@@ -70,25 +70,25 @@ stringData:
 apiVersion: v1
 kind: Service
 metadata:
-  name: bettysbrass
+  name: instrumentreseller
   namespace: bettysbrass
 spec:
   selector:
-    app: bettysbrass
+    app: instrumentreseller
   ports:
     - protocol: TCP
       port: 8088
       targetPort: 8088
-#---
-#apiVersion: route.openshift.io/v1
-#kind: Route
-#metadata:
-#  name: bettysbrass
-#  namespace: bettysbrass
-#spec:
-#  host: bettysbrass-bettysbrass.cluster.local
-#  port:
-#    targetPort: 8088
-#  to:
-#    kind: Service
-#    name: bettysbrass
+---
+apiVersion: route.openshift.io/v1
+kind: Route
+metadata:
+  name: instrumentreseller
+  namespace: bettysbrass
+spec:
+  host: bettysbrass.cluster.local
+  port:
+    targetPort: 8088
+  to:
+    kind: Service
+    name: instrumentreseller

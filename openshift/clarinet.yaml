@@ -11,22 +11,22 @@ metadata:
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: clydesclarinets
+  name: instrumentreseller
   namespace: clydesclarinets
   labels:
-    app: clydesclarinets
+    app: instrumentreseller
 spec:
   replicas: 3
   selector:
     matchLabels:
-      app: clydesclarinets
+      app: instrumentreseller
   template:
     metadata:
       labels:
-        app: clydesclarinets
+        app: instrumentreseller
     spec:
       initContainers:
-        - name: clarinetsseeder
+        - name: seeder
           image: quay.io/reselbob/instrumentresellerseeder:v.09
           env:
             - name: RESELLER_DB_NAME
@@ -41,7 +41,7 @@ spec:
                   name: mongo-url
                   key: url
       containers:
-        - name: clydesclarinets
+        - name: instrumentreseller
           image: quay.io/reselbob/instrumentreseller:v.09
           env:
             - name: RESELLER_NAME
@@ -62,11 +62,11 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: clydesclarinets
+  name: instrumentreseller
   namespace: clydesclarinets
 spec:
   selector:
-    app: clydesclarinets
+    app: instrumentreseller
   ports:
     - protocol: TCP
       port: 8088
@@ -80,16 +80,16 @@ metadata:
 type: Opaque
 stringData:
   url: <mongo-url-here>
-#---
-#apiVersion: route.openshift.io/v1
-#kind: Route
-#metadata:
-#  name: clydesclarinets
-#  namespace: clydesclarinets
-#spec:
-#  host: clydesclarinets-clydesclarinets.cluster.local
-#  port:
-#    targetPort: 8088
-#  to:
-#    kind: Service
-#    name: clydesclarinets
+---
+apiVersion: route.openshift.io/v1
+kind: Route
+metadata:
+  name: instrumentreseller
+  namespace: clydesclarinets
+spec:
+  host: clydesclarinets.cluster.local
+  port:
+    targetPort: 8088
+  to:
+    kind: Service
+    name: instrumentreseller
