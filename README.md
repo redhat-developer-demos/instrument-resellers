@@ -1,7 +1,4 @@
 # instrument-resellers
-```
-UNDER CONSTRUCTION
-```
 A project that demonstrates multi-tenancy architectures using Kubernetes namespaces.
 
 # Warning!

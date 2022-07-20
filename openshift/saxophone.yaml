@@ -85,7 +85,7 @@ metadata:
   name: instrumentreseller
   namespace: sidneyssaxophones
 spec:
-  host: sidneyssaxophones.com
+  host: sidneyssaxophones.local
   port:
     targetPort: 8088
   to:

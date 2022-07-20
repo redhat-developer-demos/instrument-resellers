@@ -86,7 +86,7 @@ metadata:
   name: instrumentreseller
   namespace: bettysbrass
 spec:
-  host: bettysbrass.com
+  host: bettysbrass.local
   port:
     targetPort: 8088
   to:
