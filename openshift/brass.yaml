@@ -26,7 +26,7 @@ spec:
     spec:
       initContainers:
         - name: seeder
-          image: quay.io/reselbob/instrumentresellerseeder:v.09
+          image: quay.io/rhdevelopers/instrumentresellerseeder:v.09
           env:
             - name: RESELLER_DB_NAME
               value: "brass"
@@ -41,7 +41,7 @@ spec:
                   key: url
       containers:
         - name: instrumentreseller
-          image: quay.io/reselbob/instrumentreseller:v.09
+          image: quay.io/rhdevelopers/instrumentreseller:v.09
           env:
             - name: RESELLER_NAME
               value: "Betty's Brass"

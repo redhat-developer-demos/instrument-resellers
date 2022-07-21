@@ -8,7 +8,7 @@ metadata:
 spec:
   containers:
     - name: mybrass
-      image: quay.io/reselbob/instrumentresellerseeder:v.09
+      image: quay.io/rhdevelopers/instrumentresellerseeder:v.09
       env:
         - name: RESELLER_DB_NAME
           value: "brass"
