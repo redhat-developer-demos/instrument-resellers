@@ -29,8 +29,6 @@ spec:
         - name: seeder
           image: quay.io/rhdevelopers/instrumentresellerseeder:v.09
           env:
-            - name: RESELLER_DOMAIN_NAME
-              value: "clydesclarinets.local"
             - name: RESELLER_DB_NAME
               value: "clarinets"
             - name: SEEDER_COUNT
@@ -46,6 +44,8 @@ spec:
         - name: instrumentreseller
           image: quay.io/rhdevelopers/instrumentreseller:v1.0
           env:
+            - name: RESELLER_DOMAIN_NAME
+              value: "clydesclarinets.local"
             - name: RESELLER_NAME
               value: "Clyde's Clarinets"
             - name: RESELLER_INSTRUMENT
