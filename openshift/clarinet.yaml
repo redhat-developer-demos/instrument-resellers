@@ -44,7 +44,7 @@ spec:
                   key: url
       containers:
         - name: instrumentreseller
-          image: quay.io/rhdevelopers/instrumentreseller:v.09
+          image: quay.io/rhdevelopers/instrumentreseller:v.10
           env:
             - name: RESELLER_NAME
               value: "Clyde's Clarinets"
