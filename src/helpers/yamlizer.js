@@ -16,14 +16,14 @@ const modifyOpenApiSpecToVendorSync = (config) => {
     if (! config.inputYamlPath) throw new Error("No config.inputYamlPath defined");
     if (! config.outputYamlPath) throw new Error("No config.outputYamlPath defined");
 
-    const serverHost = config.serverHost || "http://localhost";
+    const serverProtocol = config.serverProtocol || "http";
     const serverPort = config.serverPort || 8088;
     const vendorName = config.vendorName || "Unknown";
-
+    const serverDomainName = config.serverDomainName || "Unknown";
     const obj = yaml.load(fs.readFileSync(config.inputYamlPath, {encoding: 'utf-8'}));
     obj.info.title = vendorName
     logger.info(`url: ${obj.servers[0]}`);
-    obj.servers[0].url = `${serverHost}:${serverPort}/v1`;
+    obj.servers[0].url = `${serverProtocol}://${serverDomainName}:${serverPort}/v1`;
     logger.info("Yamilzer uses " + JSON.stringify(obj.servers[0].url));
 
     let yamlStr = yaml.safeDump(obj);

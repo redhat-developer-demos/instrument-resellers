@@ -37,6 +37,24 @@ The URL to the mongodb server that the application is to use.
 
 **Example:** `mongodb+srv://<username>:<password>@<remote_server_dns>:<port_if_needed>`
 
+## `RESELLER_DOMAIN_NAME`
+
+The domain name that the application will use when running as a tenant in a Kubernetes cluster.
+
+**Example:** `bettysbrass.local`
+
+## `RESELLER_DOMAIN_PORT`
+
+The port that the application will use when running as a tenant in a Kubernetes cluster. (Optional)
+
+**Example:** `80`
+
+## `RESELLER_PROTOCOL`
+
+The protocol that the application will use when running as a tenants in a Kubernetes cluster
+
+Default is `80`
+
 # Running the server
 To run the server, run:
 

@@ -10,15 +10,19 @@ const {modifyOpenApiSpecToVendorSync} = require('./helpers/yamlizer')
 const serverPort = process.env.SERVER_PORT || 8088;
 const serverHost = process.env.SERVER_HOST || 'http://localhost';
 const vendorName = process.env.RESELLER_NAME || 'Unknown'
+const resellerProtocol = process.env.RESELLER_PROTOCOL || 'http'
+const resellerDomainName = process.env.RESELLER_DOMAIN_NAME || 'Unknown'
+const resellerDomainPort = process.env.RESELLER_DOMAIN_PORT || '80'
 const specPath = path.join(__dirname, 'api/openapi.yaml')
 let adjustedSpecPath = path.join(__dirname, 'api/adjustedopenapi.yaml')
 
 adjustedSpecPath = modifyOpenApiSpecToVendorSync({
     inputYamlPath: specPath,
     outputYamlPath: adjustedSpecPath,
-    vendorName: process.env.RESELLER_NAME,
-    serverHost: serverHost,
-    serverPort: serverPort
+    vendorName: vendorName,
+    serverProtocol: resellerProtocol,
+    serverDomainName: resellerDomainName,
+    serverPort: resellerDomainPort
 })
 
 
@@ -39,7 +43,7 @@ const serverStartMessage = (serverHost, serverPort) => {
 
 
 http.createServer(app).listen(serverPort, function () {
-    serverStartMessage(process.env.SERVER_HOST, serverPort)
+    serverStartMessage(serverHost, serverPort)
 });
 
 
