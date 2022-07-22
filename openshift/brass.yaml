@@ -43,6 +43,8 @@ spec:
         - name: instrumentreseller
           image: quay.io/rhdevelopers/instrumentreseller:v.09
           env:
+            - name: RESELLER_DOMAIN_NAME
+                value: "bettybrass.local"
             - name: RESELLER_NAME
               value: "Betty's Brass"
             - name: RESELLER_INSTRUMENT

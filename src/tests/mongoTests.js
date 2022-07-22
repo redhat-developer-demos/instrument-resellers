@@ -4,19 +4,8 @@ const { faker } = require('@faker-js/faker');
 const {
     setPing,
     getPing,
-    getUsers,
-    getUser,
-    getInstruments,
-    getInstrument,
-    getManufacturers,
-    getManufacturer,
-    getPurchases,
-    getPurchase,
     getAcquisitions,
     getAcquisition,
-    getRefurbishments,
-    getRefurbishment,
-    ping
 } = require('../dataManager/mongoose/index');
 const {logger} = require('../logger');
 const {getConnection, getConnectionUrlSync} = require('../dataManager/mongoose/connection')
