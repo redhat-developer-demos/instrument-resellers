@@ -28,7 +28,7 @@ spec:
           image: quay.io/rhdevelopers/instrumentresellerseeder:v.09
           env:
             - name: RESELLER_DOMAIN_NAME
-                value: "sidneyssaxophones.local"
+              value: "sidneyssaxophones.local"
             - name: RESELLER_DB_NAME
               value: "saxophones"
             - name: SEEDER_COUNT
