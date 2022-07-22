@@ -42,8 +42,10 @@ spec:
                   key: url
       containers:
         - name: instrumentreseller
-          image: quay.io/rhdevelopers/instrumentreseller:v.10
+          image: quay.io/rhdevelopers/instrumentreseller:v1.0
           env:
+            - name: RESELLER_DOMAIN_NAME
+              value: "sidneyssaxophones.local"
             - name: RESELLER_NAME
               value: "Sidney's Saxophones"
             - name: RESELLER_INSTRUMENT

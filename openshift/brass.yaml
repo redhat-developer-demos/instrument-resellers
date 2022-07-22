@@ -41,10 +41,10 @@ spec:
                   key: url
       containers:
         - name: instrumentreseller
-          image: quay.io/rhdevelopers/instrumentreseller:v.10
+          image: quay.io/rhdevelopers/instrumentreseller:v1.0
           env:
             - name: RESELLER_DOMAIN_NAME
-              value: "bettybrass.local"
+              value: "bettysbrass.local"
             - name: RESELLER_NAME
               value: "Betty's Brass"
             - name: RESELLER_INSTRUMENT
